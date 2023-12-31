@@ -1,0 +1,26 @@
+version: "3.5"
+services:
+  air-quality-measurements-panel-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aqmp-app
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/dev-php.ini:/usr/local/etc/php/php.ini
+  postgresql:
+    image: postgres:14.1
+    container_name: postgresql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - ${NGINX_PORT}:80
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www/html
