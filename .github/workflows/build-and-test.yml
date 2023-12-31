@@ -31,7 +31,7 @@ jobs:
         run: composer install
 
       - name: Copy parameters
-        run: cp .env.test .env
+        run: cp .env.dist .env
 
       - name: Create database
         run: php bin/console doctrine:database:create --if-not-exists
