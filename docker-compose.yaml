@@ -8,9 +8,9 @@ services:
     volumes:
       - ./:/var/www/html
       - ./docker/php/dev-php.ini:/usr/local/etc/php/php.ini
-  postgresql:
+  postgres:
     image: postgres:14.1
-    container_name: postgresql
+    container_name: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
