@@ -34,6 +34,3 @@ jobs:
 
       - name: Create database
         run: php bin/console doctrine:database:create --if-not-exists
-
-        env:
-          POSTGRES_HOST: postgres
