@@ -9,14 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgresql:
+      postgres:
         image: postgres:14.1
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
-        options: --name=postgresql
 
     steps:
       - name: Checkout code
@@ -35,3 +34,6 @@ jobs:
 
       - name: Create database
         run: php bin/console doctrine:database:create --if-not-exists
+
+        env:
+          POSTGRES_HOST: postgres
