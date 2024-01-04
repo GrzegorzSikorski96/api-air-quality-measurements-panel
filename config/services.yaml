@@ -11,3 +11,11 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Domain/Entity/'
             - '../src/Kernel.php'
+
+    _instanceof:
+        App\Infrastructure\Messenger\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+        App\Infrastructure\Messenger\EventListenerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: event.bus }

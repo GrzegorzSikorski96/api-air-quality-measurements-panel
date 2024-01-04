@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: aqmp-app
     volumes:
-      - .:/var/www/html
+      - .:/app
       - ./docker/php/dev-php.ini:/usr/local/etc/php/php.ini
   postgresql:
     image: postgres:14.1
@@ -23,4 +23,4 @@ services:
       - ${NGINX_PORT}:80
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
-      - .:/var/www/html
+      - .:/app
