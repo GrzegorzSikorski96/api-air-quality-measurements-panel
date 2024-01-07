@@ -16,7 +16,7 @@ down:
 sleep5:
 	sleep 5
 
-run: pull build up composer-install cache-clear create-database
+run: pull build up composer-install cache-clear create-database migrate
 
 cache-clear:
 	-docker-compose exec air-quality-measurements-panel-app php bin/console cache:clear
