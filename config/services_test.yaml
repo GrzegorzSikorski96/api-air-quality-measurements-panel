@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    public: true
+
+  App\Domain\Repository\MeasurementParameterRepositoryInterface:
+    public: true
+    class: 'App\Infrastructure\Repository\MeasurementParameterDoctrineRepository'
+    arguments:
+      $registry: '@Doctrine\Persistence\ManagerRegistry'

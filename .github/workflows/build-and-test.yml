@@ -37,3 +37,9 @@ jobs:
 
       - name: Migrate database
         run: php bin/console doctrine:migrations:migrate --no-interaction
+
+      - name: Unit tests
+        run: ./bin/phpunit -c phpunit.xml --testdox --testsuite unit
+
+      - name: Integration tests
+        run: ./bin/phpunit -c phpunit.xml --testdox --testsuite integration
