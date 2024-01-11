@@ -33,7 +33,7 @@ create-test-database:
 migrate:
 	docker-compose exec air-quality-measurements-panel-app php bin/console doctrine:migrations:migrate --no-interaction
 
-test-migrate:
+migrate-test-database:
 	docker-compose exec air-quality-measurements-panel-app php bin/console doctrine:migrations:migrate --no-interaction --env=test
 
 unit-tests:
@@ -42,4 +42,7 @@ unit-tests:
 integration-tests:
 	docker-compose exec air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite integration
 
-make tests: create-test-database test-migrate unit-tests integration-tests
+lint:
+	docker-compose exec air-quality-measurements-panel-app php bin/console lint:yaml config --parse-tags
+
+make tests: create-test-database migrate-test-database lint unit-tests integration-tests

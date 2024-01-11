@@ -8,6 +8,13 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_URL: 'postgresql://postgres:postgres@127.0.0.1:5432/air-quality-measurements-panel?serverVersion=11&charset=utf8'
+      APP_ENV: 'test'
+      APP_SECRET: 's3cr3t4ppc0d3'
+      KERNEL_CLASS: 'App\Kernel'
+      MESSENGER_TRANSPORT_DSN: 'doctrine://default?auto_setup=0'
+
     services:
       postgres:
         image: postgres:14.1
@@ -33,10 +40,10 @@ jobs:
         run: cp .env.test .env
 
       - name: Create database
-        run: php bin/console doctrine:database:create --if-not-exists
+        run: php bin/console doctrine:database:create --if-not-exists --env=test
 
       - name: Migrate database
-        run: php bin/console doctrine:migrations:migrate --no-interaction
+        run: php bin/console doctrine:migrations:migrate --no-interaction --env=test
 
       - name: Unit tests
         run: ./bin/phpunit -c phpunit.xml --testdox --testsuite unit
