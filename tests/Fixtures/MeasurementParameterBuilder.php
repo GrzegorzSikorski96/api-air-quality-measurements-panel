@@ -53,9 +53,9 @@ final class MeasurementParameterBuilder
         $faker = Factory::create();
 
         return new MeasurementParameter(
-            name: $this->name ?? $faker->city,
-            code: $this->code ?? $faker->postcode,
-            formula: $this->formula ?? $faker->hexColor,
+            name: $this->name ?? $faker->city(),
+            code: $this->code ?? $faker->postcode(),
+            formula: $this->formula ?? $faker->hexColor(),
             id: $this->id ?? Uuid::v4()
         );
     }

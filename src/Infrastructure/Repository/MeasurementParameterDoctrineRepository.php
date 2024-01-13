@@ -43,4 +43,19 @@ final class MeasurementParameterDoctrineRepository extends ServiceEntityReposito
     {
         return $this->findBy([]);
     }
+
+    public function findOneByCode(string $code): ?MeasurementParameter
+    {
+        return $this->findOneBy(['code' => $code]);
+    }
+
+    public function findOneByName(string $name): ?MeasurementParameter
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
+
+    public function findOneByFormula(string $formula): ?MeasurementParameter
+    {
+        return $this->findOneBy(['formula' => $formula]);
+    }
 }

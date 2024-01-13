@@ -34,6 +34,39 @@ final class MeasurementParameterInMemoryRepository implements MeasurementParamet
         return $this->entities[$id->toRfc4122()] ?? null;
     }
 
+    public function findOneByName(string $name): ?MeasurementParameter
+    {
+        /** @var MeasurementParameter $entity */
+        foreach ($this->entities as $entity) {
+            if ($name === $entity->getName()) {
+                return $entity;
+            }
+        }
+        return null;
+    }
+
+    public function findOneByCode(string $code): ?MeasurementParameter
+    {
+        /** @var MeasurementParameter $entity */
+        foreach ($this->entities as $entity) {
+            if ($code === $entity->getCode()) {
+                return $entity;
+            }
+        }
+        return null;
+    }
+
+    public function findOneByFormula(string $formula): ?MeasurementParameter
+    {
+        /** @var MeasurementParameter $entity */
+        foreach ($this->entities as $entity) {
+            if ($formula === $entity->getFormula()) {
+                return $entity;
+            }
+        }
+        return null;
+    }
+
     /** @return MeasurementParameter[] */
     public function findAll(): array
     {

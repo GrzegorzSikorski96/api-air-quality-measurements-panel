@@ -17,9 +17,6 @@ final class MeasurementParameterDoctrineRepositoryTest extends MeasurementParame
 {
     use ReloadDatabaseTrait;
 
-    private ObjectManager $em;
-    private MeasurementParameterRepositoryInterface $measurementParameterRepository;
-
     protected function setUp(): void
     {
         self::bootKernel();
