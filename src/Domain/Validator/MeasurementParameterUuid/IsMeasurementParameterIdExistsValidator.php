@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class IsMeasurementParameterUuidExistsValidator extends ConstraintValidator
+class IsMeasurementParameterIdExistsValidator extends ConstraintValidator
 {
     public function __construct(
         private readonly MeasurementParameterRepositoryInterface $measurementParameterRepository
@@ -19,8 +19,8 @@ class IsMeasurementParameterUuidExistsValidator extends ConstraintValidator
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsMeasurementParameterUuidExists) {
-            throw new UnexpectedTypeException($constraint, IsMeasurementParameterUuidExists::class);
+        if (!$constraint instanceof IsMeasurementParameterIdExists) {
+            throw new UnexpectedTypeException($constraint, IsMeasurementParameterIdExists::class);
         }
 
         if (null === $value || '' === $value) {

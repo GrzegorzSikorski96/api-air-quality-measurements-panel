@@ -13,3 +13,9 @@ services:
     class: 'App\Infrastructure\Repository\MeasurementDoctrineRepository'
     arguments:
       $registry: '@Doctrine\Persistence\ManagerRegistry'
+
+  App\Domain\Repository\DeviceRepositoryInterface:
+    public: true
+    class: 'App\Infrastructure\Repository\DeviceDoctrineRepository'
+    arguments:
+      $registry: '@Doctrine\Persistence\ManagerRegistry'

@@ -7,7 +7,7 @@ namespace App\Domain\Validator\MeasurementParameterUuid;
 use Attribute;
 use Symfony\Component\Validator\Constraint;
 #[Attribute]
-final class IsMeasurementParameterUuidExists extends Constraint
+final class IsMeasurementParameterIdExists extends Constraint
 {
     public string $violationCode;
 

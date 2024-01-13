@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\Validator;
 
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
-use App\Domain\Validator\MeasurementParameterUuid\IsMeasurementParameterUuidExists;
-use App\Domain\Validator\MeasurementParameterUuid\IsMeasurementParameterUuidExistsValidator;
+use App\Domain\Validator\MeasurementParameterUuid\IsMeasurementParameterIdExists;
+use App\Domain\Validator\MeasurementParameterUuid\IsMeasurementParameterIdExistsValidator;
 use App\Tests\Common\ValidatorTestCase;
 use App\Tests\Fixtures\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
-final class IsMeasurementParameterUuidExistsValidatorTest extends ValidatorTestCase
+final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCase
 {
-    private IsMeasurementParameterUuidExists $givenConstraint;
+    private IsMeasurementParameterIdExists $givenConstraint;
     protected MeasurementParameterRepositoryInterface $measurementParameterRepository;
 
     protected function setUp(): void
@@ -25,17 +25,17 @@ final class IsMeasurementParameterUuidExistsValidatorTest extends ValidatorTestC
         Assert::assertInstanceOf(MeasurementParameterRepositoryInterface::class, $measurementParameterRepository);
         $this->measurementParameterRepository = $measurementParameterRepository;
 
-        $this->givenConstraint = new IsMeasurementParameterUuidExists();
+        $this->givenConstraint = new IsMeasurementParameterIdExists();
     }
 
-    protected function createValidator(): IsMeasurementParameterUuidExistsValidator
+    protected function createValidator(): IsMeasurementParameterIdExistsValidator
     {
-        /** @var IsMeasurementParameterUuidExistsValidator */
-        return $this->container->get(IsMeasurementParameterUuidExistsValidator::class);
+        /** @var IsMeasurementParameterIdExistsValidator */
+        return $this->container->get(IsMeasurementParameterIdExistsValidator::class);
     }
 
     /** @test */
-    public function measurement_parameter_uuid_does_not_exists_in_database()
+    public function measurement_parameter_id_does_not_exists_in_database()
     {
         // given
         $givenNotExistingMeasurementParameterId = Uuid::v4();
@@ -51,18 +51,18 @@ final class IsMeasurementParameterUuidExistsValidatorTest extends ValidatorTestC
     }
 
     /** @test */
-    public function measurement_parameter_uuid_already_exists_in_database()
+    public function measurement_parameter_id_already_exists_in_database()
     {
         // given
-        $givenExistingUuid = Uuid::v4();
+        $givenExistingId = Uuid::v4();
         $givenMeasurementParameter = MeasurementParameterBuilder::any()
-            ->withId($givenExistingUuid)
+            ->withId($givenExistingId)
             ->build();
 
         $this->measurementParameterRepository->save($givenMeasurementParameter);
 
         // when
-        $this->validator->validate($givenExistingUuid, $this->givenConstraint);
+        $this->validator->validate($givenExistingId, $this->givenConstraint);
 
         // then
         $this->assertNoViolation();
@@ -73,15 +73,15 @@ final class IsMeasurementParameterUuidExistsValidatorTest extends ValidatorTestC
     {
         // given
         $givenViolationCode = '123';
-        $givenNotExistingUuid = Uuid::v4();
+        $givenNotExistingId = Uuid::v4();
 
         // when
-        $givenConstraint = new IsMeasurementParameterUuidExists($givenViolationCode);
-        $this->validator->validate($givenNotExistingUuid, $givenConstraint);
+        $givenConstraint = new IsMeasurementParameterIdExists($givenViolationCode);
+        $this->validator->validate($givenNotExistingId, $givenConstraint);
 
         // then
         $this->buildViolation($this->givenConstraint->message)
-            ->setParameter('{{ string }}', $givenNotExistingUuid->toRfc4122())
+            ->setParameter('{{ string }}', $givenNotExistingId->toRfc4122())
             ->setCode($givenViolationCode)
             ->assertRaised();
     }

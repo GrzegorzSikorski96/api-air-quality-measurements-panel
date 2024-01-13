@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Common;
 
+use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Domain\Repository\MeasurementRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +24,7 @@ class UnitTestCase extends KernelTestCase
     protected Generator $faker;
     protected MeasurementParameterRepositoryInterface $measurementParameterRepository;
     protected MeasurementRepositoryInterface $measurementRepository;
+    protected DeviceRepositoryInterface $deviceRepository;
     protected ObjectManager $em;
     protected MessageBusInterface $commandBus;
 
@@ -44,6 +46,10 @@ class UnitTestCase extends KernelTestCase
         $measurementRepository = $this->container->get(MeasurementRepositoryInterface::class);
         Assert::assertInstanceOf(MeasurementRepositoryInterface::class, $measurementRepository);
         $this->measurementRepository = $measurementRepository;
+
+        $deviceRepository = $this->container->get(DeviceRepositoryInterface::class);
+        Assert::assertInstanceOf(DeviceRepositoryInterface::class, $deviceRepository);
+        $this->deviceRepository = $deviceRepository;
 
         $commandBus = $this->container->get(MessageBusInterface::class);
         Assert::assertInstanceOf(MessageBusInterface::class, $commandBus);
