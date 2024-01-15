@@ -18,5 +18,5 @@ final class IsMeasurementParameterIdExists extends Constraint
         $this->violationCode = (string) $code;
     }
 
-    public string $message = 'Measurement Parameter with Uuid: "{{ string }}" does not exist.';
+    public string $message = 'Measurement Parameter with id: "{{ string }}" does not exist.';
 }
