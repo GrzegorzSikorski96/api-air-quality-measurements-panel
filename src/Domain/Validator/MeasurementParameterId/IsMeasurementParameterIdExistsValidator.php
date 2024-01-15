@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Validator\MeasurementParameterUuid;
+namespace App\Domain\Validator\MeasurementParameterId;
 
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use Symfony\Component\Uid\Uuid;

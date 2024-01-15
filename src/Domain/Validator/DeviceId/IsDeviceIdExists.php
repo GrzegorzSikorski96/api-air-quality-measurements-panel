@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Validator\MeasurementParameterUuid;
+namespace App\Domain\Validator\DeviceId;
 
 use Attribute;
 use Symfony\Component\Validator\Constraint;
 #[Attribute]
-final class IsMeasurementParameterIdExists extends Constraint
+final class IsDeviceIdExists extends Constraint
 {
     public string $violationCode;
 
@@ -18,5 +18,5 @@ final class IsMeasurementParameterIdExists extends Constraint
         $this->violationCode = (string) $code;
     }
 
-    public string $message = 'Measurement Parameter with Uuid: "{{ string }}" does not exist.';
+    public string $message = 'Device with Uuid: "{{ string }}" does not exist.';
 }

@@ -24,6 +24,6 @@ final class MeasurementParameterInMemoryRepositoryTest extends MeasurementParame
 
     protected function save(MeasurementParameter $measurementParameter): void
     {
-        $this->measurementParameterRepository->save($measurementParameter);
+        $this->repository()->save($measurementParameter);
     }
 }

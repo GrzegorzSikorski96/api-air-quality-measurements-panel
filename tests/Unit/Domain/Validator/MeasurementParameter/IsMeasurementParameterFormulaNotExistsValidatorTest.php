@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\Validator;
+namespace App\Tests\Unit\Domain\Validator\MeasurementParameter;
 
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Domain\Validator\MeasurementParameterFormula\IsMeasurementParameterFormulaNotExists;

@@ -20,16 +20,20 @@ final class Measurement
     #[ORM\Column(type: UuidType::NAME)]
     private Uuid $parameterId;
 
+    #[ORM\Column(type: UuidType::NAME)]
+    private Uuid $deviceId;
+
     #[ORM\Column(type: Types::FLOAT)]
     private float $value;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private DateTimeImmutable $recordedAt;
 
-    public function __construct(Uuid $parameterId, float $value, DateTimeImmutable $recordedAt, ?Uuid $id = null)
+    public function __construct(Uuid $parameterId, Uuid $deviceId, float $value, DateTimeImmutable $recordedAt, ?Uuid $id = null)
     {
         $this->id = $id ?? Uuid::v4();
         $this->parameterId = $parameterId;
+        $this->deviceId = $deviceId;
         $this->value = $value;
         $this->recordedAt = $recordedAt;
     }
@@ -49,7 +53,7 @@ final class Measurement
         return $this->parameterId;
     }
 
-    public function setParameter(Uuid $parameterId): void
+    public function setParameterId(Uuid $parameterId): void
     {
         $this->parameterId = $parameterId;
     }
@@ -63,13 +67,22 @@ final class Measurement
     {
         $this->value = $value;
     }
+    public function getDeviceId(): Uuid
+    {
+        return $this->deviceId;
+    }
 
-    public function getSamplingTime(): DateTimeImmutable
+    public function setDeviceId(Uuid $deviceId): void
+    {
+        $this->deviceId = $deviceId;
+    }
+
+    public function getRecordedAt(): DateTimeImmutable
     {
         return $this->recordedAt;
     }
 
-    public function setSamplingTime(DateTimeImmutable $recordedAt): void
+    public function setRecordedAt(DateTimeImmutable $recordedAt): void
     {
         $this->recordedAt = $recordedAt;
     }

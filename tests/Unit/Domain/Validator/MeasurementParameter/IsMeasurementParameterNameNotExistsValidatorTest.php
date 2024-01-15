@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\Validator;
+namespace App\Tests\Unit\Domain\Validator\MeasurementParameter;
 
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
-use App\Domain\Validator\MeasurementParameterCode\IsMeasurementParameterCodeNotExists;
-use App\Domain\Validator\MeasurementParameterCode\IsMeasurementParameterCodeNotExistsValidator;
+use App\Domain\Validator\MeasurementParameterName\IsMeasurementParameterNameNotExists;
+use App\Domain\Validator\MeasurementParameterName\IsMeasurementParameterNameNotExistsValidator;
 use App\Tests\Common\ValidatorTestCase;
 use App\Tests\Fixtures\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
 
-final class IsMeasurementParameterCodeNotExistsValidatorTest extends ValidatorTestCase
+final class IsMeasurementParameterNameNotExistsValidatorTest extends ValidatorTestCase
 {
-    private IsMeasurementParameterCodeNotExists $givenConstraint;
+    private IsMeasurementParameterNameNotExists $givenConstraint;
     protected MeasurementParameterRepositoryInterface $measurementParameterRepository;
 
     protected function setUp(): void
@@ -24,68 +24,68 @@ final class IsMeasurementParameterCodeNotExistsValidatorTest extends ValidatorTe
         Assert::assertInstanceOf(MeasurementParameterRepositoryInterface::class, $measurementParameterRepository);
         $this->measurementParameterRepository = $measurementParameterRepository;
 
-        $this->givenConstraint = new IsMeasurementParameterCodeNotExists();
+        $this->givenConstraint = new IsMeasurementParameterNameNotExists();
     }
 
-    protected function createValidator(): IsMeasurementParameterCodeNotExistsValidator
+    protected function createValidator(): IsMeasurementParameterNameNotExistsValidator
     {
-        /** @var IsMeasurementParameterCodeNotExistsValidator */
-        return $this->container->get(IsMeasurementParameterCodeNotExistsValidator::class);
+        /** @var IsMeasurementParameterNameNotExistsValidator */
+        return $this->container->get(IsMeasurementParameterNameNotExistsValidator::class);
     }
 
     /** @test */
-    public function measurement_parameter_code_does_not_exists_in_database()
+    public function measurement_parameter_name_does_not_exists_in_database()
     {
         // given
-        $givenNonExistingMeasurementParameterCode = "Param";
+        $givenNonExistingMeasurementParameterName = "Param";
 
         // when
-        $this->validator->validate($givenNonExistingMeasurementParameterCode, $this->givenConstraint);
+        $this->validator->validate($givenNonExistingMeasurementParameterName, $this->givenConstraint);
 
         // then
         $this->assertNoViolation();
     }
 
     /** @test */
-    public function measurement_parameter_code_already_exists_in_database()
+    public function measurement_parameter_name_already_exists_in_database()
     {
         // given
-        $givenExistingCode = 'Parameter';
+        $givenExistingName = 'Parameter';
         $givenMeasurementParameter = MeasurementParameterBuilder::any()
-            ->withCode($givenExistingCode)
+            ->withName($givenExistingName)
             ->build();
 
         $this->measurementParameterRepository->save($givenMeasurementParameter);
 
         // when
-        $this->validator->validate($givenExistingCode, $this->givenConstraint);
+        $this->validator->validate($givenExistingName, $this->givenConstraint);
 
         // then
         $this->buildViolation($this->givenConstraint->message)
-            ->setParameter('{{ string }}', $givenExistingCode)
+            ->setParameter('{{ string }}', $givenExistingName)
             ->setCode('403')
             ->assertRaised();
     }
 
     /** @test */
-    public function validator_sets__given_validation_code()
+    public function validator_sets_given_validation_code()
     {
         // given
         $givenViolationCode = '123';
-        $givenExistingCode = 'Parameter';
+        $givenExistingName = 'Parameter';
         $givenMeasurementParameter = MeasurementParameterBuilder::any()
-            ->withCode($givenExistingCode)
+            ->withName($givenExistingName)
             ->build();
 
         $this->measurementParameterRepository->save($givenMeasurementParameter);
 
         // when
-        $givenConstraint = new IsMeasurementParameterCodeNotExists($givenViolationCode);
-        $this->validator->validate($givenExistingCode, $givenConstraint);
+        $givenConstraint = new IsMeasurementParameterNameNotExists($givenViolationCode);
+        $this->validator->validate($givenExistingName, $givenConstraint);
 
         // then
         $this->buildViolation($this->givenConstraint->message)
-            ->setParameter('{{ string }}', $givenExistingCode)
+            ->setParameter('{{ string }}', $givenExistingName)
             ->setCode($givenViolationCode)
             ->assertRaised();
     }
