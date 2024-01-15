@@ -22,23 +22,86 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
     {
         // given
         $givenId = Uuid::fromString('f675e192-dad9-4ae8-af69-ecd80e870fa7');
-        $givenName = "pył zawieszony PM10";
-        $givenFormula = "PM10";
-        $givenCode = "PM10";
         $givenMeasurementParameter = MeasurementParameterBuilder::any()
-            ->withName($givenName)
-            ->withCode($givenCode)
-            ->withFormula($givenFormula)
             ->withId($givenId)
             ->build();
 
         //when
         $this->save($givenMeasurementParameter);
-        $measurementParameter = $this->repository()->get($givenMeasurementParameter->getId());
+        $measurementParameter = $this->repository()->get($givenId);
 
         //then
         Assert::assertNotNull($measurementParameter);
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
+    }
+
+    /** @test */
+    public function throw_exception_if_duplicated_name(): void
+    {
+        // given
+        $givenDuplicatedField = 'name';
+        $givenDuplicatedValue = 'Duplicated name';
+
+        $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()
+            ->withName($givenDuplicatedValue)
+            ->build();
+        $this->save($givenFirstMeasurementParameter);
+
+        $givenSecondMeasurementParameter = MeasurementParameterBuilder::any()
+            ->withName($givenDuplicatedValue)
+            ->build();
+
+        // expect
+        $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(%s\)=\(%s\) already exists\./i", $givenDuplicatedField, $givenDuplicatedValue));
+
+        // when
+        $this->save($givenSecondMeasurementParameter);
+    }
+
+    /** @test */
+    public function throw_exception_if_duplicated_code(): void
+    {
+        // given
+        $givenDuplicatedField = 'code';
+        $givenDuplicatedValue = 'code';
+
+        $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()
+            ->withCode($givenDuplicatedValue)
+            ->build();
+        $this->save($givenFirstMeasurementParameter);
+
+        $givenSecondMeasurementParameter = MeasurementParameterBuilder::any()
+            ->withCode($givenDuplicatedValue)
+            ->build();
+
+        // expect
+        $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(%s\)=\(%s\) already exists\./i", $givenDuplicatedField, $givenDuplicatedValue));
+
+        //when
+        $this->save($givenSecondMeasurementParameter);
+    }
+
+    /** @test */
+    public function throw_exception_if_duplicated_formula(): void
+    {
+        // given
+        $givenDuplicatedField = 'formula';
+        $givenDuplicatedValue = 'Duplicated formula';
+
+        $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()
+            ->withFormula($givenDuplicatedValue)
+            ->build();
+        $this->save($givenFirstMeasurementParameter);
+
+        $givenSecondMeasurementParameter = MeasurementParameterBuilder::any()
+            ->withFormula($givenDuplicatedValue)
+            ->build();
+
+        // expect
+        $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(%s\)=\(%s\) already exists\./i", $givenDuplicatedField, $givenDuplicatedValue));
+
+        //when
+        $this->save($givenSecondMeasurementParameter);
     }
 
     /** @test */
@@ -93,10 +156,10 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
     public function dont_find_one_by_name(): void
     {
         // given
-        $givenName = "pył zawieszony PM10";
+        $givenNotExistingName = "pył zawieszony PM10";
 
         //when
-        $measurementParameter = $this->repository()->findOneByName($givenName);
+        $measurementParameter = $this->repository()->findOneByName($givenNotExistingName);
 
         //then
         Assert::assertNull($measurementParameter);
@@ -124,10 +187,10 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
     public function dont_find_one_by_code(): void
     {
         // given
-        $givenCode = "PM10";
+        $givenNotExistingCode = "PM10";
 
         //when
-        $measurementParameter = $this->repository()->findOneByCode($givenCode);
+        $measurementParameter = $this->repository()->findOneByCode($givenNotExistingCode);
 
         //then
         Assert::assertNull($measurementParameter);
@@ -155,10 +218,10 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
     public function dont_find_one_by_formula(): void
     {
         // given
-        $givenFormula = "PM10";
+        $givenNotExistingFormula = "PM10";
 
         //when
-        $measurementParameter = $this->repository()->findOneByFormula($givenFormula);
+        $measurementParameter = $this->repository()->findOneByFormula($givenNotExistingFormula);
 
         //then
         Assert::assertNull($measurementParameter);
@@ -168,25 +231,13 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
     public function find_all()
     {
         //given
-        $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()
-            ->withName('parameter_1')
-            ->withCode('PARAMETER1')
-            ->withFormula('PA1')
-            ->build();
+        $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->save($givenFirstMeasurementParameter);
 
-        $givenSecondMeasurementParameter = MeasurementParameterBuilder::any()
-            ->withName('parameter_2')
-            ->withCode('PARAMETER2')
-            ->withFormula('PA2')
-            ->build();
+        $givenSecondMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->save($givenSecondMeasurementParameter);
 
-        $givenThirdMeasurementParameter = MeasurementParameterBuilder::any()
-            ->withName('parameter_3')
-            ->withCode('PARAMETER3')
-            ->withFormula('PA3')
-            ->build();
+        $givenThirdMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->save($givenThirdMeasurementParameter);
 
         //when

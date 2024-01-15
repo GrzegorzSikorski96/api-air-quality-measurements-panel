@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UI\Controller;
 
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
@@ -13,11 +15,10 @@ class HealthCheckController extends AbstractController
 {
     public function __construct(
         private readonly MeasurementParameterRepositoryInterface $measurementParameterRepository
-    )
-    {
+    ) {
     }
 
-    #[Route('/health', name: 'app_healthcheck')]
+    #[Route(path: '/health', name: 'application_healthcheck')]
     public function index(): JsonResponse
     {
         $status = Response::HTTP_OK;

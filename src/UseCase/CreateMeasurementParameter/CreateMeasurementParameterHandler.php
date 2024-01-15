@@ -21,9 +21,9 @@ final readonly class CreateMeasurementParameterHandler implements CommandHandler
     public function __invoke(CreateMeasurementParameterCommand $command): void
     {
         $measurementParameter = new MeasurementParameter(
-            $command->name,
-            $command->code,
-            $command->formula
+            name: $command->name,
+            code: $command->code,
+            formula: $command->formula
         );
 
         $this->measurementParameterRepository->save($measurementParameter);

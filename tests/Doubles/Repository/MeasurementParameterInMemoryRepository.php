@@ -7,14 +7,17 @@ namespace App\Tests\Doubles\Repository;
 use App\Domain\Entity\MeasurementParameter;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
+use Exception;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementParameterInMemoryRepository implements MeasurementParameterRepositoryInterface
 {
     private array $entities = [];
+    private array $uniqueFields = ['name', 'code', 'formula'];
 
     public function save(MeasurementParameter $measurementParameter): void
     {
+        $this->isUnique($measurementParameter);
         $this->entities[$measurementParameter->getId()->toRfc4122()] = $measurementParameter;
     }
 
@@ -71,5 +74,20 @@ final class MeasurementParameterInMemoryRepository implements MeasurementParamet
     public function findAll(): array
     {
         return $this->entities;
+    }
+
+    private function isUnique(MeasurementParameter $measurementParameter): void
+    {
+        /** @var MeasurementParameter $entity */
+        foreach ($this->entities as $id => $entity) {
+            if($measurementParameter->getId()->toRfc4122() !== $id) {
+                foreach ($this->uniqueFields as $field) {
+                    $fieldAccessor = sprintf('get%s', ucfirst($field));
+                    if ($entity->$fieldAccessor() === $measurementParameter->$fieldAccessor()) {
+                        throw new Exception(sprintf("DETAIL:  Key (%s)=(%s) already exists.", $field, $measurementParameter->$fieldAccessor()));
+                    }
+                }
+            }
+        }
     }
 }

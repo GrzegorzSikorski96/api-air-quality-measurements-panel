@@ -39,6 +39,11 @@ final class DeviceDoctrineRepository extends ServiceEntityRepository implements 
         return $this->find( $id);
     }
 
+    public function findOneByName(string $name): ?Device
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
+
     public function findAll(): array
     {
         return $this->findBy([]);

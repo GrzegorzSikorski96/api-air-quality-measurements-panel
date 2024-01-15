@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Validator\MeasurementParameterName;
+namespace App\Domain\Validator\DeviceName;
 
-use App\Domain\Repository\MeasurementParameterRepositoryInterface;
+use App\Domain\Repository\DeviceRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class IsMeasurementParameterNameNotExistsValidator extends ConstraintValidator
+class IsDeviceNameNotExistsValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly MeasurementParameterRepositoryInterface $measurementParameterRepository
+        private readonly DeviceRepositoryInterface $deviceRepository
     ) {
     }
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsMeasurementParameterNameNotExists) {
-            throw new UnexpectedTypeException($constraint, IsMeasurementParameterNameNotExists::class);
+        if (!$constraint instanceof IsDeviceNameNotExists) {
+            throw new UnexpectedTypeException($constraint, IsDeviceNameNotExists::class);
         }
 
         if (null === $value || '' === $value) {
@@ -27,7 +27,7 @@ class IsMeasurementParameterNameNotExistsValidator extends ConstraintValidator
         }
 
         /** @var string $value */
-        if (!is_null($this->measurementParameterRepository->findOneByName($value))) {
+        if (!is_null($this->deviceRepository->findOneByName($value))) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)
                 ->setCode($constraint->violationCode)

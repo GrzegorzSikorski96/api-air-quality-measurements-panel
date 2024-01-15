@@ -26,7 +26,7 @@ final class Measurement
     #[ORM\Column(type: Types::FLOAT)]
     private float $value;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $recordedAt;
 
     public function __construct(Uuid $parameterId, Uuid $deviceId, float $value, DateTimeImmutable $recordedAt, ?Uuid $id = null)

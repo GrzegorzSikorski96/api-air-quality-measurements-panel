@@ -15,6 +15,7 @@ use PHPUnit\Framework\Assert;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Transport\TransportInterface;
 
 class UnitTestCase extends KernelTestCase
 {
@@ -27,6 +28,7 @@ class UnitTestCase extends KernelTestCase
     protected DeviceRepositoryInterface $deviceRepository;
     protected ObjectManager $em;
     protected MessageBusInterface $commandBus;
+    protected TransportInterface $asyncTransport;
 
     protected function setUp(): void
     {

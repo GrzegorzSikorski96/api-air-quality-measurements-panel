@@ -22,19 +22,16 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
     public function save_and_get_measurement(): void
     {
         // given
-        $givenParameterId = Uuid::v4();
-        $givenRecordedAt = new DateTimeImmutable('2024-01-01 00:00:00');
-        $givenValue = 13.5234;
-        $givenId = Uuid::fromString('f675e192-dad9-4ae8-af69-ecd80e870fa7');
+        $givenMeasurementId = Uuid::v4();
+        $givenRecordedAt = new DateTimeImmutable('2024-01-01 13:00:00');
         $givenMeasurement = MeasurementBuilder::any()
-            ->withId($givenId)
-            ->withParameterId($givenParameterId)
+            ->withId($givenMeasurementId)
             ->withRecordedAt($givenRecordedAt)
-            ->withValue($givenValue)
             ->build();
+
         //when
         $this->save($givenMeasurement);
-        $measurement = $this->repository()->get($givenMeasurement->getId());
+        $measurement = $this->repository()->get($givenMeasurementId);
 
         //then
         Assert::assertNotNull($measurement);
@@ -45,15 +42,11 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
     public function find_one(): void
     {
         // given
-        $givenParameterId = Uuid::v4();
-        $givenRecordedAt = new DateTimeImmutable('2024-01-01 00:00:00');
-        $givenValue = 13.5234;
         $givenId = Uuid::fromString('f675e192-dad9-4ae8-af69-ecd80e870fa7');
+        $givenRecordedAt = new DateTimeImmutable('2024-01-01 13:00:00');
         $givenMeasurement = MeasurementBuilder::any()
             ->withId($givenId)
-            ->withParameterId($givenParameterId)
             ->withRecordedAt($givenRecordedAt)
-            ->withValue($givenValue)
             ->build();
 
         //when

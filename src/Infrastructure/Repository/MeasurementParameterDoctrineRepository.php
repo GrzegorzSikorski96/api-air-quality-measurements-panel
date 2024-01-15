@@ -21,6 +21,7 @@ final class MeasurementParameterDoctrineRepository extends ServiceEntityReposito
     public function save(MeasurementParameter $measurementParameter): void
     {
         $this->getEntityManager()->persist($measurementParameter);
+        $this->getEntityManager()->flush();
     }
 
     public function get(Uuid $id): MeasurementParameter

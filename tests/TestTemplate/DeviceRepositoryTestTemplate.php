@@ -7,9 +7,9 @@ namespace App\Tests\TestTemplate;
 use App\Domain\Entity\Device;
 use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
+use App\Tests\Asserts\DeviceAssert;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\DeviceBuilder;
-use App\Tests\Unit\Asserts\DeviceAssert;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
@@ -33,6 +33,29 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
         //then
         Assert::assertNotNull($device);
         DeviceAssert::assertDevicesEquals($givenDevice, $device);
+    }
+
+    /** @test */
+    public function throw_exception_when_device_with_name_already_exists(): void
+    {
+        // given
+        $firstDeviceName = 'Device name';
+        $givenFirstDevice = DeviceBuilder::any()
+            ->withId(Uuid::v4())
+            ->withName($firstDeviceName)
+            ->build();
+        $this->save($givenFirstDevice);
+
+        $givenSecondDevice = DeviceBuilder::any()
+            ->withName($firstDeviceName)
+            ->withId(Uuid::v4())
+            ->build();
+
+        //except
+        $this->expectExceptionMessageMatches("/DETAIL:  Key \(name\)=\(Device name\) already exists\./i");
+
+        //when
+        $this->save($givenSecondDevice);
     }
 
     /** @test */
