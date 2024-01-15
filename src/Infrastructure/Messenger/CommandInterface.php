@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Messenger;
 
-interface SyncCommandInterface extends CommandInterface
+interface CommandInterface
 {
 }

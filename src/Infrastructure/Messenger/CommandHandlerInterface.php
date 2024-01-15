@@ -6,5 +6,4 @@ namespace App\Infrastructure\Messenger;
 
 interface CommandHandlerInterface
 {
-
 }
