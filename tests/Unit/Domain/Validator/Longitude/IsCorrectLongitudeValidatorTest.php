@@ -108,7 +108,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
         $this->validator->validate($givenIncorrectLongitudeValue, $givenConstraint);
 
         // then
-        $this->buildViolation($this->givenConstraint->message)
+        $this->buildViolation($givenConstraint->message)
             ->setParameter('{{ string }}', strval($givenIncorrectLongitudeValue))
             ->setCode($givenViolationCode)
             ->assertRaised();

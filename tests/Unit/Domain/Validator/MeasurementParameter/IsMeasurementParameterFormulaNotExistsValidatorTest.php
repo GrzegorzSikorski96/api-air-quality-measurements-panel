@@ -84,7 +84,7 @@ final class IsMeasurementParameterFormulaNotExistsValidatorTest extends Validato
         $this->validator->validate($givenExistingFormula, $givenConstraint);
 
         // then
-        $this->buildViolation($this->givenConstraint->message)
+        $this->buildViolation($givenConstraint->message)
             ->setParameter('{{ string }}', $givenExistingFormula)
             ->setCode($givenViolationCode)
             ->assertRaised();

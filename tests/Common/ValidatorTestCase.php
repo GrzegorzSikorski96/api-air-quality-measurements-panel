@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Common;
 
+use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
+use App\Tests\Doubles\Repository\DeviceInMemoryRepository;
 use App\Tests\Doubles\Repository\MeasurementParameterInMemoryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -33,6 +35,7 @@ abstract class ValidatorTestCase extends ConstraintValidatorTestCase
 
         $this->container = $kernelTestCase::getContainer();
         $this->container->set(MeasurementParameterRepositoryInterface::class, new MeasurementParameterInMemoryRepository());
+        $this->container->set(DeviceRepositoryInterface::class, new DeviceInMemoryRepository());
 
         parent::setUp();
     }

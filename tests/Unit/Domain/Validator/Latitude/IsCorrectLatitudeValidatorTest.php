@@ -108,7 +108,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
         $this->validator->validate($givenIncorrectLatitudeValue, $givenConstraint);
 
         // then
-        $this->buildViolation($this->givenConstraint->message)
+        $this->buildViolation($givenConstraint->message)
             ->setParameter('{{ string }}', strval($givenIncorrectLatitudeValue))
             ->setCode($givenViolationCode)
             ->assertRaised();

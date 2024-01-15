@@ -11,12 +11,12 @@ final class IsDeviceNameNotExists extends Constraint
 {
     public string $violationCode;
 
-    public function __construct(int|string $code = 404)
+    public function __construct(int|string $code = 403)
     {
         parent::__construct();
 
         $this->violationCode = (string) $code;
     }
 
-    public string $message = 'Measurement Parameter with name: "{{ string }}" already exist.';
+    public string $message = 'Device with name: "{{ string }}" already exist.';
 }

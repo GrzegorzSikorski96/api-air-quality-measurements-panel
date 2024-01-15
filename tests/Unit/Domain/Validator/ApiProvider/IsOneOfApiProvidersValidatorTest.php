@@ -67,7 +67,7 @@ final class IsOneOfApiProvidersValidatorTest extends ValidatorTestCase
         $this->validator->validate($givenNotExistingApiProvider, $givenConstraint);
 
         // then
-        $this->buildViolation($this->givenConstraint->message)
+        $this->buildViolation($givenConstraint->message)
             ->setParameter('{{ string }}', $givenNotExistingApiProvider)
             ->setCode($givenViolationCode)
             ->assertRaised();

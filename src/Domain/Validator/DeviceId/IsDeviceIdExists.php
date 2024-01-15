@@ -18,5 +18,5 @@ final class IsDeviceIdExists extends Constraint
         $this->violationCode = (string) $code;
     }
 
-    public string $message = 'Device with Uuid: "{{ string }}" does not exist.';
+    public string $message = 'Device with id: "{{ string }}" does not exist.';
 }

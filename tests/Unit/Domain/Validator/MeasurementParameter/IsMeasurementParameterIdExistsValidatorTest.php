@@ -80,7 +80,7 @@ final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCas
         $this->validator->validate($givenNotExistingId, $givenConstraint);
 
         // then
-        $this->buildViolation($this->givenConstraint->message)
+        $this->buildViolation($givenConstraint->message)
             ->setParameter('{{ string }}', $givenNotExistingId->toRfc4122())
             ->setCode($givenViolationCode)
             ->assertRaised();

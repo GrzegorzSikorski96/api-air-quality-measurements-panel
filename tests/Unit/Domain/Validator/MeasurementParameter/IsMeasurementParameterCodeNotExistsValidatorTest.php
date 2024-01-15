@@ -84,7 +84,7 @@ final class IsMeasurementParameterCodeNotExistsValidatorTest extends ValidatorTe
         $this->validator->validate($givenExistingCode, $givenConstraint);
 
         // then
-        $this->buildViolation($this->givenConstraint->message)
+        $this->buildViolation($givenConstraint->message)
             ->setParameter('{{ string }}', $givenExistingCode)
             ->setCode($givenViolationCode)
             ->assertRaised();
