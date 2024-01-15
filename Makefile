@@ -33,6 +33,9 @@ create-test-database:
 migrate:
 	docker-compose exec air-quality-measurements-panel-app php bin/console doctrine:migrations:migrate --no-interaction
 
+load-fixtures:
+	docker-compose exec air-quality-measurements-panel-app php bin/console doctrine:fixtures:load --no-interaction
+
 migrate-test-database:
 	docker-compose exec air-quality-measurements-panel-app php bin/console doctrine:migrations:migrate --no-interaction --env=test
 

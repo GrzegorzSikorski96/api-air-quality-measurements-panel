@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCase\CreateDevice;
 
+use App\Domain\Validator\ApiProvider\IsOneOfApiProviders;
 use App\Domain\Validator\DeviceName\IsDeviceNameNotExists;
 use App\Domain\Validator\Latitude\IsCorrectLatitude;
 use App\Infrastructure\Messenger\AsyncCommandInterface;
@@ -17,6 +18,7 @@ final readonly class CreateDeviceCommand implements AsyncCommandInterface
         public float $latitude,
         #[IsCorrectLatitude(400)]
         public float $longitude,
+        #[IsOneOfApiProviders(400)]
         public string $apiProvider,
         public ?string $externalId = null,
         public ?string $token = null

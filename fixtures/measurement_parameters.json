@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Sulfur Dioxide",
+    "formula": "SO2",
+    "code": "SO2",
+    "id": "de8fa19c-94ab-4da0-9eb0-5185c5fc4cce"
+  },
+  {
+    "name": "Benzene",
+    "formula": "C6H6",
+    "code": "C6H6",
+    "id": "2a4deb4d-f8fa-49ba-af8a-1d0197178154"
+  },
+  {
+    "name": "Carbon Monoxide",
+    "formula": "CO",
+    "code": "CO",
+    "id": "5e1bd103-4151-4c72-b786-b86ae3cb69f1"
+  },
+  {
+    "name": "Nitrogen Dioxide",
+    "formula": "NO2",
+    "code": "NO2",
+    "id": "c585373a-da66-4202-aae3-53b9cd2c59f6"
+  },
+  {
+    "name": "Ozone",
+    "formula": "O3",
+    "code": "O3",
+    "id": "8456018f-efc7-4589-858d-ac6127e8ac1b"
+  },
+  {
+    "name": "Particulate Matter PM1",
+    "formula": "PM1",
+    "code": "PM1",
+    "id": "8e530e0a-e428-4ec6-b8b0-b2abf796e32f"
+  },
+  {
+    "name": "Particulate Matter PM2.5",
+    "formula": "PM2.5",
+    "code": "PM2.5",
+    "id": "4d5834b9-2285-4400-943d-33403e66adb3"
+  },
+  {
+    "name": "Particulate Matter PM10",
+    "formula": "PM10",
+    "code": "PM10",
+    "id": "f81afb54-c290-439e-beae-22dea474a8fc"
+  },
+  {
+    "name": "Air Quality Index",
+    "formula": "AQI",
+    "code": "AQI",
+    "id": "56ffcec3-56fd-4ba7-9b48-63f2ec76ba60"
+  },
+  {
+    "name": "Air Temperature",
+    "formula": "Celsius",
+    "code": "Temp",
+    "id": "28e5def5-7920-44ef-9eb0-9793567838f4"
+  },
+  {
+    "name": "Air Humidity",
+    "formula": "Humidity",
+    "code": "Humi",
+    "id": "f0e9fa1f-6615-4d95-90f4-6be1d37b6c0d"
+  }
+]
