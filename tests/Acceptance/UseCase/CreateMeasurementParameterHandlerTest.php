@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UseCase;
+namespace App\Tests\Acceptance\UseCase;
 
+use App\EventStorming\MeasurementParameterCreated\MeasurementParameterCreatedEvent;
 use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
+use App\Tests\Asserts\InMemoryTransportAssert;
 use App\Tests\Common\UnitTestCase;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterCommand;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterHandler;
@@ -12,7 +14,7 @@ use PHPUnit\Framework\Assert;
 
 final class CreateMeasurementParameterHandlerTest extends UnitTestCase
 {
-    private CommandHandlerInterface $handler;
+    protected CommandHandlerInterface $handler;
 
     public function setUp(): void
     {
@@ -24,27 +26,20 @@ final class CreateMeasurementParameterHandlerTest extends UnitTestCase
     }
 
     /** @test */
-    public function create_measurement_parameter()
+    public function create_measurement_parameter_handler_test(): void
     {
         // given
-        $givenName = 'Given name';
-        $givenCode = 'Given code';
-        $givenFormula = 'Given formula';
-
         $givenCreateMeasurementParameterCommand = new CreateMeasurementParameterCommand(
-            name: $givenName,
-            code: $givenCode,
-            formula: $givenFormula
+            name: 'Given name',
+            code: 'Given code',
+            formula: 'Given formula'
         );
 
-        $measurementParameters = $this->measurementParameterRepository->findAll();
-        Assert::assertCount(0, $measurementParameters);
-
-        //when
+        // when
         $this->handler->__invoke($givenCreateMeasurementParameterCommand);
 
-        //then
-        $measurementParameters = $this->measurementParameterRepository->findAll();
-        Assert::assertCount(1, $measurementParameters);
+        // then
+        InMemoryTransportAssert::assertMessageOfTypeWasSent(MeasurementParameterCreatedEvent::class, $this->asyncTransport);
+        InMemoryTransportAssert::assertCountSentMessages(1, $this->asyncTransport);
     }
 }

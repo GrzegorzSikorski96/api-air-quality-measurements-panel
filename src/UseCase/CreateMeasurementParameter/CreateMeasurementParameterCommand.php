@@ -7,9 +7,10 @@ namespace App\UseCase\CreateMeasurementParameter;
 use App\Domain\Validator\MeasurementParameterCode\IsMeasurementParameterCodeNotExists;
 use App\Domain\Validator\MeasurementParameterFormula\IsMeasurementParameterFormulaNotExists;
 use App\Domain\Validator\MeasurementParameterName\IsMeasurementParameterNameNotExists;
-use App\Infrastructure\Messenger\AsyncCommandInterface;
+use App\Infrastructure\Messenger\Command\AsyncCommandInterface;
+use App\Infrastructure\Messenger\Command\CommandInterface;
 
-final readonly class CreateMeasurementParameterCommand implements AsyncCommandInterface
+final readonly class CreateMeasurementParameterCommand implements AsyncCommandInterface, CommandInterface
 {
     public function __construct(
         #[IsMeasurementParameterNameNotExists(403)]

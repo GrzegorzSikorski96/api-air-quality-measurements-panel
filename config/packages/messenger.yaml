@@ -25,6 +25,13 @@ framework:
                     allow_no_handlers: true
 
         routing:
-            'App\Infrastructure\Messenger\AsyncCommandInterface': async
-            'App\Infrastructure\Messenger\SyncCommandInterface': sync
-            'App\Infrastructure\Messenger\PrivateEventInterface': async
+            'App\Infrastructure\Messenger\Command\AsyncCommandInterface': async
+            'App\Infrastructure\Messenger\Command\SyncCommandInterface': sync
+            'App\Infrastructure\Messenger\Event\PublicEventInterface': async
+            'App\Infrastructure\Messenger\Event\PrivateEventInterface': async
+
+when@test:
+    framework:
+        messenger:
+            transports:
+                async: in-memory://

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\UseCase;
 
 use App\Domain\Entity\Enum\ApiProviderEnum;
-use App\Infrastructure\Messenger\CommandHandlerInterface;
+use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
 use App\Tests\Common\UnitTestCase;
 use App\UseCase\CreateDevice\CreateDeviceCommand;
 use App\UseCase\CreateDevice\CreateDeviceHandler;

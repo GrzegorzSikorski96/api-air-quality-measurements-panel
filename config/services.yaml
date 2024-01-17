@@ -13,9 +13,9 @@ services:
             - '../src/Kernel.php'
 
     _instanceof:
-        App\Infrastructure\Messenger\CommandHandlerInterface:
+        App\Infrastructure\Messenger\Command\CommandHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: command.bus }
-        App\Infrastructure\Messenger\EventListenerInterface:
+        App\Infrastructure\Messenger\Event\EventListenerInterface:
             tags:
                 - { name: messenger.message_handler, bus: event.bus }

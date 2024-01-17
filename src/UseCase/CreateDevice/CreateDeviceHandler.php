@@ -8,14 +8,14 @@ use App\Domain\Entity\Device;
 use App\Domain\Entity\Enum\ApiProviderEnum;
 use App\Domain\Repository\DeviceRepositoryInterface;
 use App\EventStorming\DeviceCreated\DeviceCreatedEvent;
-use App\Infrastructure\Messenger\CommandHandlerInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
+use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
+use App\Infrastructure\Messenger\Event\EventBus;
 
 final readonly class CreateDeviceHandler implements CommandHandlerInterface
 {
     public function __construct(
         private DeviceRepositoryInterface $deviceRepository,
-        private MessageBusInterface $eventBus,
+        private EventBus $eventBus
     ) {
     }
 

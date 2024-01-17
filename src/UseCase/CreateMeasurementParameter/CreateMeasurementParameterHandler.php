@@ -7,14 +7,14 @@ namespace App\UseCase\CreateMeasurementParameter;
 use App\Domain\Entity\MeasurementParameter;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\EventStorming\MeasurementParameterCreated\MeasurementParameterCreatedEvent;
-use App\Infrastructure\Messenger\CommandHandlerInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
+use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
+use App\Infrastructure\Messenger\Event\EventBus;
 
 final readonly class CreateMeasurementParameterHandler implements CommandHandlerInterface
 {
     public function __construct(
         private MeasurementParameterRepositoryInterface $measurementParameterRepository,
-        private MessageBusInterface $eventBus
+        private EventBus $eventBus
     ) {
     }
 

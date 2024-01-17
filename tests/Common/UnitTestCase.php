@@ -57,6 +57,11 @@ class UnitTestCase extends KernelTestCase
         Assert::assertInstanceOf(MessageBusInterface::class, $commandBus);
         $this->commandBus = $commandBus;
 
+        $asyncTransport = $this->container->get('messenger.transport.async');
+        Assert::assertInstanceOf(TransportInterface::class, $asyncTransport);
+        $this->asyncTransport = $asyncTransport;
+
+
         $this->faker = Factory::create();
     }
 }

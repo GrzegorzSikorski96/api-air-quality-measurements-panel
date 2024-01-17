@@ -7,9 +7,10 @@ namespace App\UseCase\CreateDevice;
 use App\Domain\Validator\ApiProvider\IsOneOfApiProviders;
 use App\Domain\Validator\DeviceName\IsDeviceNameNotExists;
 use App\Domain\Validator\Latitude\IsCorrectLatitude;
-use App\Infrastructure\Messenger\AsyncCommandInterface;
+use App\Infrastructure\Messenger\Command\AsyncCommandInterface;
+use App\Infrastructure\Messenger\Command\CommandInterface;
 
-final readonly class CreateDeviceCommand implements AsyncCommandInterface
+final readonly class CreateDeviceCommand implements AsyncCommandInterface, CommandInterface
 {
     public function __construct(
         #[IsDeviceNameNotExists(403)]
