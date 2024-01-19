@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
-class UnitTestCase extends KernelTestCase
+abstract class UnitTestCase extends KernelTestCase
 {
     use PrepareInMemoryRepositoryTrait;
 
@@ -60,7 +60,6 @@ class UnitTestCase extends KernelTestCase
         $asyncTransport = $this->container->get('messenger.transport.async');
         Assert::assertInstanceOf(TransportInterface::class, $asyncTransport);
         $this->asyncTransport = $asyncTransport;
-
 
         $this->faker = Factory::create();
     }

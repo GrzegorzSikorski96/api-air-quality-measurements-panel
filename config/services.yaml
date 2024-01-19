@@ -12,6 +12,12 @@ services:
             - '../src/Domain/Entity/'
             - '../src/Kernel.php'
 
+    App\Infrastructure\Messenger\Command\CommandBus:
+        public: true
+
+    App\Infrastructure\Messenger\Event\EventBus:
+        public: true
+
     _instanceof:
         App\Infrastructure\Messenger\Command\CommandHandlerInterface:
             tags:

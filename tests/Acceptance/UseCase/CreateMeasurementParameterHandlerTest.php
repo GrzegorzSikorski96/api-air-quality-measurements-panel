@@ -7,12 +7,12 @@ namespace App\Tests\Acceptance\UseCase;
 use App\EventStorming\MeasurementParameterCreated\MeasurementParameterCreatedEvent;
 use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
 use App\Tests\Asserts\InMemoryTransportAssert;
-use App\Tests\Common\UnitTestCase;
+use App\Tests\Common\AcceptanceTestCase;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterCommand;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterHandler;
 use PHPUnit\Framework\Assert;
 
-final class CreateMeasurementParameterHandlerTest extends UnitTestCase
+final class CreateMeasurementParameterHandlerTest extends AcceptanceTestCase
 {
     protected CommandHandlerInterface $handler;
 
@@ -39,7 +39,7 @@ final class CreateMeasurementParameterHandlerTest extends UnitTestCase
         $this->handler->__invoke($givenCreateMeasurementParameterCommand);
 
         // then
-        InMemoryTransportAssert::assertMessageOfTypeWasSent(MeasurementParameterCreatedEvent::class, $this->asyncTransport);
-        InMemoryTransportAssert::assertCountSentMessages(1, $this->asyncTransport);
+        InMemoryTransportAssert::assertAtLeastOneMessageInTypeWasSent(MeasurementParameterCreatedEvent::class, $this->asyncTransport);
+        InMemoryTransportAssert::assertExactCountOfSentMessages(1, $this->asyncTransport);
     }
 }

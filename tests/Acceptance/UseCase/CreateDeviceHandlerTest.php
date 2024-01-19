@@ -8,12 +8,12 @@ use App\Domain\Entity\Enum\ApiProviderEnum;
 use App\EventStorming\DeviceCreated\DeviceCreatedEvent;
 use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
 use App\Tests\Asserts\InMemoryTransportAssert;
-use App\Tests\Common\UnitTestCase;
+use App\Tests\Common\AcceptanceTestCase;
 use App\UseCase\CreateDevice\CreateDeviceCommand;
 use App\UseCase\CreateDevice\CreateDeviceHandler;
 use PHPUnit\Framework\Assert;
 
-final class CreateDeviceHandlerTest extends UnitTestCase
+final class CreateDeviceHandlerTest extends AcceptanceTestCase
 {
     protected CommandHandlerInterface $handler;
 
@@ -41,7 +41,7 @@ final class CreateDeviceHandlerTest extends UnitTestCase
         $this->handler->__invoke($givenCreateDeviceCommand);
 
         // then
-        InMemoryTransportAssert::assertMessageOfTypeWasSent(DeviceCreatedEvent::class, $this->asyncTransport);
-        InMemoryTransportAssert::assertCountSentMessages(1, $this->asyncTransport);
+        InMemoryTransportAssert::assertAtLeastOneMessageInTypeWasSent(DeviceCreatedEvent::class, $this->asyncTransport);
+        InMemoryTransportAssert::assertExactCountOfSentMessages(1, $this->asyncTransport);
     }
 }

@@ -10,9 +10,9 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 
 final class InMemoryTransportAssert
 {
-    public static function assertMessageOfTypeWasSent(string $messageType, TransportInterface $transport): void
+    public static function assertAtLeastOneMessageInTypeWasSent(string $messageType, TransportInterface $transport): void
     {
-        foreach ($transport->getSent() as $envelope) {
+        foreach ($transport->get() as $envelope) {
             if ($envelope->getMessage() instanceof $messageType) {
                 return;
             }
@@ -24,8 +24,8 @@ final class InMemoryTransportAssert
         ));
     }
 
-    public static function assertCountSentMessages(int $expectedCount, TransportInterface $transport): void
+    public static function assertExactCountOfSentMessages(int $exactCount, TransportInterface $transport): void
     {
-        Assert::assertCount($expectedCount, $transport->getSent());
+        Assert::assertCount($exactCount, $transport->get());
     }
 }

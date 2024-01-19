@@ -16,14 +16,15 @@ framework:
                 middleware:
                     - validation
                     - 'App\Infrastructure\Middleware\FlushMiddleware'
+                    - doctrine_ping_connection
             event.bus:
                 middleware:
                     - validation
                     - 'App\Infrastructure\Middleware\FlushMiddleware'
+                    - doctrine_ping_connection
                 default_middleware:
                     enabled: true
                     allow_no_handlers: true
-
         routing:
             'App\Infrastructure\Messenger\Command\AsyncCommandInterface': async
             'App\Infrastructure\Messenger\Command\SyncCommandInterface': sync
@@ -34,4 +35,5 @@ when@test:
     framework:
         messenger:
             transports:
-                async: in-memory://
+                async:
+                    dsn: in-memory://
