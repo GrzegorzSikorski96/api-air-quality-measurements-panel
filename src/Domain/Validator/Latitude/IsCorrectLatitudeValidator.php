@@ -13,7 +13,7 @@ class IsCorrectLatitudeValidator extends ConstraintValidator
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof IsCorrectLatitude) {
-            throw new UnexpectedTypeException($constraint, IsCorrectLongitude::class);
+            throw new UnexpectedTypeException($constraint, IsCorrectLatitude::class);
         }
 
         if (null === $value || '' === $value) {

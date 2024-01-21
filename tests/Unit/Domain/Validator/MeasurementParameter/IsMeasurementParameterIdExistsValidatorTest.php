@@ -8,7 +8,7 @@ use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Domain\Validator\MeasurementParameterId\IsMeasurementParameterIdExists;
 use App\Domain\Validator\MeasurementParameterId\IsMeasurementParameterIdExistsValidator;
 use App\Tests\Common\ValidatorTestCase;
-use App\Tests\Fixtures\MeasurementParameterBuilder;
+use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 

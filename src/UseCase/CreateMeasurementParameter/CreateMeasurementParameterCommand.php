@@ -6,9 +6,11 @@ namespace App\UseCase\CreateMeasurementParameter;
 
 use App\Domain\Validator\MeasurementParameterCode\IsMeasurementParameterCodeNotExists;
 use App\Domain\Validator\MeasurementParameterFormula\IsMeasurementParameterFormulaNotExists;
+use App\Domain\Validator\MeasurementParameterId\IsMeasurementParameterIdNotExists;
 use App\Domain\Validator\MeasurementParameterName\IsMeasurementParameterNameNotExists;
 use App\Infrastructure\Messenger\Command\AsyncCommandInterface;
 use App\Infrastructure\Messenger\Command\CommandInterface;
+use Symfony\Component\Uid\Uuid;
 
 final readonly class CreateMeasurementParameterCommand implements AsyncCommandInterface, CommandInterface
 {
@@ -18,7 +20,9 @@ final readonly class CreateMeasurementParameterCommand implements AsyncCommandIn
         #[IsMeasurementParameterCodeNotExists(403)]
         public string $code,
         #[IsMeasurementParameterFormulaNotExists(403)]
-        public string $formula
+        public string $formula,
+        #[IsMeasurementParameterIdNotExists(403)]
+        public ?Uuid $id = null
     ) {
     }
 }

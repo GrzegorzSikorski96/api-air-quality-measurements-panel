@@ -18,6 +18,13 @@ services:
     App\Infrastructure\Messenger\Event\EventBus:
         public: true
 
+    App\Infrastructure\Client\Looko2ApiClient:
+        arguments:
+            $baseUrl: '%env(string:LOOKO2_API_BASE_URL)%'
+
+    App\Domain\Downloader\Looko2Downloader:
+        public: true
+
     _instanceof:
         App\Infrastructure\Messenger\Command\CommandHandlerInterface:
             tags:

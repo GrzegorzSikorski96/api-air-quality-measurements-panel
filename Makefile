@@ -46,7 +46,7 @@ integration-tests:
 	docker-compose exec air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite integration
 
 acceptance-tests:
-	docker-compose exec air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite acceptance
+	docker-compose exec air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite acceptance -vvv
 
 lint:
 	docker-compose exec air-quality-measurements-panel-app php bin/console lint:yaml config --parse-tags

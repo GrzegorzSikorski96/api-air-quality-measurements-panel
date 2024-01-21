@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\Validator\Device;
 
 use App\Domain\Repository\DeviceRepositoryInterface;
-use App\Domain\Validator\DeviceName\IsDeviceNameNotExists;
-use App\Domain\Validator\DeviceName\IsDeviceNameNotExistsValidator;
+use App\Domain\Validator\DeviceId\IsDeviceIdNotExists;
+use App\Domain\Validator\DeviceId\IsDeviceIdNotExistsValidator;
 use App\Tests\Common\ValidatorTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use PHPUnit\Framework\Assert;
+use Symfony\Component\Uid\Uuid;
 
-final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
+final class IsDeviceIdNotExistsValidatorTest extends ValidatorTestCase
 {
-    private IsDeviceNameNotExists $givenConstraint;
+    private IsDeviceIdNotExists $givenConstraint;
     protected DeviceRepositoryInterface $deviceRepository;
 
     protected function setUp(): void
@@ -24,46 +25,43 @@ final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
         Assert::assertInstanceOf(DeviceRepositoryInterface::class, $deviceRepository);
         $this->deviceRepository = $deviceRepository;
 
-        $this->givenConstraint = new IsDeviceNameNotExists();
+        $this->givenConstraint = new IsDeviceIdNotExists();
     }
 
-    protected function createValidator(): IsDeviceNameNotExistsValidator
+    protected function createValidator(): IsDeviceIdNotExistsValidator
     {
-        /** @var IsDeviceNameNotExistsValidator */
-        return $this->container->get(IsDeviceNameNotExistsValidator::class);
+        /** @var IsDeviceIdNotExistsValidator */
+        return $this->container->get(IsDeviceIdNotExistsValidator::class);
     }
 
     /** @test */
-    public function device_name_exists_in_database()
+    public function device_id_exists_in_database()
     {
         // given
-        $givenExistingName = 'Existing name';
+        $givenExistingId = Uuid::v4();
         $givenDevice = DeviceBuilder::any()
-            ->withName($givenExistingName)
+            ->withId($givenExistingId)
             ->build();
         $this->deviceRepository->save($givenDevice);
 
         // when
-        $this->validator->validate($givenExistingName, $this->givenConstraint);
+        $this->validator->validate($givenExistingId, $this->givenConstraint);
 
         // then
         $this->buildViolation($this->givenConstraint->message)
-            ->setParameter('{{ string }}', $givenExistingName)
+            ->setParameter('{{ string }}', $givenExistingId->toRfc4122())
             ->setCode('403')
             ->assertRaised();
     }
 
     /** @test */
-    public function device_name_not_exists_in_database()
+    public function device_id_not_exists_in_database()
     {
         // given
-        $givenNotExistingName = 'Not existing name';
-        $givenDevice = DeviceBuilder::any()->build();
-
-        $this->deviceRepository->save($givenDevice);
+        $givenNonExistingId = Uuid::v4();
 
         // when
-        $this->validator->validate($givenNotExistingName, $this->givenConstraint);
+        $this->validator->validate($givenNonExistingId, $this->givenConstraint);
 
         // then
         $this->assertNoViolation();
@@ -73,20 +71,21 @@ final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
     public function validator_sets_given_validation_code()
     {
         // given
-        $givenViolationCode = '123';
-        $givenExistingName = 'Existing name';
+        $givenExistingId = Uuid::v4();
         $givenDevice = DeviceBuilder::any()
-            ->withName($givenExistingName)
+            ->withId($givenExistingId)
             ->build();
         $this->deviceRepository->save($givenDevice);
 
+        $givenViolationCode = '123';
+
         // when
-        $givenConstraint = new IsDeviceNameNotExists($givenViolationCode);
-        $this->validator->validate($givenExistingName, $givenConstraint);
+        $givenConstraint = new IsDeviceIdNotExists($givenViolationCode);
+        $this->validator->validate($givenExistingId, $givenConstraint);
 
         // then
         $this->buildViolation($givenConstraint->message)
-            ->setParameter('{{ string }}', $givenExistingName)
+            ->setParameter('{{ string }}', $givenExistingId->toRfc4122())
             ->setCode($givenViolationCode)
             ->assertRaised();
     }

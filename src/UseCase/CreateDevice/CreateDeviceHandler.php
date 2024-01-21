@@ -28,6 +28,7 @@ final readonly class CreateDeviceHandler implements CommandHandlerInterface
             provider: ApiProviderEnum::from($command->apiProvider),
             externalId: $command->externalId,
             token: $command->token,
+            id: $command->id,
         );
 
         $this->deviceRepository->save($device);

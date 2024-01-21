@@ -8,7 +8,7 @@ use App\Domain\Entity\MeasurementParameter;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
 use App\Tests\Common\UnitTestCase;
-use App\Tests\Fixtures\MeasurementParameterBuilder;
+use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 

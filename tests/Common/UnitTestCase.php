@@ -20,6 +20,7 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 abstract class UnitTestCase extends KernelTestCase
 {
     use PrepareInMemoryRepositoryTrait;
+    use PrepareInMemoryClientTrait;
 
     protected ContainerInterface $container;
     protected Generator $faker;
@@ -36,6 +37,7 @@ abstract class UnitTestCase extends KernelTestCase
         $this->container = static::getContainer();
 
         $this->substituteRepositoryInMemoryImplementation();
+        $this->substituteClientInMemoryImplementation();
 
         $em = $this->container->get(EntityManagerInterface::class);
         Assert::assertInstanceOf(ObjectManager::class, $em);

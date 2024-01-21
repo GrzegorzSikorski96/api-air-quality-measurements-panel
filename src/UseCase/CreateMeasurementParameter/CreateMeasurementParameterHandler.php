@@ -23,7 +23,8 @@ final readonly class CreateMeasurementParameterHandler implements CommandHandler
         $measurementParameter = new MeasurementParameter(
             name: $command->name,
             code: $command->code,
-            formula: $command->formula
+            formula: $command->formula,
+            id: $command->id
         );
 
         $this->measurementParameterRepository->save($measurementParameter);

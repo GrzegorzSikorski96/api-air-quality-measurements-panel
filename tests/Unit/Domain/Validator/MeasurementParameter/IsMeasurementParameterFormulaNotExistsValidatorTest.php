@@ -8,7 +8,7 @@ use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Domain\Validator\MeasurementParameterFormula\IsMeasurementParameterFormulaNotExists;
 use App\Domain\Validator\MeasurementParameterFormula\IsMeasurementParameterFormulaNotExistsValidator;
 use App\Tests\Common\ValidatorTestCase;
-use App\Tests\Fixtures\MeasurementParameterBuilder;
+use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
 
 final class IsMeasurementParameterFormulaNotExistsValidatorTest extends ValidatorTestCase

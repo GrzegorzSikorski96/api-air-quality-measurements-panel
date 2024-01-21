@@ -7,7 +7,6 @@ namespace App\Tests\Acceptance\UseCase;
 use App\Domain\Entity\Enum\ApiProviderEnum;
 use App\EventStorming\DeviceCreated\DeviceCreatedEvent;
 use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
-use App\Tests\Asserts\InMemoryTransportAssert;
 use App\Tests\Common\AcceptanceTestCase;
 use App\UseCase\CreateDevice\CreateDeviceCommand;
 use App\UseCase\CreateDevice\CreateDeviceHandler;
@@ -38,10 +37,12 @@ final class CreateDeviceHandlerTest extends AcceptanceTestCase
         );
 
         // when
-        $this->handler->__invoke($givenCreateDeviceCommand);
+        $this->commandBus->dispatch($givenCreateDeviceCommand);
+        $this->asyncTransport->process();
 
         // then
-        InMemoryTransportAssert::assertAtLeastOneMessageInTypeWasSent(DeviceCreatedEvent::class, $this->asyncTransport);
-        InMemoryTransportAssert::assertExactCountOfSentMessages(1, $this->asyncTransport);
+        $this->asyncTransport->dispatched()->assertCount(2);
+        $this->asyncTransport->dispatched()->assertContains(CreateDeviceCommand::class, 1);
+        $this->asyncTransport->dispatched()->assertContains(DeviceCreatedEvent::class, 1);
     }
 }

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Fixtures;
+namespace App\Tests\Fixtures\Entity;
 
 use App\Domain\Entity\MeasurementParameter;
-use Symfony\Component\Uid\Uuid;
 use Faker\Factory;
+use Symfony\Component\Uid\Uuid;
 
 final class MeasurementParameterBuilder
 {

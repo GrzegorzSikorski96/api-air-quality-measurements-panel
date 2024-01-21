@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Fixtures;
+namespace App\Tests\Fixtures\Entity;
 
 use App\Domain\Entity\Measurement;
 use DateTimeImmutable;
-use Symfony\Component\Uid\Uuid;
 use Faker\Factory;
+use Symfony\Component\Uid\Uuid;
 
 final class MeasurementBuilder
 {

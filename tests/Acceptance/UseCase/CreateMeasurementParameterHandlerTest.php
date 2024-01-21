@@ -6,7 +6,6 @@ namespace App\Tests\Acceptance\UseCase;
 
 use App\EventStorming\MeasurementParameterCreated\MeasurementParameterCreatedEvent;
 use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
-use App\Tests\Asserts\InMemoryTransportAssert;
 use App\Tests\Common\AcceptanceTestCase;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterCommand;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterHandler;
@@ -36,10 +35,12 @@ final class CreateMeasurementParameterHandlerTest extends AcceptanceTestCase
         );
 
         // when
-        $this->handler->__invoke($givenCreateMeasurementParameterCommand);
+        $this->commandBus->dispatch($givenCreateMeasurementParameterCommand);
+        $this->asyncTransport->process();
 
         // then
-        InMemoryTransportAssert::assertAtLeastOneMessageInTypeWasSent(MeasurementParameterCreatedEvent::class, $this->asyncTransport);
-        InMemoryTransportAssert::assertExactCountOfSentMessages(1, $this->asyncTransport);
+        $this->asyncTransport->dispatched()->assertCount(2);
+        $this->asyncTransport->dispatched()->assertContains(CreateMeasurementParameterCommand::class, 1);
+        $this->asyncTransport->dispatched()->assertContains(MeasurementParameterCreatedEvent::class, 1);
     }
 }

@@ -8,7 +8,7 @@ use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Validator\DeviceId\IsDeviceIdExists;
 use App\Domain\Validator\DeviceId\IsDeviceIdExistsValidator;
 use App\Tests\Common\ValidatorTestCase;
-use App\Tests\Fixtures\DeviceBuilder;
+use App\Tests\Fixtures\Entity\DeviceBuilder;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 

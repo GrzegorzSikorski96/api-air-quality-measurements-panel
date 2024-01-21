@@ -17,11 +17,13 @@ framework:
                     - validation
                     - 'App\Infrastructure\Middleware\FlushMiddleware'
                     - doctrine_ping_connection
+                    - doctrine_transaction
             event.bus:
                 middleware:
                     - validation
                     - 'App\Infrastructure\Middleware\FlushMiddleware'
                     - doctrine_ping_connection
+                    - doctrine_transaction
                 default_middleware:
                     enabled: true
                     allow_no_handlers: true
@@ -36,4 +38,4 @@ when@test:
         messenger:
             transports:
                 async:
-                    dsn: in-memory://
+                    dsn: test://

@@ -9,7 +9,7 @@ use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
 use App\Tests\Asserts\DeviceAssert;
 use App\Tests\Common\UnitTestCase;
-use App\Tests\Fixtures\DeviceBuilder;
+use App\Tests\Fixtures\Entity\DeviceBuilder;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
