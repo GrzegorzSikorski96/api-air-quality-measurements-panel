@@ -28,7 +28,7 @@ final class MeasurementParameterDoctrineRepository extends ServiceEntityReposito
     {
         $measurementParameter = $this->findOne($id);
 
-        if(!$measurementParameter) {
+        if (!$measurementParameter) {
             throw new NonExistentEntityException(MeasurementParameter::class, $id->toRfc4122());
         }
 
@@ -37,7 +37,7 @@ final class MeasurementParameterDoctrineRepository extends ServiceEntityReposito
 
     public function findOne(Uuid $id): ?MeasurementParameter
     {
-        return $this->find( $id);
+        return $this->find($id);
     }
 
     public function findAll(): array

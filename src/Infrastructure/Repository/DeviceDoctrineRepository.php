@@ -27,7 +27,7 @@ final class DeviceDoctrineRepository extends ServiceEntityRepository implements 
     {
         $device = $this->findOne($id);
 
-        if(!$device) {
+        if (!$device) {
             throw new NonExistentEntityException(Device::class, $id->toRfc4122());
         }
 
@@ -36,7 +36,7 @@ final class DeviceDoctrineRepository extends ServiceEntityRepository implements 
 
     public function findOne(Uuid $id): ?Device
     {
-        return $this->find( $id);
+        return $this->find($id);
     }
 
     public function findOneByName(string $name): ?Device

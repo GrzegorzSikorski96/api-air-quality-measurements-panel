@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Repository;
 
-use LogicException;
-
-final class NonExistentEntityException extends LogicException
+final class NonExistentEntityException extends \LogicException
 {
     public function __construct(string $entityName, string $entityId)
     {

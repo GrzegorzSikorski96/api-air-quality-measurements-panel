@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domain\Entity;
 
 use App\Domain\Entity\Enum\ApiProviderEnum;
-use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
@@ -37,9 +36,9 @@ final class Device
     private ApiProviderEnum $provider;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private DateTimeImmutable $createdAt;
+    private \DateTimeImmutable $createdAt;
 
-    public function __construct(string $name, float $latitude, float $longitude, ApiProviderEnum $provider, string $externalId = null, string $token = null, ?Uuid $id = null)
+    public function __construct(string $name, float $latitude, float $longitude, ApiProviderEnum $provider, string $externalId = null, string $token = null, Uuid $id = null)
     {
         $this->id = $id ?? Uuid::v4();
         $this->name = $name;
@@ -50,7 +49,7 @@ final class Device
         $this->externalId = $externalId;
         $this->token = $token;
 
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): Uuid
@@ -98,7 +97,7 @@ final class Device
         return $this->externalId;
     }
 
-    public function setExternalId(?string $externalId = null): void
+    public function setExternalId(string $externalId = null): void
     {
         $this->externalId = $externalId;
     }
@@ -108,7 +107,7 @@ final class Device
         return $this->token;
     }
 
-    public function setToken(?string $token = null): void
+    public function setToken(string $token = null): void
     {
         $this->token = $token;
     }
@@ -123,7 +122,7 @@ final class Device
         $this->provider = $provider;
     }
 
-    public function getCreatedAt(): DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

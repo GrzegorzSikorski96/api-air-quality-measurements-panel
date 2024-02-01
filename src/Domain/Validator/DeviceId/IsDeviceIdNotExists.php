@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Validator\DeviceId;
 
-use Attribute;
 use Symfony\Component\Validator\Constraint;
-#[Attribute]
+
+#[\Attribute]
 final class IsDeviceIdNotExists extends Constraint
 {
     public string $violationCode;

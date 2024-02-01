@@ -27,6 +27,7 @@ framework:
                 default_middleware:
                     enabled: true
                     allow_no_handlers: true
+            query.bus: ~
         routing:
             'App\Infrastructure\Messenger\Command\AsyncCommandInterface': async
             'App\Infrastructure\Messenger\Command\SyncCommandInterface': sync

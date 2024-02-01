@@ -16,10 +16,10 @@ down:
 sleep5:
 	sleep 5
 
-run: pull build up composer-install cache-clear create-database migrate
+run: pull build up composer-install cache-clear create-database migrate load-fixtures
 
 cache-clear:
-	-docker-compose exec air-quality-measurements-panel-app php bin/console cache:clear
+	docker-compose exec air-quality-measurements-panel-app php bin/console cache:clear
 
 composer-install:
 	docker-compose exec air-quality-measurements-panel-app composer install
@@ -46,7 +46,13 @@ integration-tests:
 	docker-compose exec air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite integration
 
 acceptance-tests:
-	docker-compose exec air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite acceptance -vvv
+	docker-compose exec air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite acceptance
+
+csfixer-dry-fix:
+	docker-compose exec air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix src --dry-run
+
+csfixer-fix:
+	docker-compose exec air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix src -vv
 
 lint:
 	docker-compose exec air-quality-measurements-panel-app php bin/console lint:yaml config --parse-tags

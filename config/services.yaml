@@ -18,6 +18,9 @@ services:
     App\Infrastructure\Messenger\Event\EventBus:
         public: true
 
+    App\Infrastructure\Messenger\Query\QueryBus:
+        public: true
+
     App\Infrastructure\Client\Looko2ApiClient:
         arguments:
             $baseUrl: '%env(string:LOOKO2_API_BASE_URL)%'
@@ -32,3 +35,6 @@ services:
         App\Infrastructure\Messenger\Event\EventListenerInterface:
             tags:
                 - { name: messenger.message_handler, bus: event.bus }
+        App\Infrastructure\Messenger\Query\QueryFinderInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }

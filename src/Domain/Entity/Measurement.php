@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
-use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
@@ -27,9 +26,9 @@ final class Measurement
     private float $value;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private DateTimeImmutable $recordedAt;
+    private \DateTimeImmutable $recordedAt;
 
-    public function __construct(Uuid $parameterId, Uuid $deviceId, float $value, DateTimeImmutable $recordedAt, ?Uuid $id = null)
+    public function __construct(Uuid $parameterId, Uuid $deviceId, float $value, \DateTimeImmutable $recordedAt, Uuid $id = null)
     {
         $this->id = $id ?? Uuid::v4();
         $this->parameterId = $parameterId;
@@ -67,6 +66,7 @@ final class Measurement
     {
         $this->value = $value;
     }
+
     public function getDeviceId(): Uuid
     {
         return $this->deviceId;
@@ -77,12 +77,12 @@ final class Measurement
         $this->deviceId = $deviceId;
     }
 
-    public function getRecordedAt(): DateTimeImmutable
+    public function getRecordedAt(): \DateTimeImmutable
     {
         return $this->recordedAt;
     }
 
-    public function setRecordedAt(DateTimeImmutable $recordedAt): void
+    public function setRecordedAt(\DateTimeImmutable $recordedAt): void
     {
         $this->recordedAt = $recordedAt;
     }

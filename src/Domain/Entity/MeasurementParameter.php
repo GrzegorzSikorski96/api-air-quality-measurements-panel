@@ -25,7 +25,7 @@ final class MeasurementParameter
     #[ORM\Column(type: Types::STRING, unique: true)]
     private string $formula;
 
-    public function __construct(string $name, string $code, string $formula, ?Uuid $id = null)
+    public function __construct(string $name, string $code, string $formula, Uuid $id = null)
     {
         $this->id = $id ?? Uuid::v4();
         $this->name = $name;

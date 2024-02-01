@@ -15,10 +15,13 @@ use App\UseCase\CreateDevice\CreateDeviceCommand;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterCommand;
 use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 use PHPUnit\Framework\Assert;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use Zenstruck\Messenger\Test\InteractsWithMessenger;
+use Zenstruck\Messenger\Test\Transport\TestTransport;
 
 abstract class AcceptanceTestCase extends KernelTestCase
 {
@@ -29,6 +32,8 @@ abstract class AcceptanceTestCase extends KernelTestCase
     protected ContainerInterface $container;
     protected CommandBus $commandBus;
     protected EventBus $eventBus;
+
+    /** @var TestTransport $asyncTransport */
     protected TransportInterface $asyncTransport;
 
     protected MeasurementParameterRepositoryInterface $measurementParameterRepository;
@@ -94,5 +99,14 @@ abstract class AcceptanceTestCase extends KernelTestCase
         $this->commandBus->dispatch($createMeasurementParameterCommand);
         $this->asyncTransport->process(2)->reset();
         $this->asyncTransport->reset();
+    }
+
+    public function selfRequest(string $method, string $endpoint, array $queryParameters = [], array $body = []): Response
+    {
+        /** @var KernelBrowser $client */
+        $client = $this->container->get('test.client');
+        $client->request($method, $endpoint, $queryParameters, [], [], json_encode($body));
+
+        return $client->getResponse();
     }
 }

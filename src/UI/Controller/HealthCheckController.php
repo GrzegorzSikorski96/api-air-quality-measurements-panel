@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\UI\Controller;
 
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +23,12 @@ class HealthCheckController extends AbstractController
         $status = Response::HTTP_OK;
         $checks = [
             'api' => 'ok',
-            'database' => 'ok'
+            'database' => 'ok',
         ];
 
         try {
             $this->measurementParameterRepository->findAll();
-        } catch (Exception) {
+        } catch (\Exception) {
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
             $checks['database'] = 'not ok';
         }

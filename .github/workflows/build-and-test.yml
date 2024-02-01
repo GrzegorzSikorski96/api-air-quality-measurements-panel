@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: composer install
 
+      - name: PHP-CS-Fixer
+        run: ./vendor/bin/php-cs-fixer fix src --dry-run
+
       - name: Create database
         run: php bin/console doctrine:database:create --if-not-exists --env=test
 

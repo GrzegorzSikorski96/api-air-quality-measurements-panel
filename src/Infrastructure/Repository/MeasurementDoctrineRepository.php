@@ -27,7 +27,7 @@ final class MeasurementDoctrineRepository extends ServiceEntityRepository implem
     {
         $measurement = $this->findOne($id);
 
-        if(!$measurement) {
+        if (!$measurement) {
             throw new NonExistentEntityException(Measurement::class, $id->toRfc4122());
         }
 
@@ -36,7 +36,7 @@ final class MeasurementDoctrineRepository extends ServiceEntityRepository implem
 
     public function findOne(Uuid $id): ?Measurement
     {
-        return $this->find( $id);
+        return $this->find($id);
     }
 
     public function findAll(): array

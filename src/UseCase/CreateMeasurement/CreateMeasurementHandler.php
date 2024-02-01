@@ -9,7 +9,6 @@ use App\Domain\Repository\MeasurementRepositoryInterface;
 use App\EventStorming\MeasurementCreated\MeasurementCreatedEvent;
 use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
 use App\Infrastructure\Messenger\Event\EventBus;
-use DateTimeImmutable;
 
 final readonly class CreateMeasurementHandler implements CommandHandlerInterface
 {
@@ -25,7 +24,7 @@ final readonly class CreateMeasurementHandler implements CommandHandlerInterface
             parameterId: $command->parameterId,
             deviceId: $command->deviceId,
             value: $command->value,
-            recordedAt: new DateTimeImmutable('now')
+            recordedAt: new \DateTimeImmutable('now')
         );
 
         $this->measurementRepository->save($measurement);
