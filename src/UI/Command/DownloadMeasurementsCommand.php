@@ -33,7 +33,7 @@ final class DownloadMeasurementsCommand extends Command
 
         foreach ($devices as $device) {
             $downloader = $this->downloaderFactory->create($device);
-            $downloader->download($device);
+            $downloader->download($device->getId());
         }
 
         return Command::SUCCESS;
