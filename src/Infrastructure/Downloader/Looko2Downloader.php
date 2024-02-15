@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Downloader;
+namespace App\Infrastructure\Downloader;
 
 use App\Domain\Client\Looko2ApiClientInterface;
 use App\Domain\Downloader\Config\Looko2DownloaderConfig;
+use App\Domain\Downloader\DownloaderInterface;
 use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Infrastructure\Messenger\Command\CommandBus;

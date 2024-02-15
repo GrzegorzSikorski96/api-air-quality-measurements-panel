@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\Downloader;
+namespace App\Tests\Unit\Infrastructure\Downloader;
 
-use App\Domain\Downloader\Config\Looko2DownloaderConfig;
-use App\Domain\Downloader\DownloaderInterface;
-use App\Domain\Downloader\Looko2Downloader;
-use App\Tests\Common\UnitTestCase;
-use App\Tests\Fixtures\Entity\DeviceBuilder;
-use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
+use App\Tests\Common\UnitTestCase;
+use App\Tests\Fixtures\Entity\DeviceBuilder;
+use App\Domain\Downloader\DownloaderInterface;
+use App\Infrastructure\Downloader\Looko2Downloader;
+use App\Domain\Downloader\Config\Looko2DownloaderConfig;
+use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 
 final class Looko2ApiDownloaderTest extends UnitTestCase
 {

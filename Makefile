@@ -48,8 +48,8 @@ integration-tests:
 acceptance-tests:
 	docker-compose exec air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite acceptance
 
-csfixer-dry-fix:
-	docker-compose exec air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix src --dry-run
+csfixer-dry:
+	docker-compose exec air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix src --dry-run -v
 
 csfixer-fix:
 	docker-compose exec air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix src -vv
@@ -57,4 +57,4 @@ csfixer-fix:
 lint:
 	docker-compose exec air-quality-measurements-panel-app php bin/console lint:yaml config --parse-tags
 
-make tests: create-test-database migrate-test-database lint unit-tests integration-tests acceptance-tests
+make tests: create-test-database migrate-test-database lint unit-tests integration-tests acceptance-tests csfixer-dry

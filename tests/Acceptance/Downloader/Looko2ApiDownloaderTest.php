@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Acceptance\Downloader;
 
-use App\Domain\Downloader\Config\Looko2DownloaderConfig;
-use App\Domain\Downloader\DownloaderInterface;
-use App\Domain\Downloader\Looko2Downloader;
-use App\EventStorming\MeasurementCreated\MeasurementCreatedEvent;
-use App\Tests\Common\AcceptanceTestCase;
-use App\Tests\Fixtures\Entity\DeviceBuilder;
-use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
-use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
+use App\Tests\Common\AcceptanceTestCase;
+use App\Tests\Fixtures\Entity\DeviceBuilder;
+use App\Domain\Downloader\DownloaderInterface;
+use App\Infrastructure\Downloader\Looko2Downloader;
+use App\Domain\Downloader\Config\Looko2DownloaderConfig;
+use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
+use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
+use App\EventStorming\MeasurementCreated\MeasurementCreatedEvent;
 
 final class Looko2ApiDownloaderTest extends AcceptanceTestCase
 {

@@ -25,7 +25,14 @@ services:
         arguments:
             $baseUrl: '%env(string:LOOKO2_API_BASE_URL)%'
 
-    App\Domain\Downloader\Looko2Downloader:
+    App\Infrastructure\Downloader\Looko2Downloader:
+        public: true
+
+    App\Domain\Downloader\DownloaderFactory:
+        arguments:
+            $container: '@service_container'
+
+    App\UI\Command\DownloadMeasurementsCommand:
         public: true
 
     _instanceof:
