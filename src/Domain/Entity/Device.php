@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity]
-final class Device
+class Device
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]

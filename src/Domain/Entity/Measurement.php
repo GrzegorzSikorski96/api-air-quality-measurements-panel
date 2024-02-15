@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity]
-final class Measurement
+class Measurement
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
