@@ -14,6 +14,8 @@ use App\Domain\Downloader\Config\Looko2DownloaderConfig;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
 use App\EventStorming\MeasurementCreated\MeasurementCreatedEvent;
+use App\EventStorming\MeasurementParameterAssignedToDevice\MeasurementParameterAssignedToDeviceEvent;
+use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
 
 final class Looko2ApiDownloaderTest extends AcceptanceTestCase
 {
@@ -53,8 +55,9 @@ final class Looko2ApiDownloaderTest extends AcceptanceTestCase
         $this->asyncTransport->process();
 
         // then
-        $this->asyncTransport->dispatched()->assertCount(2 * count($givenLooko2Config->responseKeysToInternalParameterCodes));
         $this->asyncTransport->dispatched()->assertContains(CreateMeasurementCommand::class , count($givenLooko2Config->responseKeysToInternalParameterCodes));
         $this->asyncTransport->dispatched()->assertContains(MeasurementCreatedEvent::class , count($givenLooko2Config->responseKeysToInternalParameterCodes));
+        $this->asyncTransport->dispatched()->assertContains(AssignMeasurementParameterToDeviceCommand::class , count($givenLooko2Config->responseKeysToInternalParameterCodes));
+        $this->asyncTransport->dispatched()->assertContains(MeasurementParameterAssignedToDeviceEvent::class , count($givenLooko2Config->responseKeysToInternalParameterCodes));
     }
 }

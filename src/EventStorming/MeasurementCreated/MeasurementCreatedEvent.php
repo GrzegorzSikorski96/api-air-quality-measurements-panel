@@ -10,7 +10,7 @@ use Symfony\Component\Uid\Uuid;
 
 final readonly class MeasurementCreatedEvent implements PrivateEventInterface, EventInterface
 {
-    public function __construct(public Uuid $measurementId)
+    public function __construct(public Uuid $measurementId, public Uuid $deviceId, public Uuid $measurementParameterId)
     {
     }
 }

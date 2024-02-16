@@ -36,7 +36,7 @@ final class CreateMeasurementParameterHandlerTest extends AcceptanceTestCase
 
         // when
         $this->commandBus->dispatch($givenCreateMeasurementParameterCommand);
-        $this->asyncTransport->process();
+        $this->asyncTransport->process(1);
 
         // then
         $this->asyncTransport->dispatched()->assertCount(2);

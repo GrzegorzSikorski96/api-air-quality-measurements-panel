@@ -52,7 +52,7 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
             ->build();
 
         //except
-        $this->expectExceptionMessageMatches("/DETAIL:  Key \(name\)=\(Device name\) already exists\./i");
+        $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(name\)=\(%s\) already exists\./i", $firstDeviceName));
 
         //when
         $this->save($givenSecondDevice);

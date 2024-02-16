@@ -4,18 +4,24 @@ declare(strict_types=1);
 
 namespace App\Tests\Common;
 
-use App\Domain\Repository\DeviceRepositoryInterface;
-use App\Domain\Repository\MeasurementParameterRepositoryInterface;
-use App\Tests\Doubles\Repository\DeviceInMemoryRepository;
-use App\Tests\Doubles\Repository\MeasurementParameterInMemoryRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use App\Domain\Repository\DeviceRepositoryInterface;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Domain\Repository\MeasurementRepositoryInterface;
+use App\Tests\Doubles\Repository\DeviceInMemoryRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use App\Tests\Doubles\Repository\MeasurementInMemoryRepository;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+use App\Domain\Repository\MeasurementParameterRepositoryInterface;
+use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
+use App\Tests\Doubles\Repository\MeasurementParameterInMemoryRepository;
+use App\Tests\Doubles\Repository\DeviceMeasurementParameterInMemoryRepository;
 
 abstract class ValidatorTestCase extends ConstraintValidatorTestCase
 {
+    use PrepareInMemoryRepositoryTrait;
+
     protected ContainerInterface $container;
     protected MeasurementParameterRepositoryInterface $measurementParameterRepository;
 
@@ -34,9 +40,9 @@ abstract class ValidatorTestCase extends ConstraintValidatorTestCase
         $kernelTestCase::bootKernel();
 
         $this->container = $kernelTestCase::getContainer();
-        $this->container->set(MeasurementParameterRepositoryInterface::class, new MeasurementParameterInMemoryRepository());
-        $this->container->set(DeviceRepositoryInterface::class, new DeviceInMemoryRepository());
 
+        $this->substituteRepositoryInMemoryImplementation();
+        
         parent::setUp();
     }
 }

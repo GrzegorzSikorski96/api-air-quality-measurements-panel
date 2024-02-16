@@ -18,6 +18,7 @@ use App\Domain\Repository\MeasurementRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
+use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
 
 abstract class UnitTestCase extends KernelTestCase
 {
@@ -29,6 +30,7 @@ abstract class UnitTestCase extends KernelTestCase
     protected MeasurementParameterRepositoryInterface $measurementParameterRepository;
     protected MeasurementRepositoryInterface $measurementRepository;
     protected DeviceRepositoryInterface $deviceRepository;
+    protected DeviceMeasurementParameterRepositoryInterface $deviceMeasurementParameterRepository;
     protected ObjectManager $em;
     protected MessageBusInterface $commandBus;
 
@@ -58,6 +60,10 @@ abstract class UnitTestCase extends KernelTestCase
         $deviceRepository = $this->container->get(DeviceRepositoryInterface::class);
         Assert::assertInstanceOf(DeviceRepositoryInterface::class, $deviceRepository);
         $this->deviceRepository = $deviceRepository;
+
+        $deviceMeasurementParameterRepository = $this->container->get(DeviceMeasurementParameterRepositoryInterface::class);
+        Assert::assertInstanceOf(DeviceMeasurementParameterRepositoryInterface::class, $deviceMeasurementParameterRepository);
+        $this->deviceMeasurementParameterRepository = $deviceMeasurementParameterRepository;
 
         $commandBus = $this->container->get(MessageBusInterface::class);
         Assert::assertInstanceOf(MessageBusInterface::class, $commandBus);

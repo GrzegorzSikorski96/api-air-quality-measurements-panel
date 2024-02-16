@@ -38,7 +38,7 @@ final class CreateDeviceHandlerTest extends AcceptanceTestCase
 
         // when
         $this->commandBus->dispatch($givenCreateDeviceCommand);
-        $this->asyncTransport->process();
+        $this->asyncTransport->process(1);
 
         // then
         $this->asyncTransport->dispatched()->assertCount(2);
