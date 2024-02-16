@@ -9,6 +9,7 @@ use App\Domain\ReadModel\MeasurementParameters\MeasurementParametersQuery;
 use App\Infrastructure\Messenger\Query\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Uid\Uuid;
 
@@ -33,6 +34,10 @@ class MeasurementParameterController extends AbstractController
     {
         $measurementParameterQuery = new MeasurementParameterQuery(Uuid::fromString($id));
         $measurementParameter = $this->queryBus->find($measurementParameterQuery);
+
+        if (is_null($measurementParameter)) {
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+        }
 
         return new JsonResponse($measurementParameter);
     }

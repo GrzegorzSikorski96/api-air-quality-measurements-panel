@@ -14,8 +14,14 @@ final class MeasurementParameterFinder implements QueryFinderInterface
     ) {
     }
 
-    public function __invoke(MeasurementParameterQuery $query): MeasurementParameterPresenter
+    public function __invoke(MeasurementParameterQuery $query): ?MeasurementParameterPresenter
     {
-        return new MeasurementParameterPresenter($this->measurementParameterRepository->findOne($query->id));
+        $measurementParameter = $this->measurementParameterRepository->findOne($query->id);
+
+        if (!$measurementParameter) {
+            return null;
+        }
+
+        return new MeasurementParameterPresenter($measurementParameter);
     }
 }

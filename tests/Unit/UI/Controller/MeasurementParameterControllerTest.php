@@ -7,6 +7,7 @@ namespace App\Tests\Unit\UI\Controller;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementParameterControllerTest extends UnitTestCase
@@ -22,13 +23,14 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         $this->measurementParameterRepository->save($givenSecondMeasurementParameter);
 
         // when
-        $content = $this->selfRequest('GET', '/measurementParameters')->getContent();
+        $response = $this->selfRequest('GET', '/measurementParameters');
 
         // then
-        Assert::isJson($content);
-        $content = json_decode($content);
+        Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        Assert::isJson($response->getContent());
+        $measurementParameters = json_decode($response->getContent());
 
-        foreach($content as $measurementParameter) {
+        foreach($measurementParameters as $measurementParameter) {
             if ($measurementParameter->id === $givenFirstMeasurementParameter->getId()->toRfc4122()) {
                 $expectedMeasurementParameter = $givenFirstMeasurementParameter;
             } else if ($measurementParameter->id === $givenSecondMeasurementParameter->getId()->toRfc4122()) {
@@ -42,7 +44,7 @@ final class MeasurementParameterControllerTest extends UnitTestCase
     }
     
     /** @test */
-    public function measurement_parameter()
+    public function existing_measurement_parameter()
     {
         // given
         $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()
@@ -56,15 +58,28 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         $this->measurementParameterRepository->save($givenSecondMeasurementParameter);
 
         // when
-        $content = $this->selfRequest('GET', '/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53')->getContent();
+        $response = $this->selfRequest('GET', '/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
-        Assert::isJson($content);
-        $content = json_decode($content);
+        Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        Assert::isJson($response->getContent());
+        $measurementParameter = json_decode($response->getContent());
 
-        Assert::assertEquals($givenFirstMeasurementParameter->getId(), $content->id);
-        Assert::assertEquals($givenFirstMeasurementParameter->getName(), $content->name);
-        Assert::assertEquals($givenFirstMeasurementParameter->getCode(), $content->code);
-        Assert::assertEquals($givenFirstMeasurementParameter->getFormula(), $content->formula);
+        Assert::assertEquals($givenFirstMeasurementParameter->getId(), $measurementParameter->id);
+        Assert::assertEquals($givenFirstMeasurementParameter->getName(), $measurementParameter->name);
+        Assert::assertEquals($givenFirstMeasurementParameter->getCode(), $measurementParameter->code);
+        Assert::assertEquals($givenFirstMeasurementParameter->getFormula(), $measurementParameter->formula);
+    }
+    
+    /** @test */
+    public function not_existing_measurement_parameter()
+    {
+        // given
+
+        // when
+        $response = $this->selfRequest('GET', '/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+
+        // then
+        Assert::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 }
