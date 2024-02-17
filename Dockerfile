@@ -33,4 +33,4 @@ COPY docker/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisor
 
 WORKDIR /app
 
-CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

@@ -43,4 +43,29 @@ final class MeasurementDoctrineRepository extends ServiceEntityRepository implem
     {
         return $this->findBy([]);
     }
+
+    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, \DateTime $startDateTime, \DateTime $endDateTime = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('m')
+        ->select('m')
+        ->andWhere('m.recordedAt >= :start_date_time')
+        ->andWhere('m.deviceId = :device_id')
+        ->andWhere('m.parameterId = :parameter_id')
+        ->setParameters([
+            'device_id' => $deviceId,
+            'parameter_id' => $measurementParameterId,
+            'start_date_time' => $startDateTime,
+        ]);
+
+        if (!is_null($endDateTime)) {
+            $queryBuilder->andWhere('m.recordedAt <= :end_date_time')
+            ->setParameter('end_date_time', $endDateTime);
+        }
+
+        $queryBuilder->orderBy('m.recordedAt', 'ASC');
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
 }

@@ -57,4 +57,10 @@ csfixer-fix:
 lint:
 	docker-compose exec air-quality-measurements-panel-app php bin/console lint:yaml config --parse-tags
 
+supervisord-restart:
+	docker-compose exec air-quality-measurements-panel-app supervisorctl restart messenger-consumer-async
+
+supervisord-stop:
+	docker-compose exec air-quality-measurements-panel-app supervisorctl stop messenger-consumer-async
+
 make tests: create-test-database migrate-test-database lint unit-tests integration-tests acceptance-tests csfixer-dry

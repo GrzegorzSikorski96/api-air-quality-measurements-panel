@@ -16,4 +16,6 @@ interface MeasurementRepositoryInterface
     public function get(Uuid $id): Measurement;
 
     public function save(Measurement $measurement): void;
+
+    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, \DateTime $startDateTime, \DateTime $endDateTime = null): array;
 }

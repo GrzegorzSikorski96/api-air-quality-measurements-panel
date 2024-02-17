@@ -6,6 +6,7 @@ namespace App\UI\Controller;
 
 use App\Domain\ReadModel\Device\DeviceQuery;
 use App\Domain\ReadModel\Devices\DevicesQuery;
+use App\Domain\ReadModel\DeviceWithMeasurementParameters\DeviceWithMeasurementParametersQuery;
 use App\Infrastructure\Messenger\Query\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,5 +41,18 @@ class DeviceController extends AbstractController
         }
 
         return new JsonResponse($device);
+    }
+
+    #[Route(path: '/device/{id}/details', name: 'device_details')]
+    public function deviceDetails(string $id): JsonResponse
+    {
+        $deviceWithMeasurementParametersQuery = new DeviceWithMeasurementParametersQuery(Uuid::fromString($id));
+        $deviceWithMeasurementParameters = $this->queryBus->find($deviceWithMeasurementParametersQuery);
+
+        if (is_null($deviceWithMeasurementParameters)) {
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+        }
+
+        return new JsonResponse($deviceWithMeasurementParameters);
     }
 }

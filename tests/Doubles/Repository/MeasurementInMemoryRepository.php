@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Doubles\Repository;
 
-use App\Domain\Entity\Measurement;
-use App\Domain\Repository\MeasurementRepositoryInterface;
-use App\Domain\Repository\NonExistentEntityException;
+use DateTime;
 use Exception;
 use Symfony\Component\Uid\Uuid;
+use App\Domain\Entity\Measurement;
+use App\Domain\Repository\NonExistentEntityException;
+use App\Domain\Repository\MeasurementRepositoryInterface;
 
 final class MeasurementInMemoryRepository implements MeasurementRepositoryInterface
 {
@@ -41,6 +42,28 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
     public function findAll(): array
     {
         return $this->entities;
+    }
+
+    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, DateTime $startDateTime, ?DateTime $endDateTime = null): array
+    {
+        $measurements = [];
+
+        /** @var Measurement $measurement */
+        foreach ($this->entities as $measurement) {
+            if(
+                $measurement->getDeviceId()->toRfc4122() === $deviceId->toRfc4122() && 
+                $measurement->getParameterId()->toRfc4122() === $measurementParameterId->toRfc4122() && 
+                $measurement->getRecordedAt() >= $startDateTime
+            ) {
+                if(is_null($endDateTime) || $measurement->getRecordedAt() <= $endDateTime) {
+                    $measurements[] = $measurement;
+                }
+            }
+        }
+
+        usort($measurements, fn($firstMeasurement, $secondMeasurement) => $firstMeasurement->getRecordedAt() <=> $secondMeasurement->getRecordedAt());
+
+        return $measurements;
     }
 
     private function isUnique(Measurement $measurement): void
