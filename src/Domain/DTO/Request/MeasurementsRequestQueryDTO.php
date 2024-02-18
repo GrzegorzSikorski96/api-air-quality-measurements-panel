@@ -21,7 +21,7 @@ final class MeasurementsRequestQueryDTO
         string $deviceId,
         string $measurementParameterId,
         string $startDateTime,
-        ?string $endDateTime = null
+        string $endDateTime = null
     ) {
         $this->deviceId = Uuid::fromString($deviceId);
         $this->measurementParameterId = Uuid::fromString($measurementParameterId);
