@@ -1,6 +1,6 @@
 version: "3.5"
 services:
-  air-quality-measurements-panel-app:
+  api-air-quality-measurements-panel-app:
     build:
       context: .
       dockerfile: Dockerfile
