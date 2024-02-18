@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Asserts;
 
-use InvalidArgumentException;
-use Symfony\Component\Uid\Uuid;
 use PHPUnit\Framework\ExpectationFailedException;
+use Symfony\Component\Uid\Uuid;
 
 final class UuidAssert
 {
@@ -14,11 +13,8 @@ final class UuidAssert
     {
         try {
             Uuid::fromString($uuid);
-        } catch (InvalidArgumentException $e) {
-            throw new ExpectationFailedException(sprintf(
-                'String "%s" is not valid UUID',
-                $uuid
-            ));
+        } catch (\InvalidArgumentException $e) {
+            throw new ExpectationFailedException(sprintf('String "%s" is not valid UUID', $uuid));
         }
     }
 }

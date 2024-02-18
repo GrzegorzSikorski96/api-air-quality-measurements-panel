@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance\UI\Controller;
+namespace App\Tests\Acceptance\UI\Controller\Api\V1;
 
-use PHPUnit\Framework\Assert;
 use App\Tests\Asserts\UuidAssert;
 use App\Tests\Common\AcceptanceTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
+use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementParameterControllerTest extends AcceptanceTestCase
 {
     /** @test */
-    public function all_measurement_parameters()
+    public function allMeasurementParameters()
     {
         // given
         $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()->build();
@@ -21,18 +21,18 @@ final class MeasurementParameterControllerTest extends AcceptanceTestCase
 
         $givenSecondMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->handleCreateMeasurementParameter($givenSecondMeasurementParameter);
-        
+
         $givenThirdMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->handleCreateMeasurementParameter($givenThirdMeasurementParameter);
 
         // when
-        $content = $this->selfRequest('GET', '/measurementParameters')->getContent();
+        $content = $this->selfRequest('GET', '/api/v1/measurementParameters')->getContent();
 
         // then
         Assert::isJson($content);
         $content = json_decode($content);
-        
-        foreach($content as $item) {
+
+        foreach ($content as $item) {
             Assert::assertObjectHasProperty('id', $item);
             UuidAssert::assertUuid($item->id);
 
@@ -43,7 +43,7 @@ final class MeasurementParameterControllerTest extends AcceptanceTestCase
     }
 
     /** @test */
-    public function measurement_parameter()
+    public function measurementParameter()
     {
         // given
         $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()
@@ -57,7 +57,7 @@ final class MeasurementParameterControllerTest extends AcceptanceTestCase
         $this->handleCreateMeasurementParameter($givenSecondMeasurementParameter);
 
         // when
-        $content = $this->selfRequest('GET', '/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53')->getContent();
+        $content = $this->selfRequest('GET', '/api/v1/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53')->getContent();
 
         // then
         Assert::isJson($content);

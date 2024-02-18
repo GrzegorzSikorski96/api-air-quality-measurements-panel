@@ -47,14 +47,14 @@ final class DeviceBuilder
         return $this;
     }
 
-    public function withExternalId(?string $externalId = null): self
+    public function withExternalId(string $externalId = null): self
     {
         $this->externalId = $externalId;
 
         return $this;
     }
 
-    public function withToken(?string $token = null): self
+    public function withToken(string $token = null): self
     {
         $this->token = $token;
 

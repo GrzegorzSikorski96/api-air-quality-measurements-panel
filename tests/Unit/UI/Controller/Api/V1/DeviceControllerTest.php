@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\Controller;
+namespace App\Tests\Unit\UI\Controller\Api\V1;
 
-use PHPUnit\Framework\Assert;
-use Symfony\Component\Uid\Uuid;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
-use Symfony\Component\HttpFoundation\Response;
-use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use App\Tests\Fixtures\Entity\DeviceMeasurementParameterBuilder;
+use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
+use PHPUnit\Framework\Assert;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Uid\Uuid;
 
 final class DeviceControllerTest extends UnitTestCase
-{    
+{
     /** @test */
-    public function all_devices()
+    public function allDevices()
     {
         // given
         $givenFirstDevice = DeviceBuilder::any()->build();
@@ -25,18 +25,19 @@ final class DeviceControllerTest extends UnitTestCase
         $this->deviceRepository->save($givenSecondDevice);
 
         // when
-        $response = $this->selfRequest('GET', '/devices');
+        $response = $this->selfRequest('GET', '/api/v1/devices');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         Assert::isJson($response->getContent());
         $devices = json_decode($response->getContent());
 
-        foreach($devices as $device) {
+        foreach ($devices as $device) {
             if ($device->id === $givenFirstDevice->getId()->toRfc4122()) {
                 $expectedDevice = $givenFirstDevice;
-            } else if ($device->id === $givenSecondDevice->getId()->toRfc4122()) {
-                $expectedDevice = $givenSecondDevice;}
+            } elseif ($device->id === $givenSecondDevice->getId()->toRfc4122()) {
+                $expectedDevice = $givenSecondDevice;
+            }
 
             Assert::assertEquals($expectedDevice->getId(), $device->id);
             Assert::assertEquals($expectedDevice->getName(), $device->name);
@@ -45,9 +46,9 @@ final class DeviceControllerTest extends UnitTestCase
             Assert::assertEquals($expectedDevice->getProvider()->value, $device->provider);
         }
     }
-    
+
     /** @test */
-    public function existing_device()
+    public function existingDevice()
     {
         // given
         $givenFirstDevice = DeviceBuilder::any()
@@ -61,7 +62,7 @@ final class DeviceControllerTest extends UnitTestCase
         $this->deviceRepository->save($givenSecondDevice);
 
         // when
-        $response = $this->selfRequest('GET', '/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -74,9 +75,9 @@ final class DeviceControllerTest extends UnitTestCase
         Assert::assertEquals($givenFirstDevice->getLongitude(), $device->longitude);
         Assert::assertEquals($givenFirstDevice->getProvider()->value, $device->provider);
     }
-    
+
     /** @test */
-    public function device_details()
+    public function deviceDetails()
     {
         // given
         $givenDevice = DeviceBuilder::any()
@@ -96,7 +97,7 @@ final class DeviceControllerTest extends UnitTestCase
         $this->deviceMeasurementParameterRepository->save($givenDeviceMeasurementParameter);
 
         // when
-        $response = $this->selfRequest('GET', '/device/43192d2a-724e-4e43-b5bd-ec0588b38c53/details');
+        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53/details');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -116,14 +117,14 @@ final class DeviceControllerTest extends UnitTestCase
         Assert::assertEquals($givenMeasurementParameter->getCode(), $deviceDetails->measurementParameters[0]->code);
         Assert::assertEquals($givenMeasurementParameter->getFormula(), $deviceDetails->measurementParameters[0]->formula);
     }
-    
+
     /** @test */
-    public function not_existing_device()
+    public function notExistingDevice()
     {
         // given
 
         // when
-        $response = $this->selfRequest('GET', '/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());

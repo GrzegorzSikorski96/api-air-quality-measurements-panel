@@ -25,7 +25,7 @@ final class CreateMeasurementParameterHandlerTest extends AcceptanceTestCase
     }
 
     /** @test */
-    public function create_measurement_parameter_handler_test(): void
+    public function createMeasurementParameterHandlerTest(): void
     {
         // given
         $givenCreateMeasurementParameterCommand = new CreateMeasurementParameterCommand(

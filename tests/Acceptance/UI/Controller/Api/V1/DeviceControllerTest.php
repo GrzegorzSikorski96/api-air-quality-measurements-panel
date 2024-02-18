@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Acceptance\UI\Controller;
+namespace App\Tests\Acceptance\UI\Controller\Api\V1;
 
-use PHPUnit\Framework\Assert;
-use Symfony\Component\Uid\Uuid;
 use App\Tests\Asserts\UuidAssert;
 use App\Tests\Common\AcceptanceTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
+use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Uid\Uuid;
 
 final class DeviceControllerTest extends AcceptanceTestCase
 {
     /** @test */
-    public function all_devices()
+    public function allDevices()
     {
         // given
         $givenFirstDevice = DeviceBuilder::any()->build();
@@ -22,16 +22,16 @@ final class DeviceControllerTest extends AcceptanceTestCase
 
         $givenSecondDevice = DeviceBuilder::any()->build();
         $this->handleCreateDevice($givenSecondDevice);
-        
+
         // when
-        $response = $this->selfRequest('GET', '/devices');
+        $response = $this->selfRequest('GET', '/api/v1/devices');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         Assert::isJson($response->getContent());
         $devices = json_decode($response->getContent());
-        
-        foreach($devices as $device) {
+
+        foreach ($devices as $device) {
             Assert::assertObjectHasProperty('id', $device);
             UuidAssert::assertUuid($device->id);
 
@@ -57,7 +57,7 @@ final class DeviceControllerTest extends AcceptanceTestCase
         $this->handleCreateDevice($givenSecondDevice);
 
         // when
-        $response = $this->selfRequest('GET', '/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -74,12 +74,12 @@ final class DeviceControllerTest extends AcceptanceTestCase
     }
 
     /** @test */
-    public function not_existing_device()
+    public function notExistingDevice()
     {
         // given
 
         // when
-        $response = $this->selfRequest('GET', '/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());

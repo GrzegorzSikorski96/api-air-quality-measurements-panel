@@ -11,14 +11,14 @@ use PHPUnit\Framework\Assert;
 final class ApiProviderEnumTest extends UnitTestCase
 {
     /** @test */
-    public function get_all_api_providers()
+    public function getAllApiProviders()
     {
         // given
 
-        //when
+        // when
         $allApiProviders = ApiProviderEnum::getAllApiProviders();
 
-        //then
+        // then
         Assert::assertIsArray($allApiProviders);
         Assert::assertCount(1, $allApiProviders);
     }

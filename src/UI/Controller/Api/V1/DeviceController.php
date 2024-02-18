@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Controller;
+namespace App\UI\Controller\Api\V1;
 
 use App\Domain\ReadModel\Device\DeviceQuery;
 use App\Domain\ReadModel\Devices\DevicesQuery;

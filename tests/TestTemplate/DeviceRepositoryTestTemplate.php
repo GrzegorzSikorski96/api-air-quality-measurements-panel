@@ -16,27 +16,28 @@ use Symfony\Component\Uid\Uuid;
 abstract class DeviceRepositoryTestTemplate extends UnitTestCase
 {
     abstract protected function repository(): DeviceRepositoryInterface;
+
     abstract protected function save(Device $device): void;
 
     /** @test */
-    public function save_and_get_device(): void
+    public function saveAndGetDevice(): void
     {
         // given
         $givenDeviceId = Uuid::v4();
         $givenDevice = DeviceBuilder::any()
             ->withId($givenDeviceId)
             ->build();
-        //when
+        // when
         $this->save($givenDevice);
         $device = $this->repository()->get($givenDevice->getId());
 
-        //then
+        // then
         Assert::assertNotNull($device);
         DeviceAssert::assertDevicesEquals($givenDevice, $device);
     }
 
     /** @test */
-    public function throw_exception_when_device_with_name_already_exists(): void
+    public function throwExceptionWhenDeviceWithNameAlreadyExists(): void
     {
         // given
         $firstDeviceName = 'Device name';
@@ -51,15 +52,15 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
             ->withId(Uuid::v4())
             ->build();
 
-        //except
+        // except
         $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(name\)=\(%s\) already exists\./i", $firstDeviceName));
 
-        //when
+        // when
         $this->save($givenSecondDevice);
     }
 
     /** @test */
-    public function find_one(): void
+    public function findOne(): void
     {
         // given
         $givenDeviceId = Uuid::v4();
@@ -67,19 +68,19 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
             ->withId($givenDeviceId)
             ->build();
 
-        //when
+        // when
         $this->save($givenDevice);
         $device = $this->repository()->findOne($givenDeviceId);
 
-        //then
+        // then
         Assert::assertNotNull($device);
         DeviceAssert::assertDevicesEquals($givenDevice, $device);
     }
 
     /** @test */
-    public function find_all()
+    public function findAll()
     {
-        //given
+        // given
         $givenFirstDevice = DeviceBuilder::any()->build();
         $this->save($givenFirstDevice);
 
@@ -89,33 +90,33 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
         $givenThirdDevice = DeviceBuilder::any()->build();
         $this->save($givenThirdDevice);
 
-        //when
+        // when
         $allDevices = $this->repository()->findAll();
 
-        //then
+        // then
         Assert::assertCount(3, $allDevices);
         Assert::assertContainsOnlyInstancesOf(Device::class, $allDevices);
     }
 
     /** @test */
-    public function dont_find()
+    public function dontFind()
     {
-        //given
+        // given
 
-        //when
+        // when
         $device = $this->repository()->findOne(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
 
-        //then
+        // then
         Assert::assertNull($device);
     }
 
     /** @test */
-    public function dont_get()
+    public function dontGet()
     {
-        //expect
+        // expect
         $this->expectException(NonExistentEntityException::class);
 
-        //when
+        // when
         $this->repository()->get(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
     }
 }

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Doubles\Repository;
 
-use Exception;
-use Symfony\Component\Uid\Uuid;
 use App\Domain\Entity\DeviceMeasurementParameter;
-use App\Domain\Repository\NonExistentEntityException;
 use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
+use App\Domain\Repository\NonExistentEntityException;
+use Symfony\Component\Uid\Uuid;
 
 final class DeviceMeasurementParameterInMemoryRepository implements DeviceMeasurementParameterRepositoryInterface
 {
@@ -24,7 +23,7 @@ final class DeviceMeasurementParameterInMemoryRepository implements DeviceMeasur
     {
         $deviceMeasurementParameter = $this->findOne($id);
 
-        if(!$deviceMeasurementParameter) {
+        if (!$deviceMeasurementParameter) {
             throw new NonExistentEntityException(DeviceMeasurementParameter::class, $id->toRfc4122());
         }
 
@@ -52,8 +51,8 @@ final class DeviceMeasurementParameterInMemoryRepository implements DeviceMeasur
     public function findOneByDeviceIdAndMeasurementParameterId(Uuid $deviceId, Uuid $measurementParameterId): ?DeviceMeasurementParameter
     {
         /** @var DeviceMeasurementParameter $deviceMeasurementParameter */
-        foreach($this->entities as $deviceMeasurementParameter) {
-            if($deviceMeasurementParameter->getDeviceId() === $deviceId && $deviceMeasurementParameter->getMeasurementParameterId() === $measurementParameterId) {
+        foreach ($this->entities as $deviceMeasurementParameter) {
+            if ($deviceMeasurementParameter->getDeviceId() === $deviceId && $deviceMeasurementParameter->getMeasurementParameterId() === $measurementParameterId) {
                 return $deviceMeasurementParameter;
             }
         }
@@ -65,17 +64,12 @@ final class DeviceMeasurementParameterInMemoryRepository implements DeviceMeasur
     {
         /** @var DeviceMeasurementParameter $entity */
         foreach ($this->entities as $id => $entity) {
-            if(
-                $deviceMeasurementParameter->getId()->toRfc4122() !== $id &&
-                ($deviceMeasurementParameter->getDeviceId() === $entity->getDeviceId()) &&
-                ($deviceMeasurementParameter->getMeasurementParameterId() === $entity->getMeasurementParameterId())
+            if (
+                $deviceMeasurementParameter->getId()->toRfc4122() !== $id
+                && ($deviceMeasurementParameter->getDeviceId() === $entity->getDeviceId())
+                && ($deviceMeasurementParameter->getMeasurementParameterId() === $entity->getMeasurementParameterId())
             ) {
-                throw new Exception(sprintf(
-                        "DETAIL:  Key (device_id, measurement_parameter_id)=(%s, %s) already exists.",
-                        $entity->getDeviceId()->toRfc4122(),
-                        $entity->getMeasurementParameterId()->toRfc4122()
-                    )
-                );
+                throw new \Exception(sprintf('DETAIL:  Key (device_id, measurement_parameter_id)=(%s, %s) already exists.', $entity->getDeviceId()->toRfc4122(), $entity->getMeasurementParameterId()->toRfc4122()));
             }
         }
     }

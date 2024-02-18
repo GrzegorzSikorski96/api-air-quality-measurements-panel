@@ -29,15 +29,15 @@ final class IsMeasurementParameterFormulaNotExistsValidatorTest extends Validato
 
     protected function createValidator(): IsMeasurementParameterFormulaNotExistsValidator
     {
-        /** @var IsMeasurementParameterFormulaNotExistsValidator */
+        /* @var IsMeasurementParameterFormulaNotExistsValidator */
         return $this->container->get(IsMeasurementParameterFormulaNotExistsValidator::class);
     }
 
     /** @test */
-    public function measurement_parameter_formula_does_not_exists_in_database()
+    public function measurementParameterFormulaDoesNotExistsInDatabase()
     {
         // given
-        $givenNonExistingMeasurementParameterFormula = "Param";
+        $givenNonExistingMeasurementParameterFormula = 'Param';
 
         // when
         $this->validator->validate($givenNonExistingMeasurementParameterFormula, $this->givenConstraint);
@@ -47,7 +47,7 @@ final class IsMeasurementParameterFormulaNotExistsValidatorTest extends Validato
     }
 
     /** @test */
-    public function measurement_parameter_formula_already_exists_in_database()
+    public function measurementParameterFormulaAlreadyExistsInDatabase()
     {
         // given
         $givenExistingFormula = 'Parameter';
@@ -68,7 +68,7 @@ final class IsMeasurementParameterFormulaNotExistsValidatorTest extends Validato
     }
 
     /** @test */
-    public function validator_sets_given_validation_code()
+    public function validatorSetsGivenValidationCode()
     {
         // given
         $givenViolationCode = '123';

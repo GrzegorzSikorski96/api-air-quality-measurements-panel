@@ -15,10 +15,11 @@ use Symfony\Component\Uid\Uuid;
 abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
 {
     abstract protected function repository(): MeasurementParameterRepositoryInterface;
+
     abstract protected function save(MeasurementParameter $measurementParameter): void;
 
     /** @test */
-    public function save_and_get_measurement_parameter(): void
+    public function saveAndGetMeasurementParameter(): void
     {
         // given
         $givenId = Uuid::fromString('f675e192-dad9-4ae8-af69-ecd80e870fa7');
@@ -26,17 +27,17 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
             ->withId($givenId)
             ->build();
 
-        //when
+        // when
         $this->save($givenMeasurementParameter);
         $measurementParameter = $this->repository()->get($givenId);
 
-        //then
+        // then
         Assert::assertNotNull($measurementParameter);
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
     /** @test */
-    public function throw_exception_if_duplicated_name(): void
+    public function throwExceptionIfDuplicatedName(): void
     {
         // given
         $givenDuplicatedField = 'name';
@@ -59,7 +60,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
     }
 
     /** @test */
-    public function throw_exception_if_duplicated_code(): void
+    public function throwExceptionIfDuplicatedCode(): void
     {
         // given
         $givenDuplicatedField = 'code';
@@ -77,12 +78,12 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         // expect
         $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(%s\)=\(%s\) already exists\./i", $givenDuplicatedField, $givenDuplicatedValue));
 
-        //when
+        // when
         $this->save($givenSecondMeasurementParameter);
     }
 
     /** @test */
-    public function throw_exception_if_duplicated_formula(): void
+    public function throwExceptionIfDuplicatedFormula(): void
     {
         // given
         $givenDuplicatedField = 'formula';
@@ -100,12 +101,12 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         // expect
         $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(%s\)=\(%s\) already exists\./i", $givenDuplicatedField, $givenDuplicatedValue));
 
-        //when
+        // when
         $this->save($givenSecondMeasurementParameter);
     }
 
     /** @test */
-    public function find_one(): void
+    public function findOne(): void
     {
         // given
         $givenId = Uuid::fromString('f675e192-dad9-4ae8-af69-ecd80e870fa7');
@@ -113,124 +114,124 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
             ->withId($givenId)
             ->build();
 
-        //when
+        // when
         $this->save($givenMeasurementParameter);
         $measurementParameter = $this->repository()->findOne($givenId);
 
-        //then
+        // then
         Assert::assertNotNull($measurementParameter);
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
     /** @test */
-    public function dont_find_one()
+    public function dontFindOne()
     {
-        //given
+        // given
 
-        //when
+        // when
         $measurementParameter = $this->repository()->findOne(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
 
-        //then
+        // then
         Assert::assertNull($measurementParameter);
     }
 
     /** @test */
-    public function find_one_by_name(): void
+    public function findOneByName(): void
     {
         // given
-        $givenName = "pył zawieszony PM10";
+        $givenName = 'pył zawieszony PM10';
         $givenMeasurementParameter = MeasurementParameterBuilder::any()
             ->withName($givenName)
             ->build();
 
-        //when
+        // when
         $this->save($givenMeasurementParameter);
         $measurementParameter = $this->repository()->findOneByName($givenName);
 
-        //then
+        // then
         Assert::assertNotNull($measurementParameter);
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
     /** @test */
-    public function dont_find_one_by_name(): void
+    public function dontFindOneByName(): void
     {
         // given
-        $givenNotExistingName = "pył zawieszony PM10";
+        $givenNotExistingName = 'pył zawieszony PM10';
 
-        //when
+        // when
         $measurementParameter = $this->repository()->findOneByName($givenNotExistingName);
 
-        //then
+        // then
         Assert::assertNull($measurementParameter);
     }
 
     /** @test */
-    public function find_one_by_code(): void
+    public function findOneByCode(): void
     {
         // given
-        $givenCode = "PM10";
+        $givenCode = 'PM10';
         $givenMeasurementParameter = MeasurementParameterBuilder::any()
             ->withCode($givenCode)
             ->build();
 
-        //when
+        // when
         $this->save($givenMeasurementParameter);
         $measurementParameter = $this->repository()->findOneByCode($givenCode);
 
-        //then
+        // then
         Assert::assertNotNull($measurementParameter);
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
     /** @test */
-    public function dont_find_one_by_code(): void
+    public function dontFindOneByCode(): void
     {
         // given
-        $givenNotExistingCode = "PM10";
+        $givenNotExistingCode = 'PM10';
 
-        //when
+        // when
         $measurementParameter = $this->repository()->findOneByCode($givenNotExistingCode);
 
-        //then
+        // then
         Assert::assertNull($measurementParameter);
     }
 
     /** @test */
-    public function find_one_by_formula(): void
+    public function findOneByFormula(): void
     {
         // given
-        $givenFormula = "PM10";
+        $givenFormula = 'PM10';
         $givenMeasurementParameter = MeasurementParameterBuilder::any()
             ->withFormula($givenFormula)
             ->build();
 
-        //when
+        // when
         $this->save($givenMeasurementParameter);
         $measurementParameter = $this->repository()->findOneByFormula($givenFormula);
 
-        //then
+        // then
         Assert::assertNotNull($measurementParameter);
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
     /** @test */
-    public function dont_find_one_by_formula(): void
+    public function dontFindOneByFormula(): void
     {
         // given
-        $givenNotExistingFormula = "PM10";
+        $givenNotExistingFormula = 'PM10';
 
-        //when
+        // when
         $measurementParameter = $this->repository()->findOneByFormula($givenNotExistingFormula);
 
-        //then
+        // then
         Assert::assertNull($measurementParameter);
     }
 
     /** @test */
-    public function find_all()
+    public function findAll()
     {
-        //given
+        // given
         $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->save($givenFirstMeasurementParameter);
 
@@ -240,21 +241,21 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         $givenThirdMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->save($givenThirdMeasurementParameter);
 
-        //when
+        // when
         $allMeasurementParameters = $this->repository()->findAll();
 
-        //then
+        // then
         Assert::assertCount(3, $allMeasurementParameters);
         Assert::assertContainsOnlyInstancesOf(MeasurementParameter::class, $allMeasurementParameters);
     }
 
     /** @test */
-    public function dont_get()
+    public function dontGet()
     {
-        //expect
+        // expect
         $this->expectException(NonExistentEntityException::class);
 
-        //when
+        // when
         $this->repository()->get(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
     }
 }

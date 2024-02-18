@@ -8,7 +8,6 @@ use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
 use App\Tests\Common\UnitTestCase;
 use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
 use App\UseCase\CreateMeasurement\CreateMeasurementHandler;
-use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
@@ -26,13 +25,13 @@ final class CreateMeasurementHandlerTest extends UnitTestCase
     }
 
     /** @test */
-    public function create_measurement_parameter()
+    public function createMeasurementParameter()
     {
         // given
         $givenParameterId = Uuid::v4();
         $givenDeviceId = Uuid::v4();
         $givenValue = 12.2;
-        $givenRecordedAt = new DateTimeImmutable('2024-01-19 22:45:00');
+        $givenRecordedAt = new \DateTimeImmutable('2024-01-19 22:45:00');
 
         $givenCreateMeasurementCommand = new CreateMeasurementCommand(
             parameterId: $givenParameterId,
@@ -44,10 +43,10 @@ final class CreateMeasurementHandlerTest extends UnitTestCase
         $measurements = $this->measurementRepository->findAll();
         Assert::assertCount(0, $measurements);
 
-        //when
+        // when
         $this->handler->__invoke($givenCreateMeasurementCommand);
 
-        //then
+        // then
         $measurements = $this->measurementRepository->findAll();
         Assert::assertCount(1, $measurements);
     }

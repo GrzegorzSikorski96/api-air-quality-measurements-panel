@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\Downloader;
 
-use PHPUnit\Framework\Assert;
-use Symfony\Component\Uid\Uuid;
-use App\Tests\Common\UnitTestCase;
-use App\Tests\Fixtures\Entity\DeviceBuilder;
+use App\Domain\Downloader\Config\Looko2DownloaderConfig;
 use App\Domain\Downloader\DownloaderInterface;
 use App\Infrastructure\Downloader\Looko2Downloader;
-use App\Domain\Downloader\Config\Looko2DownloaderConfig;
+use App\Tests\Common\UnitTestCase;
+use App\Tests\Fixtures\Entity\DeviceBuilder;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
+use PHPUnit\Framework\Assert;
+use Symfony\Component\Uid\Uuid;
 
 final class Looko2ApiDownloaderTest extends UnitTestCase
 {
@@ -27,7 +27,7 @@ final class Looko2ApiDownloaderTest extends UnitTestCase
     }
 
     /** @test */
-    public function download_looko2_api_measurements()
+    public function downloadLooko2ApiMeasurements()
     {
         // given
         $givenDevice = DeviceBuilder::any()

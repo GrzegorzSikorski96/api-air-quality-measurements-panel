@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\Controller;
+namespace App\Tests\Unit\UI\Controller\Api\V1;
 
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementParameterControllerTest extends UnitTestCase
-{    
+{
     /** @test */
-    public function all_measurement_parameters()
+    public function allMeasurementParameters()
     {
         // given
         $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()->build();
@@ -23,18 +23,19 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         $this->measurementParameterRepository->save($givenSecondMeasurementParameter);
 
         // when
-        $response = $this->selfRequest('GET', '/measurementParameters');
+        $response = $this->selfRequest('GET', '/api/v1/measurementParameters');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
         Assert::isJson($response->getContent());
         $measurementParameters = json_decode($response->getContent());
 
-        foreach($measurementParameters as $measurementParameter) {
+        foreach ($measurementParameters as $measurementParameter) {
             if ($measurementParameter->id === $givenFirstMeasurementParameter->getId()->toRfc4122()) {
                 $expectedMeasurementParameter = $givenFirstMeasurementParameter;
-            } else if ($measurementParameter->id === $givenSecondMeasurementParameter->getId()->toRfc4122()) {
-                $expectedMeasurementParameter = $givenSecondMeasurementParameter;}
+            } elseif ($measurementParameter->id === $givenSecondMeasurementParameter->getId()->toRfc4122()) {
+                $expectedMeasurementParameter = $givenSecondMeasurementParameter;
+            }
 
             Assert::assertEquals($expectedMeasurementParameter->getId(), $measurementParameter->id);
             Assert::assertEquals($expectedMeasurementParameter->getName(), $measurementParameter->name);
@@ -42,9 +43,9 @@ final class MeasurementParameterControllerTest extends UnitTestCase
             Assert::assertEquals($expectedMeasurementParameter->getFormula(), $measurementParameter->formula);
         }
     }
-    
+
     /** @test */
-    public function existing_measurement_parameter()
+    public function existingMeasurementParameter()
     {
         // given
         $givenFirstMeasurementParameter = MeasurementParameterBuilder::any()
@@ -58,7 +59,7 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         $this->measurementParameterRepository->save($givenSecondMeasurementParameter);
 
         // when
-        $response = $this->selfRequest('GET', '/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -70,14 +71,14 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         Assert::assertEquals($givenFirstMeasurementParameter->getCode(), $measurementParameter->code);
         Assert::assertEquals($givenFirstMeasurementParameter->getFormula(), $measurementParameter->formula);
     }
-    
+
     /** @test */
-    public function not_existing_measurement_parameter()
+    public function notExistingMeasurementParameter()
     {
         // given
 
         // when
-        $response = $this->selfRequest('GET', '/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());

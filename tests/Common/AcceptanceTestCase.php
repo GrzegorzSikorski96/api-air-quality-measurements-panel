@@ -5,26 +5,28 @@ declare(strict_types=1);
 namespace App\Tests\Common;
 
 use App\Domain\Entity\Device;
-use PHPUnit\Framework\Assert;
-use App\Domain\Entity\MeasurementParameter;
-use Symfony\Component\HttpFoundation\Response;
-use App\Infrastructure\Messenger\Event\EventBus;
 use App\Domain\Entity\DeviceMeasurementParameter;
-use App\UseCase\CreateDevice\CreateDeviceCommand;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use App\Domain\Entity\Measurement;
+use App\Domain\Entity\MeasurementParameter;
+use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
 use App\Domain\Repository\DeviceRepositoryInterface;
+use App\Domain\Repository\MeasurementParameterRepositoryInterface;
+use App\Domain\Repository\MeasurementRepositoryInterface;
 use App\Infrastructure\Messenger\Command\CommandBus;
+use App\Infrastructure\Messenger\Event\EventBus;
+use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
+use App\UseCase\CreateDevice\CreateDeviceCommand;
+use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
+use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterCommand;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
+use PHPUnit\Framework\Assert;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\Transport\TransportInterface;
 use Zenstruck\Messenger\Test\InteractsWithMessenger;
 use Zenstruck\Messenger\Test\Transport\TestTransport;
-use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use App\Domain\Repository\MeasurementRepositoryInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Messenger\Transport\TransportInterface;
-use App\Domain\Repository\MeasurementParameterRepositoryInterface;
-use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
-use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
-use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterCommand;
 
 abstract class AcceptanceTestCase extends KernelTestCase
 {
@@ -36,7 +38,7 @@ abstract class AcceptanceTestCase extends KernelTestCase
     protected CommandBus $commandBus;
     protected EventBus $eventBus;
 
-    /** @var TestTransport $asyncTransport */
+    /** @var TestTransport */
     protected TransportInterface $asyncTransport;
 
     protected MeasurementParameterRepositoryInterface $measurementParameterRepository;
@@ -116,6 +118,19 @@ abstract class AcceptanceTestCase extends KernelTestCase
             measurementParameterId: $deviceMeasurementParameter->getMeasurementParameterId(),
         );
         $this->commandBus->dispatch($assignMeasurementParameterToDeviceCommand);
+        $this->asyncTransport->process(1)->reset();
+        $this->asyncTransport->reset();
+    }
+
+    public function handleCreateMeasurement(Measurement $measurement): void
+    {
+        $craeteMeasurementCommand = new CreateMeasurementCommand(
+            deviceId: $measurement->getDeviceId(),
+            parameterId: $measurement->getParameterId(),
+            value: $measurement->getValue(),
+            recordedAt: $measurement->getRecordedAt()
+        );
+        $this->commandBus->dispatch($craeteMeasurementCommand);
         $this->asyncTransport->process(1)->reset();
         $this->asyncTransport->reset();
     }

@@ -11,7 +11,7 @@ use App\Tests\TestTemplate\DeviceRepositoryTestTemplate;
 
 final class DeviceInMemoryRepositoryTest extends DeviceRepositoryTestTemplate
 {
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->deviceRepository = new DeviceInMemoryRepository();

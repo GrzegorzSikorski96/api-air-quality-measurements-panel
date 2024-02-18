@@ -13,7 +13,6 @@ use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
 use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
 use App\UseCase\CreateMeasurement\CreateMeasurementHandler;
-use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
@@ -31,7 +30,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
     }
 
     /** @test */
-    public function create_measurement_handler_test(): void
+    public function createMeasurementHandlerTest(): void
     {
         // given
         $givenDevice = DeviceBuilder::any()
@@ -48,7 +47,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
             parameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
-            recordedAt: new DateTimeImmutable('now')
+            recordedAt: new \DateTimeImmutable('now')
         );
 
         // when
@@ -60,9 +59,9 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
         $this->asyncTransport->dispatched()->assertContains(CreateMeasurementCommand::class, 1);
         $this->asyncTransport->dispatched()->assertContains(MeasurementCreatedEvent::class, 1);
     }
-    
+
     /** @test */
-    public function create_measurement_and_dispatch_assign_measurement_parameter_to_device_test(): void
+    public function createMeasurementAndDispatchAssignMeasurementParameterToDeviceTest(): void
     {
         // given
         $givenDevice = DeviceBuilder::any()
@@ -79,7 +78,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
             parameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
-            recordedAt: new DateTimeImmutable('now')
+            recordedAt: new \DateTimeImmutable('now')
         );
 
         // when
@@ -92,9 +91,9 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
         $this->asyncTransport->dispatched()->assertContains(MeasurementCreatedEvent::class, 1);
         $this->asyncTransport->dispatched()->assertContains(AssignMeasurementParameterToDeviceCommand::class, 1);
     }
-    
+
     /** @test */
-    public function create_measurement_and_dont_dispatch_assign_measurement_parameter_to_device_test(): void
+    public function createMeasurementAndDontDispatchAssignMeasurementParameterToDeviceTest(): void
     {
         // given
         $givenDevice = DeviceBuilder::any()
@@ -117,7 +116,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
             parameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
-            recordedAt: new DateTimeImmutable('now')
+            recordedAt: new \DateTimeImmutable('now')
         );
 
         // when

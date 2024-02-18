@@ -11,7 +11,7 @@ use App\Tests\TestTemplate\MeasurementParameterRepositoryTestTemplate;
 
 final class MeasurementParameterInMemoryRepositoryTest extends MeasurementParameterRepositoryTestTemplate
 {
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->measurementParameterRepository = new MeasurementParameterInMemoryRepository();

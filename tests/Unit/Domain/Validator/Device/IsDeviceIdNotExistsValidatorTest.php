@@ -30,12 +30,12 @@ final class IsDeviceIdNotExistsValidatorTest extends ValidatorTestCase
 
     protected function createValidator(): IsDeviceIdNotExistsValidator
     {
-        /** @var IsDeviceIdNotExistsValidator */
+        /* @var IsDeviceIdNotExistsValidator */
         return $this->container->get(IsDeviceIdNotExistsValidator::class);
     }
 
     /** @test */
-    public function device_id_exists_in_database()
+    public function deviceIdExistsInDatabase()
     {
         // given
         $givenExistingId = Uuid::v4();
@@ -55,7 +55,7 @@ final class IsDeviceIdNotExistsValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function device_id_not_exists_in_database()
+    public function deviceIdNotExistsInDatabase()
     {
         // given
         $givenNonExistingId = Uuid::v4();
@@ -68,7 +68,7 @@ final class IsDeviceIdNotExistsValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function validator_sets_given_validation_code()
+    public function validatorSetsGivenValidationCode()
     {
         // given
         $givenExistingId = Uuid::v4();

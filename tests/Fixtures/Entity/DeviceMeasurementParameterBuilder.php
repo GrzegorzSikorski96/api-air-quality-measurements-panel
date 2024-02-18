@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Fixtures\Entity;
 
+use App\Domain\Entity\DeviceMeasurementParameter;
 use Faker\Factory;
 use Symfony\Component\Uid\Uuid;
-use App\Domain\Entity\DeviceMeasurementParameter;
 
 final class DeviceMeasurementParameterBuilder
 {
@@ -20,12 +20,14 @@ final class DeviceMeasurementParameterBuilder
 
         return $this;
     }
+
     public function withDeviceId(Uuid $deviceId): self
     {
         $this->deviceId = $deviceId;
 
         return $this;
     }
+
     public function withMeasurementParameterId(Uuid $measurementParameterId): self
     {
         $this->measurementParameterId = $measurementParameterId;

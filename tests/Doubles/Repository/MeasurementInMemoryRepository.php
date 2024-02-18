@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Doubles\Repository;
 
-use DateTime;
-use Exception;
-use Symfony\Component\Uid\Uuid;
 use App\Domain\Entity\Measurement;
-use App\Domain\Repository\NonExistentEntityException;
 use App\Domain\Repository\MeasurementRepositoryInterface;
+use App\Domain\Repository\NonExistentEntityException;
+use Symfony\Component\Uid\Uuid;
 
 final class MeasurementInMemoryRepository implements MeasurementRepositoryInterface
 {
@@ -26,7 +24,7 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
     {
         $measurement = $this->findOne($id);
 
-        if(!$measurement) {
+        if (!$measurement) {
             throw new NonExistentEntityException(Measurement::class, $id->toRfc4122());
         }
 
@@ -44,24 +42,24 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
         return $this->entities;
     }
 
-    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, DateTime $startDateTime, ?DateTime $endDateTime = null): array
+    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, \DateTime $startDateTime, \DateTime $endDateTime = null): array
     {
         $measurements = [];
 
         /** @var Measurement $measurement */
         foreach ($this->entities as $measurement) {
-            if(
-                $measurement->getDeviceId()->toRfc4122() === $deviceId->toRfc4122() && 
-                $measurement->getParameterId()->toRfc4122() === $measurementParameterId->toRfc4122() && 
-                $measurement->getRecordedAt() >= $startDateTime
+            if (
+                $measurement->getDeviceId()->toRfc4122() === $deviceId->toRfc4122()
+                && $measurement->getParameterId()->toRfc4122() === $measurementParameterId->toRfc4122()
+                && $measurement->getRecordedAt() >= $startDateTime
             ) {
-                if(is_null($endDateTime) || $measurement->getRecordedAt() <= $endDateTime) {
+                if (is_null($endDateTime) || $measurement->getRecordedAt() <= $endDateTime) {
                     $measurements[] = $measurement;
                 }
             }
         }
 
-        usort($measurements, fn($firstMeasurement, $secondMeasurement) => $firstMeasurement->getRecordedAt() <=> $secondMeasurement->getRecordedAt());
+        usort($measurements, fn ($firstMeasurement, $secondMeasurement) => $firstMeasurement->getRecordedAt() <=> $secondMeasurement->getRecordedAt());
 
         return $measurements;
     }
@@ -70,11 +68,11 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
     {
         /** @var Measurement $entity */
         foreach ($this->entities as $id => $entity) {
-            if($measurement->getId()->toRfc4122() !== $id) {
+            if ($measurement->getId()->toRfc4122() !== $id) {
                 foreach ($this->uniqueFields as $field) {
                     $fieldAccessor = sprintf('get%s', ucfirst($field));
                     if ($entity->$fieldAccessor() === $measurement->$fieldAccessor()) {
-                        throw new Exception(sprintf("DETAIL:  Key (%s)=(%s) already exists.", $field, $measurement->$fieldAccessor()));
+                        throw new \Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $measurement->$fieldAccessor()));
                     }
                 }
             }

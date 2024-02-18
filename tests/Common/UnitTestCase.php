@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Tests\Common;
 
+use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
+use App\Domain\Repository\DeviceRepositoryInterface;
+use App\Domain\Repository\MeasurementParameterRepositoryInterface;
+use App\Domain\Repository\MeasurementRepositoryInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use PHPUnit\Framework\Assert;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
-use App\Domain\Repository\DeviceRepositoryInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Zenstruck\Messenger\Test\Transport\TestTransport;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use App\Domain\Repository\MeasurementRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
-use App\Domain\Repository\MeasurementParameterRepositoryInterface;
-use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
+use Zenstruck\Messenger\Test\Transport\TestTransport;
 
 abstract class UnitTestCase extends KernelTestCase
 {
@@ -34,7 +34,7 @@ abstract class UnitTestCase extends KernelTestCase
     protected ObjectManager $em;
     protected MessageBusInterface $commandBus;
 
-    /** @var TestTransport $asyncTransport */
+    /** @var TestTransport */
     protected TransportInterface $asyncTransport;
 
     protected function setUp(): void

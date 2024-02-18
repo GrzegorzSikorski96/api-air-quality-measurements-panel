@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Controller;
+namespace App\UI\Controller\Api\V1;
 
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

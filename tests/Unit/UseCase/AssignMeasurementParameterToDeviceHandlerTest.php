@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UseCase;
 
-use PHPUnit\Framework\Assert;
-use Symfony\Component\Uid\Uuid;
-use App\Tests\Common\UnitTestCase;
 use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
+use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceHandler;
+use PHPUnit\Framework\Assert;
+use Symfony\Component\Uid\Uuid;
 
 final class AssignMeasurementParameterToDeviceHandlerTest extends UnitTestCase
 {
@@ -26,10 +26,11 @@ final class AssignMeasurementParameterToDeviceHandlerTest extends UnitTestCase
         $this->handler = $handler;
     }
 
-    /** 
+    /**
      * @group failing
+     *
      * @test */
-    public function assign_measurement_parameter_to_device()
+    public function assignMeasurementParameterToDevice()
     {
         // given
         $givenDevice = DeviceBuilder::any()->withId(Uuid::fromString('1ba2e0ec-805c-4d13-a6f3-53f9f560bcd7'))->build();
@@ -46,10 +47,10 @@ final class AssignMeasurementParameterToDeviceHandlerTest extends UnitTestCase
         $assignedMeasurementParameter = $this->deviceMeasurementParameterRepository->findOneByDeviceIdAndMeasurementParameterId($givenDevice->getId(), $givenMeasurementParameter->getId());
         Assert::assertNull($assignedMeasurementParameter);
 
-        //when
+        // when
         $this->handler->__invoke($givenAssignMeasurementParameterToDeviceCommand);
 
-        //then
+        // then
         $assignedMeasurementParameter = $this->deviceMeasurementParameterRepository->findOneByDeviceIdAndMeasurementParameterId($givenDevice->getId(), $givenMeasurementParameter->getId());
         Assert::assertNotNull($assignedMeasurementParameter);
     }

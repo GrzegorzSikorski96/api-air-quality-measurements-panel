@@ -30,12 +30,12 @@ final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCas
 
     protected function createValidator(): IsMeasurementParameterIdExistsValidator
     {
-        /** @var IsMeasurementParameterIdExistsValidator */
+        /* @var IsMeasurementParameterIdExistsValidator */
         return $this->container->get(IsMeasurementParameterIdExistsValidator::class);
     }
 
     /** @test */
-    public function measurement_parameter_id_does_not_exists_in_database()
+    public function measurementParameterIdDoesNotExistsInDatabase()
     {
         // given
         $givenNotExistingMeasurementParameterId = Uuid::v4();
@@ -51,7 +51,7 @@ final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCas
     }
 
     /** @test */
-    public function measurement_parameter_id_already_exists_in_database()
+    public function measurementParameterIdAlreadyExistsInDatabase()
     {
         // given
         $givenExistingId = Uuid::v4();
@@ -69,7 +69,7 @@ final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCas
     }
 
     /** @test */
-    public function validator_sets_given_validation_code()
+    public function validatorSetsGivenValidationCode()
     {
         // given
         $givenViolationCode = '123';

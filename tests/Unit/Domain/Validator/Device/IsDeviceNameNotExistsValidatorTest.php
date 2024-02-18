@@ -29,12 +29,12 @@ final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
 
     protected function createValidator(): IsDeviceNameNotExistsValidator
     {
-        /** @var IsDeviceNameNotExistsValidator */
+        /* @var IsDeviceNameNotExistsValidator */
         return $this->container->get(IsDeviceNameNotExistsValidator::class);
     }
 
     /** @test */
-    public function device_name_exists_in_database()
+    public function deviceNameExistsInDatabase()
     {
         // given
         $givenExistingName = 'Existing name';
@@ -54,7 +54,7 @@ final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function device_name_not_exists_in_database()
+    public function deviceNameNotExistsInDatabase()
     {
         // given
         $givenNotExistingName = 'Not existing name';
@@ -70,7 +70,7 @@ final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function validator_sets_given_validation_code()
+    public function validatorSetsGivenValidationCode()
     {
         // given
         $givenViolationCode = '123';

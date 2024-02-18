@@ -24,7 +24,7 @@ final class CreateMeasurementParameterHandlerTest extends UnitTestCase
     }
 
     /** @test */
-    public function create_measurement_parameter()
+    public function createMeasurementParameter()
     {
         // given
         $givenName = 'Given name';
@@ -40,10 +40,10 @@ final class CreateMeasurementParameterHandlerTest extends UnitTestCase
         $measurementParameters = $this->measurementParameterRepository->findAll();
         Assert::assertCount(0, $measurementParameters);
 
-        //when
+        // when
         $this->handler->__invoke($givenCreateMeasurementParameterCommand);
 
-        //then
+        // then
         $measurementParameters = $this->measurementParameterRepository->findAll();
         Assert::assertCount(1, $measurementParameters);
     }

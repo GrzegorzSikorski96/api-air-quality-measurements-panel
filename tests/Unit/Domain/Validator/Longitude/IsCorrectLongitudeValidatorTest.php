@@ -21,12 +21,12 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
 
     protected function createValidator(): IsCorrectLongitudeValidator
     {
-        /** @var IsCorrectLongitudeValidator */
+        /* @var IsCorrectLongitudeValidator */
         return $this->container->get(IsCorrectLongitudeValidator::class);
     }
 
     /** @test */
-    public function longitude_value_is_lower_than_correct()
+    public function longitudeValueIsLowerThanCorrect()
     {
         // given
         $givenToLowLongitudeValue = -181;
@@ -42,7 +42,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function longitude_value_is_higher_than_correct()
+    public function longitudeValueIsHigherThanCorrect()
     {
         // given
         $givenToHighLongitudeValue = 181;
@@ -58,7 +58,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function longitude_value_is_on_top_edge()
+    public function longitudeValueIsOnTopEdge()
     {
         // given
         $givenTopEdgeLongitudeValue = 180;
@@ -71,7 +71,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function longitude_value_is_zero()
+    public function longitudeValueIsZero()
     {
         // given
         $givenZeroLongitudeValue = 0;
@@ -84,7 +84,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function longitude_value_is_on_bottom_edge()
+    public function longitudeValueIsOnBottomEdge()
     {
         // given
         $givenTopEdgeLongitudeValue = -180;
@@ -97,14 +97,14 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function validator_sets_given_validation_code()
+    public function validatorSetsGivenValidationCode()
     {
         // given
         $givenIncorrectLongitudeValue = -181;
         $givenViolationCode = '123';
 
         // when
-        $givenConstraint = new IsCorrectLongitude ($givenViolationCode);
+        $givenConstraint = new IsCorrectLongitude($givenViolationCode);
         $this->validator->validate($givenIncorrectLongitudeValue, $givenConstraint);
 
         // then

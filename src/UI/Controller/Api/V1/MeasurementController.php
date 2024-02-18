@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Controller;
+namespace App\UI\Controller\Api\V1;
 
 use App\Domain\DTO\Request\MeasurementsRequestQueryDTO;
 use App\Domain\ReadModel\Measurements\MeasurementsQuery;

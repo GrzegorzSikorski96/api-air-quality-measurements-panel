@@ -36,14 +36,20 @@ jobs:
       - name: Install dependencies
         run: composer install
 
-      - name: PHP-CS-Fixer
-        run: ./vendor/bin/php-cs-fixer fix src --dry-run
+      - name: PHP-CS-Fixer (Application)
+        run: ./vendor/bin/php-cs-fixer fix src --dry-run --allow-risky=yes
+
+      - name: PHP-CS-Fixer (Tests)
+        run: ./vendor/bin/php-cs-fixer fix tests --dry-run --allow-risky=yes
 
       - name: Create database
         run: php bin/console doctrine:database:create --if-not-exists --env=test
 
       - name: Migrate database
         run: php bin/console doctrine:migrations:migrate --no-interaction --env=test
+
+      - name: Unit tests
+        run: ./bin/phpunit -c phpunit.xml --testdox --testsuite acceptance
 
       - name: Unit tests
         run: ./bin/phpunit -c phpunit.xml --testdox --testsuite unit

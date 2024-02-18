@@ -4,8 +4,7 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     unzip \
-    nano \
-    supervisor
+    nano
 
 RUN apt-get install -y --no-install-recommends \
     postgresql-client \
@@ -29,8 +28,4 @@ RUN cd xdebug && phpize && ./configure && make && make install
 COPY docker/php/php-xdebug.ini /usr/local/etc/php/php.ini
 COPY docker/nginx/conf.d/default.conf etc/nginx/conf.d
 
-COPY docker/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 WORKDIR /app
-
-# CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Acceptance\UseCase;
 
-use PHPUnit\Framework\Assert;
-use Symfony\Component\Uid\Uuid;
+use App\EventStorming\MeasurementParameterAssignedToDevice\MeasurementParameterAssignedToDeviceEvent;
+use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
 use App\Tests\Common\AcceptanceTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
-use App\Infrastructure\Messenger\Command\CommandHandlerInterface;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceHandler;
-use App\EventStorming\MeasurementParameterAssignedToDevice\MeasurementParameterAssignedToDeviceEvent;
+use PHPUnit\Framework\Assert;
+use Symfony\Component\Uid\Uuid;
 
 final class AssignMeasurementParameterToDeviceHandlerTest extends AcceptanceTestCase
 {
@@ -28,7 +28,7 @@ final class AssignMeasurementParameterToDeviceHandlerTest extends AcceptanceTest
     }
 
     /** @test */
-    public function assign_measurement_parameter_to_device_handler_test(): void
+    public function assignMeasurementParameterToDeviceHandlerTest(): void
     {
         // given
         $givenDevice = DeviceBuilder::any()

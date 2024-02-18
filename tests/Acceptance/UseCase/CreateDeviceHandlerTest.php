@@ -26,7 +26,7 @@ final class CreateDeviceHandlerTest extends AcceptanceTestCase
     }
 
     /** @test */
-    public function create_device_handler_test(): void
+    public function createDeviceHandlerTest(): void
     {
         // given
         $givenCreateDeviceCommand = new CreateDeviceCommand(

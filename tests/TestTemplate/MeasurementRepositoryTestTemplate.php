@@ -9,60 +9,59 @@ use App\Domain\Repository\MeasurementRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\MeasurementBuilder;
-use DateTime;
-use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
 abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
 {
     abstract protected function repository(): MeasurementRepositoryInterface;
+
     abstract protected function save(Measurement $measurement): void;
 
     /** @test */
-    public function save_and_get_measurement(): void
+    public function saveAndGetMeasurement(): void
     {
         // given
         $givenMeasurementId = Uuid::v4();
-        $givenRecordedAt = new DateTimeImmutable('2024-01-01 13:00:00');
+        $givenRecordedAt = new \DateTimeImmutable('2024-01-01 13:00:00');
         $givenMeasurement = MeasurementBuilder::any()
             ->withId($givenMeasurementId)
             ->withRecordedAt($givenRecordedAt)
             ->build();
 
-        //when
+        // when
         $this->save($givenMeasurement);
         $measurement = $this->repository()->get($givenMeasurementId);
 
-        //then
+        // then
         Assert::assertNotNull($measurement);
         Assert::assertEquals($givenMeasurement, $measurement);
     }
 
     /** @test */
-    public function find_one(): void
+    public function findOne(): void
     {
         // given
         $givenId = Uuid::fromString('f675e192-dad9-4ae8-af69-ecd80e870fa7');
-        $givenRecordedAt = new DateTimeImmutable('2024-01-01 13:00:00');
+        $givenRecordedAt = new \DateTimeImmutable('2024-01-01 13:00:00');
         $givenMeasurement = MeasurementBuilder::any()
             ->withId($givenId)
             ->withRecordedAt($givenRecordedAt)
             ->build();
 
-        //when
+        // when
         $this->save($givenMeasurement);
         $measurement = $this->repository()->findOne($givenId);
 
-        //then
+        // then
         Assert::assertNotNull($measurement);
         Assert::assertEquals($givenMeasurement, $measurement);
     }
 
     /** @test */
-    public function find_all()
+    public function findAll()
     {
-        //given
+        // given
         $givenFirstMeasurement = MeasurementBuilder::any()->build();
         $this->save($givenFirstMeasurement);
 
@@ -72,47 +71,47 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         $givenThirdMeasurement = MeasurementBuilder::any()->build();
         $this->save($givenThirdMeasurement);
 
-        //when
+        // when
         $allMeasurements = $this->repository()->findAll();
 
-        //then
+        // then
         Assert::assertCount(3, $allMeasurements);
         Assert::assertContainsOnlyInstancesOf(Measurement::class, $allMeasurements);
     }
 
     /** @test */
-    public function find_by_device_and_start_date_time()
+    public function findByDeviceAndStartDateTime()
     {
-        //given
+        // given
         $givenDeviceId = Uuid::v4();
         $givenMeasurementParameterId = Uuid::v4();
-        $givenStartDateTime = new DateTime('2024-02-17 12:30:00');
+        $givenStartDateTime = new \DateTime('2024-02-17 12:30:00');
 
         $givenFirstMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new DateTimeImmutable('2024-02-17 12:00:00'))
+        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 12:00:00'))
         ->build();
         $this->save($givenFirstMeasurement);
 
         $givenSecondMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new DateTimeImmutable('2024-02-17 13:00:00'))
+        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 13:00:00'))
         ->build();
         $this->save($givenSecondMeasurement);
 
         $givenThirdMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new DateTimeImmutable('2024-02-17 14:00:00'))
+        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 14:00:00'))
         ->build();
         $this->save($givenThirdMeasurement);
 
-        //when
+        // when
         $filtredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange($givenDeviceId, $givenMeasurementParameterId, $givenStartDateTime);
 
-        //then
+        // then
         Assert::assertCount(2, $filtredMeasurements);
         Assert::assertContainsOnlyInstancesOf(Measurement::class, $filtredMeasurements);
         Assert::assertEquals($filtredMeasurements[0], $givenSecondMeasurement);
@@ -120,63 +119,63 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
     }
 
     /** @test */
-    public function find_by_device_and_time_range()
+    public function findByDeviceAndTimeRange()
     {
-        //given
+        // given
         $givenDeviceId = Uuid::v4();
         $givenMeasurementParameterId = Uuid::v4();
-        $givenStartDateTime = new DateTime('2024-02-17 12:30:00');
-        $givenEndDateTime = new DateTime('2024-02-17 13:30:00');
+        $givenStartDateTime = new \DateTime('2024-02-17 12:30:00');
+        $givenEndDateTime = new \DateTime('2024-02-17 13:30:00');
 
         $givenFirstMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new DateTimeImmutable('2024-02-17 12:00:00'))
+        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 12:00:00'))
         ->build();
         $this->save($givenFirstMeasurement);
 
         $givenSecondMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new DateTimeImmutable('2024-02-17 13:00:00'))
+        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 13:00:00'))
         ->build();
         $this->save($givenSecondMeasurement);
 
         $givenThirdMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new DateTimeImmutable('2024-02-17 14:00:00'))
+        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 14:00:00'))
         ->build();
         $this->save($givenThirdMeasurement);
 
-        //when
+        // when
         $filtredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange($givenDeviceId, $givenMeasurementParameterId, $givenStartDateTime, $givenEndDateTime);
 
-        //then
+        // then
         Assert::assertCount(1, $filtredMeasurements);
         Assert::assertContainsOnlyInstancesOf(Measurement::class, $filtredMeasurements);
         Assert::assertEquals($filtredMeasurements[0], $givenSecondMeasurement);
     }
 
     /** @test */
-    public function dont_find()
+    public function dontFind()
     {
-        //given
+        // given
 
-        //when
+        // when
         $measurement = $this->repository()->findOne(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
 
-        //then
+        // then
         Assert::assertNull($measurement);
     }
 
     /** @test */
-    public function dont_get()
+    public function dontGet()
     {
-        //expect
+        // expect
         $this->expectException(NonExistentEntityException::class);
 
-        //when
+        // when
         $this->repository()->get(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
     }
 }

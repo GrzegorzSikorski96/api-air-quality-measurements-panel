@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Infrastructure\Repository;
 
-use PHPUnit\Framework\Assert;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Domain\Entity\DeviceMeasurementParameter;
-use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
-use App\Tests\TestTemplate\DeviceMeasurementParameterRepositoryTestTemplate;
 use App\Infrastructure\Repository\DeviceMeasurementParameterDoctrineRepository;
+use App\Tests\TestTemplate\DeviceMeasurementParameterRepositoryTestTemplate;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
+use PHPUnit\Framework\Assert;
 
 final class DeviceMeasurementParameterDoctrineRepositoryTest extends DeviceMeasurementParameterRepositoryTestTemplate
 {

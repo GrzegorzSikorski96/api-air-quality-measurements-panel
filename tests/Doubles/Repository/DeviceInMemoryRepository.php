@@ -7,7 +7,6 @@ namespace App\Tests\Doubles\Repository;
 use App\Domain\Entity\Device;
 use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
-use Exception;
 use Symfony\Component\Uid\Uuid;
 
 final class DeviceInMemoryRepository implements DeviceRepositoryInterface
@@ -25,7 +24,7 @@ final class DeviceInMemoryRepository implements DeviceRepositoryInterface
     {
         $device = $this->findOne($id);
 
-        if(!$device) {
+        if (!$device) {
             throw new NonExistentEntityException(Device::class, $id->toRfc4122());
         }
 
@@ -42,7 +41,7 @@ final class DeviceInMemoryRepository implements DeviceRepositoryInterface
         /** @var Device $entity */
         foreach ($this->entities as $entity) {
             if ($name === $entity->getName()) {
-               return $entity;
+                return $entity;
             }
         }
 
@@ -59,11 +58,11 @@ final class DeviceInMemoryRepository implements DeviceRepositoryInterface
     {
         /** @var Device $entity */
         foreach ($this->entities as $id => $entity) {
-            if($device->getId()->toRfc4122() !== $id) {
+            if ($device->getId()->toRfc4122() !== $id) {
                 foreach ($this->uniqueFields as $field) {
                     $fieldAccessor = sprintf('get%s', ucfirst($field));
                     if ($entity->$fieldAccessor() === $device->$fieldAccessor()) {
-                        throw new Exception(sprintf("DETAIL:  Key (%s)=(%s) already exists.", $field, $device->$fieldAccessor())) ;
+                        throw new \Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $device->$fieldAccessor()));
                     }
                 }
             }

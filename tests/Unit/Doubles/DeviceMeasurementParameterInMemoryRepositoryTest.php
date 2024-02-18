@@ -6,12 +6,12 @@ namespace App\Tests\Unit\Doubles;
 
 use App\Domain\Entity\DeviceMeasurementParameter;
 use App\Domain\Repository\DeviceMeasurementParameterRepositoryInterface;
-use App\Tests\TestTemplate\DeviceMeasurementParameterRepositoryTestTemplate;
 use App\Tests\Doubles\Repository\DeviceMeasurementParameterInMemoryRepository;
+use App\Tests\TestTemplate\DeviceMeasurementParameterRepositoryTestTemplate;
 
 final class DeviceMeasurementParameterInMemoryRepositoryTest extends DeviceMeasurementParameterRepositoryTestTemplate
 {
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->deviceMeasurementParameterRepository = new DeviceMeasurementParameterInMemoryRepository();

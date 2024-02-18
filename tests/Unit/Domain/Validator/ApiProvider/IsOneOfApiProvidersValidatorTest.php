@@ -22,12 +22,12 @@ final class IsOneOfApiProvidersValidatorTest extends ValidatorTestCase
 
     protected function createValidator(): IsOneOfApiProvidersValidator
     {
-        /** @var IsOneOfApiProvidersValidator */
+        /* @var IsOneOfApiProvidersValidator */
         return $this->container->get(IsOneOfApiProvidersValidator::class);
     }
 
     /** @test */
-    public function api_provider_does_not_exists_in_enum()
+    public function apiProviderDoesNotExistsInEnum()
     {
         // given
         $givenNotExistingApiProvider = 'NonExistingApiProvider';
@@ -43,7 +43,7 @@ final class IsOneOfApiProvidersValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function api_provider_already_exists_in_enum()
+    public function apiProviderAlreadyExistsInEnum()
     {
         // given
         $givenApiProvider = ApiProviderEnum::LOOKO2->value;
@@ -56,7 +56,7 @@ final class IsOneOfApiProvidersValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function validator_sets_given_validation_code()
+    public function validatorSetsGivenValidationCode()
     {
         // given
         $givenViolationCode = '123';

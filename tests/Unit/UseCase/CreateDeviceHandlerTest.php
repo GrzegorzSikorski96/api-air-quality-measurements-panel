@@ -25,7 +25,7 @@ final class CreateDeviceHandlerTest extends UnitTestCase
     }
 
     /** @test */
-    public function create_measurement_parameter()
+    public function createMeasurementParameter()
     {
         // given
         $givenName = 'Given name';
@@ -47,10 +47,10 @@ final class CreateDeviceHandlerTest extends UnitTestCase
         $devices = $this->deviceRepository->findAll();
         Assert::assertCount(0, $devices);
 
-        //when
+        // when
         $this->handler->__invoke($givenCreateDeviceCommand);
 
-        //then
+        // then
         $devices = $this->deviceRepository->findAll();
         Assert::assertCount(1, $devices);
     }

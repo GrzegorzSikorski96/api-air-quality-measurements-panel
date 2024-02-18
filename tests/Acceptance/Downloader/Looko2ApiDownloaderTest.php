@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Acceptance\Downloader;
 
-use PHPUnit\Framework\Assert;
-use Symfony\Component\Uid\Uuid;
-use App\Tests\Common\AcceptanceTestCase;
-use App\Tests\Fixtures\Entity\DeviceBuilder;
-use App\Domain\Downloader\DownloaderInterface;
-use App\Infrastructure\Downloader\Looko2Downloader;
 use App\Domain\Downloader\Config\Looko2DownloaderConfig;
-use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
-use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
+use App\Domain\Downloader\DownloaderInterface;
 use App\EventStorming\MeasurementCreated\MeasurementCreatedEvent;
 use App\EventStorming\MeasurementParameterAssignedToDevice\MeasurementParameterAssignedToDeviceEvent;
+use App\Infrastructure\Downloader\Looko2Downloader;
+use App\Tests\Common\AcceptanceTestCase;
+use App\Tests\Fixtures\Entity\DeviceBuilder;
+use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
+use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
+use PHPUnit\Framework\Assert;
+use Symfony\Component\Uid\Uuid;
 
 final class Looko2ApiDownloaderTest extends AcceptanceTestCase
 {
@@ -31,7 +31,7 @@ final class Looko2ApiDownloaderTest extends AcceptanceTestCase
     }
 
     /** @test */
-    public function download_looko2_api_measurements()
+    public function downloadLooko2ApiMeasurements()
     {
         // given
         $givenDevice = DeviceBuilder::any()
@@ -55,9 +55,9 @@ final class Looko2ApiDownloaderTest extends AcceptanceTestCase
         $this->asyncTransport->process();
 
         // then
-        $this->asyncTransport->dispatched()->assertContains(CreateMeasurementCommand::class , count($givenLooko2Config->responseKeysToInternalParameterCodes));
-        $this->asyncTransport->dispatched()->assertContains(MeasurementCreatedEvent::class , count($givenLooko2Config->responseKeysToInternalParameterCodes));
-        $this->asyncTransport->dispatched()->assertContains(AssignMeasurementParameterToDeviceCommand::class , count($givenLooko2Config->responseKeysToInternalParameterCodes));
-        $this->asyncTransport->dispatched()->assertContains(MeasurementParameterAssignedToDeviceEvent::class , count($givenLooko2Config->responseKeysToInternalParameterCodes));
+        $this->asyncTransport->dispatched()->assertContains(CreateMeasurementCommand::class, count($givenLooko2Config->responseKeysToInternalParameterCodes));
+        $this->asyncTransport->dispatched()->assertContains(MeasurementCreatedEvent::class, count($givenLooko2Config->responseKeysToInternalParameterCodes));
+        $this->asyncTransport->dispatched()->assertContains(AssignMeasurementParameterToDeviceCommand::class, count($givenLooko2Config->responseKeysToInternalParameterCodes));
+        $this->asyncTransport->dispatched()->assertContains(MeasurementParameterAssignedToDeviceEvent::class, count($givenLooko2Config->responseKeysToInternalParameterCodes));
     }
 }

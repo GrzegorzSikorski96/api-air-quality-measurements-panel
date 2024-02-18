@@ -29,15 +29,15 @@ final class IsMeasurementParameterNameNotExistsValidatorTest extends ValidatorTe
 
     protected function createValidator(): IsMeasurementParameterNameNotExistsValidator
     {
-        /** @var IsMeasurementParameterNameNotExistsValidator */
+        /* @var IsMeasurementParameterNameNotExistsValidator */
         return $this->container->get(IsMeasurementParameterNameNotExistsValidator::class);
     }
 
     /** @test */
-    public function measurement_parameter_name_does_not_exists_in_database()
+    public function measurementParameterNameDoesNotExistsInDatabase()
     {
         // given
-        $givenNonExistingMeasurementParameterName = "Param";
+        $givenNonExistingMeasurementParameterName = 'Param';
 
         // when
         $this->validator->validate($givenNonExistingMeasurementParameterName, $this->givenConstraint);
@@ -47,7 +47,7 @@ final class IsMeasurementParameterNameNotExistsValidatorTest extends ValidatorTe
     }
 
     /** @test */
-    public function measurement_parameter_name_already_exists_in_database()
+    public function measurementParameterNameAlreadyExistsInDatabase()
     {
         // given
         $givenExistingName = 'Parameter';
@@ -68,7 +68,7 @@ final class IsMeasurementParameterNameNotExistsValidatorTest extends ValidatorTe
     }
 
     /** @test */
-    public function validator_sets_given_validation_code()
+    public function validatorSetsGivenValidationCode()
     {
         // given
         $givenViolationCode = '123';

@@ -21,12 +21,12 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
 
     protected function createValidator(): IsCorrectLatitudeValidator
     {
-        /** @var IsCorrectLatitudeValidator */
+        /* @var IsCorrectLatitudeValidator */
         return $this->container->get(IsCorrectLatitudeValidator::class);
     }
 
     /** @test */
-    public function latitude_value_is_lower_than_correct()
+    public function latitudeValueIsLowerThanCorrect()
     {
         // given
         $givenToLowLatitudeValue = -91;
@@ -42,7 +42,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function latitude_value_is_higher_than_correct()
+    public function latitudeValueIsHigherThanCorrect()
     {
         // given
         $givenToHighLatitudeValue = 91;
@@ -58,7 +58,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function latitude_value_is_on_top_edge()
+    public function latitudeValueIsOnTopEdge()
     {
         // given
         $givenTopEdgeLatitudeValue = 90;
@@ -71,7 +71,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function latitude_value_is_zero()
+    public function latitudeValueIsZero()
     {
         // given
         $givenZeroLatitudeValue = 0;
@@ -84,7 +84,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function latitude_value_is_on_bottom_edge()
+    public function latitudeValueIsOnBottomEdge()
     {
         // given
         $givenTopEdgeLatitudeValue = -90;
@@ -97,7 +97,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
     }
 
     /** @test */
-    public function validator_sets_given_validation_code()
+    public function validatorSetsGivenValidationCode()
     {
         // given
         $givenIncorrectLatitudeValue = -91;
