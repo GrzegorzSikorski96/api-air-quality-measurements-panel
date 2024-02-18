@@ -14,7 +14,7 @@ final readonly class CreateMeasurementCommand implements AsyncCommandInterface, 
 {
     public function __construct(
         #[IsMeasurementParameterIdExists(404)]
-        public Uuid $parameterId,
+        public Uuid $measurementParameterId,
         #[IsDeviceIdExists(404)]
         public Uuid $deviceId,
         public float $value,

@@ -17,7 +17,7 @@ class Measurement
     private Uuid $id;
 
     #[ORM\Column(type: UuidType::NAME)]
-    private Uuid $parameterId;
+    private Uuid $measurementParameterId;
 
     #[ORM\Column(type: UuidType::NAME)]
     private Uuid $deviceId;
@@ -28,10 +28,10 @@ class Measurement
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeImmutable $recordedAt;
 
-    public function __construct(Uuid $parameterId, Uuid $deviceId, float $value, \DateTimeImmutable $recordedAt, Uuid $id = null)
+    public function __construct(Uuid $measurementParameterId, Uuid $deviceId, float $value, \DateTimeImmutable $recordedAt, Uuid $id = null)
     {
         $this->id = $id ?? Uuid::v4();
-        $this->parameterId = $parameterId;
+        $this->measurementParameterId = $measurementParameterId;
         $this->deviceId = $deviceId;
         $this->value = $value;
         $this->recordedAt = $recordedAt;
@@ -47,14 +47,14 @@ class Measurement
         $this->id = $id;
     }
 
-    public function getParameterId(): Uuid
+    public function getMeasurementParameterId(): Uuid
     {
-        return $this->parameterId;
+        return $this->measurementParameterId;
     }
 
-    public function setParameterId(Uuid $parameterId): void
+    public function setMeasurementParameterId(Uuid $measurementParameterId): void
     {
-        $this->parameterId = $parameterId;
+        $this->measurementParameterId = $measurementParameterId;
     }
 
     public function getValue(): float

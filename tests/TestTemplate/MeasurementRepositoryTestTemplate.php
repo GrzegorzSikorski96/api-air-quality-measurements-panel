@@ -89,21 +89,21 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
 
         $givenFirstMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
-        ->withParameterId($givenMeasurementParameterId)
+        ->withMeasurementParameterId($givenMeasurementParameterId)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-17 12:00:00'))
         ->build();
         $this->save($givenFirstMeasurement);
 
         $givenSecondMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
-        ->withParameterId($givenMeasurementParameterId)
+        ->withMeasurementParameterId($givenMeasurementParameterId)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-17 13:00:00'))
         ->build();
         $this->save($givenSecondMeasurement);
 
         $givenThirdMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
-        ->withParameterId($givenMeasurementParameterId)
+        ->withMeasurementParameterId($givenMeasurementParameterId)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-17 14:00:00'))
         ->build();
         $this->save($givenThirdMeasurement);
@@ -129,21 +129,21 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
 
         $givenFirstMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
-        ->withParameterId($givenMeasurementParameterId)
+        ->withMeasurementParameterId($givenMeasurementParameterId)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-17 12:00:00'))
         ->build();
         $this->save($givenFirstMeasurement);
 
         $givenSecondMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
-        ->withParameterId($givenMeasurementParameterId)
+        ->withMeasurementParameterId($givenMeasurementParameterId)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-17 13:00:00'))
         ->build();
         $this->save($givenSecondMeasurement);
 
         $givenThirdMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
-        ->withParameterId($givenMeasurementParameterId)
+        ->withMeasurementParameterId($givenMeasurementParameterId)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-17 14:00:00'))
         ->build();
         $this->save($givenThirdMeasurement);

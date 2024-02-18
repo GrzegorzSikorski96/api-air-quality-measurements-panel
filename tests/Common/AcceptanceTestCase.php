@@ -126,7 +126,7 @@ abstract class AcceptanceTestCase extends KernelTestCase
     {
         $craeteMeasurementCommand = new CreateMeasurementCommand(
             deviceId: $measurement->getDeviceId(),
-            parameterId: $measurement->getParameterId(),
+            measurementParameterId: $measurement->getMeasurementParameterId(),
             value: $measurement->getValue(),
             recordedAt: $measurement->getRecordedAt()
         );

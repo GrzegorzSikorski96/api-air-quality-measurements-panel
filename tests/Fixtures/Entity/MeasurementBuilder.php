@@ -12,7 +12,7 @@ final class MeasurementBuilder
 {
     private Uuid $id;
     private float $value;
-    private Uuid $parameterId;
+    private Uuid $measurementParameterId;
     private Uuid $deviceId;
     private \DateTimeImmutable $recordedAt;
 
@@ -30,9 +30,9 @@ final class MeasurementBuilder
         return $this;
     }
 
-    public function withParameterId(Uuid $parameterId): self
+    public function withMeasurementParameterId(Uuid $measurementParameterId): self
     {
-        $this->parameterId = $parameterId;
+        $this->measurementParameterId = $measurementParameterId;
 
         return $this;
     }
@@ -61,7 +61,7 @@ final class MeasurementBuilder
         $faker = Factory::create();
 
         return new Measurement(
-            parameterId: $this->parameterId ?? Uuid::v4(),
+            measurementParameterId: $this->measurementParameterId ?? Uuid::v4(),
             deviceId: $this->deviceId ?? Uuid::v4(),
             value: $this->value ?? $faker->randomFloat(5, 1, 50),
             recordedAt: $this->recordedAt ?? new \DateTimeImmutable(),

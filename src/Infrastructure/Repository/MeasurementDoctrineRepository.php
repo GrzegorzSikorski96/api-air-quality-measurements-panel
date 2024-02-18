@@ -50,10 +50,10 @@ final class MeasurementDoctrineRepository extends ServiceEntityRepository implem
         ->select('m')
         ->andWhere('m.recordedAt >= :start_date_time')
         ->andWhere('m.deviceId = :device_id')
-        ->andWhere('m.parameterId = :parameter_id')
+        ->andWhere('m.measurementParameterId = :measurement_parameter_id')
         ->setParameters([
             'device_id' => $deviceId,
-            'parameter_id' => $measurementParameterId,
+            'measurement_parameter_id' => $measurementParameterId,
             'start_date_time' => $startDateTime,
         ]);
 

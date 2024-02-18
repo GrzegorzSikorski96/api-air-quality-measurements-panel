@@ -34,7 +34,7 @@ final class CreateMeasurementHandlerTest extends UnitTestCase
         $givenRecordedAt = new \DateTimeImmutable('2024-01-19 22:45:00');
 
         $givenCreateMeasurementCommand = new CreateMeasurementCommand(
-            parameterId: $givenParameterId,
+            measurementParameterId: $givenParameterId,
             deviceId: $givenDeviceId,
             value: $givenValue,
             recordedAt: $givenRecordedAt

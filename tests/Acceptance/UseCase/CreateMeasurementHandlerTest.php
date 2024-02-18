@@ -44,7 +44,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
         $this->handleCreateMeasurementParameter($givenMeasurementParameter);
 
         $givenCreateDeviceCommand = new CreateMeasurementCommand(
-            parameterId: $givenMeasurementParameter->getId(),
+            measurementParameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
             recordedAt: new \DateTimeImmutable('now')
@@ -75,7 +75,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
         $this->handleCreateMeasurementParameter($givenMeasurementParameter);
 
         $givenCreateMeasurementCommand = new CreateMeasurementCommand(
-            parameterId: $givenMeasurementParameter->getId(),
+            measurementParameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
             recordedAt: new \DateTimeImmutable('now')
@@ -113,7 +113,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
         $this->handleAssignMeasurementParameterToDevice($givenDeviceMeasurementParameter);
 
         $givenCreateMeasurementCommand = new CreateMeasurementCommand(
-            parameterId: $givenMeasurementParameter->getId(),
+            measurementParameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
             recordedAt: new \DateTimeImmutable('now')

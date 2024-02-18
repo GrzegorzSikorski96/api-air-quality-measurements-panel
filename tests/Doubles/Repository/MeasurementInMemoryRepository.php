@@ -50,7 +50,7 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
         foreach ($this->entities as $measurement) {
             if (
                 $measurement->getDeviceId()->toRfc4122() === $deviceId->toRfc4122()
-                && $measurement->getParameterId()->toRfc4122() === $measurementParameterId->toRfc4122()
+                && $measurement->getMeasurementParameterId()->toRfc4122() === $measurementParameterId->toRfc4122()
                 && $measurement->getRecordedAt() >= $startDateTime
             ) {
                 if (is_null($endDateTime) || $measurement->getRecordedAt() <= $endDateTime) {

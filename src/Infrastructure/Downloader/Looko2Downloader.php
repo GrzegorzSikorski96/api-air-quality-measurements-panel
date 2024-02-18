@@ -39,7 +39,7 @@ final readonly class Looko2Downloader implements DownloaderInterface
             }
 
             $createMeasurement = new CreateMeasurementCommand(
-                parameterId: $measurementParameter->getId(),
+                measurementParameterId: $measurementParameter->getId(),
                 deviceId: $device->getId(),
                 value: floatval($response[$responseKey]),
                 recordedAt: $reportedAt

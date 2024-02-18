@@ -21,7 +21,7 @@ final readonly class CreateMeasurementHandler implements CommandHandlerInterface
     public function __invoke(CreateMeasurementCommand $command): void
     {
         $measurement = new Measurement(
-            parameterId: $command->parameterId,
+            measurementParameterId: $command->measurementParameterId,
             deviceId: $command->deviceId,
             value: $command->value,
             recordedAt: new \DateTimeImmutable('now')
@@ -29,7 +29,7 @@ final readonly class CreateMeasurementHandler implements CommandHandlerInterface
 
         $this->measurementRepository->save($measurement);
 
-        $measurementCreatedEvent = new MeasurementCreatedEvent($measurement->getId(), $measurement->getDeviceId(), $measurement->getParameterId());
+        $measurementCreatedEvent = new MeasurementCreatedEvent($measurement->getId(), $measurement->getDeviceId(), $measurement->getMeasurementParameterId());
         $this->eventBus->dispatch($measurementCreatedEvent);
     }
 }

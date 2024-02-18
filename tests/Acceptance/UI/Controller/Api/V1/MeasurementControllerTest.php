@@ -28,7 +28,7 @@ final class MeasurementControllerTest extends AcceptanceTestCase
 
         $givenMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDevice->getId())
-        ->withParameterId($givenMeasurementParameter->getId())
+        ->withMeasurementParameterId($givenMeasurementParameter->getId())
         ->withValue(13.24)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-01 13:00:00'))
         ->build();
@@ -74,7 +74,7 @@ final class MeasurementControllerTest extends AcceptanceTestCase
 
         $givenMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenOtherDevice->getId())
-        ->withParameterId($givenMeasurementParameter->getId())
+        ->withMeasurementParameterId($givenMeasurementParameter->getId())
         ->withValue(13.24)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-01 13:00:00'))
         ->build();
@@ -108,7 +108,7 @@ final class MeasurementControllerTest extends AcceptanceTestCase
 
         $givenMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDevice->getId())
-        ->withParameterId($givenOtherMeasurementParameter->getId())
+        ->withMeasurementParameterId($givenOtherMeasurementParameter->getId())
         ->withValue(13.24)
         ->withRecordedAt(new \DateTimeImmutable('2024-02-01 13:00:00'))
         ->build();
