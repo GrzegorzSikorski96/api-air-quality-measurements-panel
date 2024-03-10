@@ -23,7 +23,7 @@ final class DownloaderFactory
         $fqcn = sprintf($this->fqcnTempate, ucfirst($device->getProvider()->value));
 
         if ($this->container->has($fqcn)) {
-            /** @var DownloaderInterface $downlaoder */
+            /** @var DownloaderInterface $downloader */
             $downloader = $this->container->get($fqcn);
 
             return $downloader;
