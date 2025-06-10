@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Infrastructure\Client;
 
 use App\Domain\Client\Looko2ApiClientInterface;
+use RuntimeException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final readonly class Looko2ApiClient implements Looko2ApiClientInterface
 {
     public function __construct(
         private string $baseUrl,
-        private HttpClientInterface $httpClient
+        private HttpClientInterface $httpClient,
     ) {
     }
 
@@ -25,7 +26,7 @@ final readonly class Looko2ApiClient implements Looko2ApiClientInterface
         $decodedResponse = json_decode($response->getContent(), true);
 
         if (is_null($decodedResponse)) {
-            throw new \RuntimeException(sprintf('There is problem with downloading data form Looko2. Device externalId: "%s". ', $externalDeviceId));
+            throw new RuntimeException(sprintf('There is problem with downloading data form Looko2. Device externalId: "%s". ', $externalDeviceId));
         }
 
         return $decodedResponse;

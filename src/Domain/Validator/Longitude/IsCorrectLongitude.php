@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Validator\Longitude;
 
+use Attribute;
 use Symfony\Component\Validator\Constraint;
 
-#[\Attribute]
+#[Attribute]
 final class IsCorrectLongitude extends Constraint
 {
     public string $violationCode;

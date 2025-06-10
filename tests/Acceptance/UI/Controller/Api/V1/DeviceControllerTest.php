@@ -57,7 +57,7 @@ final class DeviceControllerTest extends AcceptanceTestCase
         $this->handleCreateDevice($givenSecondDevice);
 
         // when
-        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/devices/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -79,7 +79,7 @@ final class DeviceControllerTest extends AcceptanceTestCase
         // given
 
         // when
-        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/devices/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());

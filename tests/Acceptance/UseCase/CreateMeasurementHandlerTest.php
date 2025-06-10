@@ -13,6 +13,7 @@ use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
 use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
 use App\UseCase\CreateMeasurement\CreateMeasurementHandler;
+use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
@@ -47,7 +48,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
             measurementParameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
-            recordedAt: new \DateTimeImmutable('now')
+            recordedAt: new DateTimeImmutable('now')
         );
 
         // when
@@ -78,7 +79,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
             measurementParameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
-            recordedAt: new \DateTimeImmutable('now')
+            recordedAt: new DateTimeImmutable('now')
         );
 
         // when
@@ -116,7 +117,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
             measurementParameterId: $givenMeasurementParameter->getId(),
             deviceId: $givenDevice->getId(),
             value: 13.2,
-            recordedAt: new \DateTimeImmutable('now')
+            recordedAt: new DateTimeImmutable('now')
         );
 
         // when

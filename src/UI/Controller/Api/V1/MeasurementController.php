@@ -15,13 +15,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class MeasurementController extends AbstractController
 {
     public function __construct(
-        private readonly QueryBus $queryBus
+        private readonly QueryBus $queryBus,
     ) {
     }
 
     #[Route(path: '/measurements', name: 'measurements')]
     public function measurements(
-        #[MapQueryString] MeasurementsRequestQueryDTO $measurementsRequestsQuery
+        #[MapQueryString] MeasurementsRequestQueryDTO $measurementsRequestsQuery,
     ): JsonResponse {
         $measurementsQuery = new MeasurementsQuery(
             deviceId: $measurementsRequestsQuery->deviceId,

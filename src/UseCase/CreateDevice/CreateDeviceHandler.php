@@ -15,7 +15,7 @@ final readonly class CreateDeviceHandler implements CommandHandlerInterface
 {
     public function __construct(
         private DeviceRepositoryInterface $deviceRepository,
-        private EventBus $eventBus
+        private EventBus $eventBus,
     ) {
     }
 

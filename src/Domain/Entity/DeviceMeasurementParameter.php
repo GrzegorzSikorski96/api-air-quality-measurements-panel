@@ -13,8 +13,8 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Entity]
 #[UniqueEntity(
     fields: ['deviceId', 'measurementParameterId'],
-    errorPath: 'measurementParameterId',
     message: 'This parameter is already assigned to this device.',
+    errorPath: 'measurementParameterId',
 )]
 #[UniqueConstraint(columns: ['device_id', 'measurement_parameter_id'])]
 class DeviceMeasurementParameter
@@ -29,7 +29,7 @@ class DeviceMeasurementParameter
     #[ORM\Column(type: UuidType::NAME)]
     private Uuid $measurementParameterId;
 
-    public function __construct(Uuid $deviceId, Uuid $measurementParameterId, Uuid $id = null)
+    public function __construct(Uuid $deviceId, Uuid $measurementParameterId, ?Uuid $id = null)
     {
         $this->id = $id ?? Uuid::v4();
         $this->deviceId = $deviceId;

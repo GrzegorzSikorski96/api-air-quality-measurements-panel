@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Validator\MeasurementParameterId;
 
+use Attribute;
 use Symfony\Component\Validator\Constraint;
 
-#[\Attribute]
+#[Attribute]
 final class IsMeasurementParameterIdNotExists extends Constraint
 {
     public string $violationCode;

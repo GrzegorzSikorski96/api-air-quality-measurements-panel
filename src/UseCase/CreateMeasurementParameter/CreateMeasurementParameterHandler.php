@@ -14,7 +14,7 @@ final readonly class CreateMeasurementParameterHandler implements CommandHandler
 {
     public function __construct(
         private MeasurementParameterRepositoryInterface $measurementParameterRepository,
-        private EventBus $eventBus
+        private EventBus $eventBus,
     ) {
     }
 

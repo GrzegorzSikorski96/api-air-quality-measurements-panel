@@ -59,7 +59,7 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         $this->measurementParameterRepository->save($givenSecondMeasurementParameter);
 
         // when
-        $response = $this->selfRequest('GET', '/api/v1/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/measurementParameters/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -78,7 +78,7 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         // given
 
         // when
-        $response = $this->selfRequest('GET', '/api/v1/measurementParameter/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/measurementParameters/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());

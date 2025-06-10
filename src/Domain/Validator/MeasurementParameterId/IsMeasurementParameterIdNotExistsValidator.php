@@ -10,10 +10,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class IsMeasurementParameterIdNotExistsValidator extends ConstraintValidator
+final class IsMeasurementParameterIdNotExistsValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly MeasurementParameterRepositoryInterface $measurementParameterRepository
+        private readonly MeasurementParameterRepositoryInterface $measurementParameterRepository,
     ) {
     }
 

@@ -7,6 +7,8 @@ namespace App\Tests\Doubles\Repository;
 use App\Domain\Entity\Measurement;
 use App\Domain\Repository\MeasurementRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
+use DateTime;
+use Exception;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementInMemoryRepository implements MeasurementRepositoryInterface
@@ -20,20 +22,20 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
         $this->entities[$measurement->getId()->toRfc4122()] = $measurement;
     }
 
-    public function get(Uuid $id): Measurement
+    public function get(Uuid $measurementId): Measurement
     {
-        $measurement = $this->findOne($id);
+        $measurement = $this->findOne($measurementId);
 
         if (!$measurement) {
-            throw new NonExistentEntityException(Measurement::class, $id->toRfc4122());
+            throw new NonExistentEntityException(Measurement::class, $measurementId->toRfc4122());
         }
 
         return $measurement;
     }
 
-    public function findOne(Uuid $id): ?Measurement
+    public function findOne(Uuid $measurementId): ?Measurement
     {
-        return $this->entities[$id->toRfc4122()] ?? null;
+        return $this->entities[$measurementId->toRfc4122()] ?? null;
     }
 
     /** @return Measurement[] */
@@ -42,7 +44,7 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
         return $this->entities;
     }
 
-    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, \DateTime $startDateTime, \DateTime $endDateTime = null): array
+    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, DateTime $startDateTime, ?DateTime $endDateTime = null): array
     {
         $measurements = [];
 
@@ -72,7 +74,7 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
                 foreach ($this->uniqueFields as $field) {
                     $fieldAccessor = sprintf('get%s', ucfirst($field));
                     if ($entity->$fieldAccessor() === $measurement->$fieldAccessor()) {
-                        throw new \Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $measurement->$fieldAccessor()));
+                        throw new Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $measurement->$fieldAccessor()));
                     }
                 }
             }

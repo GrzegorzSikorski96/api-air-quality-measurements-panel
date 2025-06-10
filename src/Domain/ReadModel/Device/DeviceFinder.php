@@ -7,10 +7,10 @@ namespace App\Domain\ReadModel\Device;
 use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Infrastructure\Messenger\Query\QueryFinderInterface;
 
-final class DeviceFinder implements QueryFinderInterface
+final readonly class DeviceFinder implements QueryFinderInterface
 {
     public function __construct(
-        private DeviceRepositoryInterface $deviceRepository
+        private DeviceRepositoryInterface $deviceRepository,
     ) {
     }
 

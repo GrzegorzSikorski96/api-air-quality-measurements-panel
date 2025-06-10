@@ -13,7 +13,7 @@ final readonly class MeasurementCreatedEventListener implements EventListenerInt
 {
     public function __construct(
         private DeviceMeasurementParameterRepositoryInterface $deviceMeasurementParameterRepository,
-        private CommandBus $commandBus
+        private CommandBus $commandBus,
     ) {
     }
 

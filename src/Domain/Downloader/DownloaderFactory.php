@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Downloader;
 
 use App\Domain\Entity\Device;
+use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class DownloaderFactory
@@ -28,7 +29,7 @@ final class DownloaderFactory
 
             return $downloader;
         } else {
-            throw new \InvalidArgumentException(sprintf('Downloader not found for provider: %s', $device->getProvider()->value));
+            throw new InvalidArgumentException(sprintf('Downloader not found for provider: %s', $device->getProvider()->value));
         }
     }
 }

@@ -16,7 +16,7 @@ use Symfony\Component\Uid\Uuid;
 class MeasurementParameterController extends AbstractController
 {
     public function __construct(
-        private readonly QueryBus $queryBus
+        private readonly QueryBus $queryBus,
     ) {
     }
 
@@ -29,7 +29,7 @@ class MeasurementParameterController extends AbstractController
         return new JsonResponse($allMeasurementParameters->measurementParameters);
     }
 
-    #[Route(path: '/measurementParameter/{id}', name: 'measurement_parameter')]
+    #[Route(path: '/measurementParameters/{id}', name: 'measurement_parameter')]
     public function measurementParameter(string $id): JsonResponse
     {
         $measurementParameterQuery = new MeasurementParameterQuery(Uuid::fromString($id));

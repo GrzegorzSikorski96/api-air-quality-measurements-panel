@@ -8,6 +8,7 @@ use App\Tests\Common\AcceptanceTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use App\Tests\Fixtures\Entity\MeasurementBuilder;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
+use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
@@ -24,13 +25,13 @@ final class MeasurementControllerTest extends AcceptanceTestCase
         $givenMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->handleCreateMeasurementParameter($givenMeasurementParameter);
 
-        $givenStartDateTime = new \DateTimeImmutable('2024-02-01');
+        $givenStartDateTime = new DateTimeImmutable('2024-02-01');
 
         $givenMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDevice->getId())
         ->withMeasurementParameterId($givenMeasurementParameter->getId())
         ->withValue(13.24)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-01 13:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-01 13:00:00'))
         ->build();
         $this->handleCreateMeasurement($givenMeasurement);
 
@@ -70,13 +71,13 @@ final class MeasurementControllerTest extends AcceptanceTestCase
         $givenMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->handleCreateMeasurementParameter($givenMeasurementParameter);
 
-        $givenStartDateTime = new \DateTimeImmutable('2024-02-01');
+        $givenStartDateTime = new DateTimeImmutable('2024-02-01');
 
         $givenMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenOtherDevice->getId())
         ->withMeasurementParameterId($givenMeasurementParameter->getId())
         ->withValue(13.24)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-01 13:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-01 13:00:00'))
         ->build();
         $this->handleCreateMeasurement($givenMeasurement);
 
@@ -104,13 +105,13 @@ final class MeasurementControllerTest extends AcceptanceTestCase
         $givenOtherMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->handleCreateMeasurementParameter($givenOtherMeasurementParameter);
 
-        $givenStartDateTime = new \DateTimeImmutable('2024-02-01');
+        $givenStartDateTime = new DateTimeImmutable('2024-02-01');
 
         $givenMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDevice->getId())
         ->withMeasurementParameterId($givenOtherMeasurementParameter->getId())
         ->withValue(13.24)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-01 13:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-01 13:00:00'))
         ->build();
         $this->handleCreateMeasurement($givenMeasurement);
 

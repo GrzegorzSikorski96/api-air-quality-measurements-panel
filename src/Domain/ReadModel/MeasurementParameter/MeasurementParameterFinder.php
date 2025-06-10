@@ -7,10 +7,10 @@ namespace App\Domain\ReadModel\MeasurementParameter;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Infrastructure\Messenger\Query\QueryFinderInterface;
 
-final class MeasurementParameterFinder implements QueryFinderInterface
+final readonly class MeasurementParameterFinder implements QueryFinderInterface
 {
     public function __construct(
-        private MeasurementParameterRepositoryInterface $measurementParameterRepository
+        private MeasurementParameterRepositoryInterface $measurementParameterRepository,
     ) {
     }
 

@@ -29,7 +29,7 @@ final class DownloaderFactoryTest extends UnitTestCase
      *
      * @dataProvider apiProvidersProvider
      */
-    public function returnCorrectDownlaoder(string $givenApiProvider, string $expectedClass)
+    public function returnCorrectDownloader(string $givenApiProvider, string $expectedClass)
     {
         // given
         $device = DeviceBuilder::any()
