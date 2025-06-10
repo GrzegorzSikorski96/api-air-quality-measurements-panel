@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Validator\DeviceName;
 
+use Attribute;
 use Symfony\Component\Validator\Constraint;
 
-#[\Attribute]
+#[Attribute]
 final class IsDeviceNameNotExists extends Constraint
 {
     public string $violationCode;

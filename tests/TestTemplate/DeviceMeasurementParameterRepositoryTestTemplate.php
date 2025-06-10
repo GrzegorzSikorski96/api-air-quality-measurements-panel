@@ -36,7 +36,7 @@ abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTest
     }
 
     /** @test */
-    public function throwExceptionWhenDeviceMeasuremetParameterExists(): void
+    public function throwExceptionWhenDeviceMeasurementParameterExists(): void
     {
         // given
         $givenDeviceId = Uuid::v4();
@@ -58,10 +58,6 @@ abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTest
 
         // when
         $this->save($givenSecondDeviceMeasurementParameter);
-        try {
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
     }
 
     /** @test */

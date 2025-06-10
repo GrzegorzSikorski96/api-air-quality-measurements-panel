@@ -10,7 +10,7 @@ use App\Tests\Fixtures\Mother\ApiResponse\Looko2ApiResponseMother;
 final readonly class Looko2ApiClientInMemory implements Looko2ApiClientInterface
 {
     public function __construct(
-        private HttpResponse $httpResponse
+        private HttpResponse $httpResponse,
     ) {
         $this->httpResponse->setResponsesList([Looko2ApiResponseMother::getExampleResponse()]);
     }

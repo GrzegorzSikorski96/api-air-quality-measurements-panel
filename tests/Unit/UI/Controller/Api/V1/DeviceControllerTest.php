@@ -35,7 +35,7 @@ final class DeviceControllerTest extends UnitTestCase
         foreach ($devices as $device) {
             if ($device->id === $givenFirstDevice->getId()->toRfc4122()) {
                 $expectedDevice = $givenFirstDevice;
-            } elseif ($device->id === $givenSecondDevice->getId()->toRfc4122()) {
+            } else {
                 $expectedDevice = $givenSecondDevice;
             }
 
@@ -62,7 +62,7 @@ final class DeviceControllerTest extends UnitTestCase
         $this->deviceRepository->save($givenSecondDevice);
 
         // when
-        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53');
+        $response = $this->selfRequest('GET', '/api/v1/devices/43192d2a-724e-4e43-b5bd-ec0588b38c53');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -97,7 +97,7 @@ final class DeviceControllerTest extends UnitTestCase
         $this->deviceMeasurementParameterRepository->save($givenDeviceMeasurementParameter);
 
         // when
-        $response = $this->selfRequest('GET', '/api/v1/device/43192d2a-724e-4e43-b5bd-ec0588b38c53/details');
+        $response = $this->selfRequest('GET', '/api/v1/devices/43192d2a-724e-4e43-b5bd-ec0588b38c53/details');
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());

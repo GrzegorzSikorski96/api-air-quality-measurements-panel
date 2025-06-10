@@ -21,23 +21,22 @@ final class MeasurementParameterDoctrineRepository extends ServiceEntityReposito
     public function save(MeasurementParameter $measurementParameter): void
     {
         $this->getEntityManager()->persist($measurementParameter);
-        $this->getEntityManager()->flush();
     }
 
-    public function get(Uuid $id): MeasurementParameter
+    public function get(Uuid $measurementParameterId): MeasurementParameter
     {
-        $measurementParameter = $this->findOne($id);
+        $measurementParameter = $this->findOne($measurementParameterId);
 
         if (!$measurementParameter) {
-            throw new NonExistentEntityException(MeasurementParameter::class, $id->toRfc4122());
+            throw new NonExistentEntityException(MeasurementParameter::class, $measurementParameterId->toRfc4122());
         }
 
         return $measurementParameter;
     }
 
-    public function findOne(Uuid $id): ?MeasurementParameter
+    public function findOne(Uuid $measurementParameterId): ?MeasurementParameter
     {
-        return $this->find($id);
+        return $this->find($measurementParameterId);
     }
 
     public function findAll(): array

@@ -9,7 +9,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 
-final class FlushMiddleware implements MiddlewareInterface
+final readonly class FlushMiddleware implements MiddlewareInterface
 {
     public function __construct(private EntityManagerInterface $em)
     {

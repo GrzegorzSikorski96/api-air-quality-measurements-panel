@@ -114,8 +114,8 @@ abstract class AcceptanceTestCase extends KernelTestCase
     public function handleAssignMeasurementParameterToDevice(DeviceMeasurementParameter $deviceMeasurementParameter): void
     {
         $assignMeasurementParameterToDeviceCommand = new AssignMeasurementParameterToDeviceCommand(
-            deviceId: $deviceMeasurementParameter->getDeviceId(),
             measurementParameterId: $deviceMeasurementParameter->getMeasurementParameterId(),
+            deviceId: $deviceMeasurementParameter->getDeviceId(),
         );
         $this->commandBus->dispatch($assignMeasurementParameterToDeviceCommand);
         $this->asyncTransport->process(1)->reset();
@@ -124,13 +124,13 @@ abstract class AcceptanceTestCase extends KernelTestCase
 
     public function handleCreateMeasurement(Measurement $measurement): void
     {
-        $craeteMeasurementCommand = new CreateMeasurementCommand(
-            deviceId: $measurement->getDeviceId(),
+        $createMeasurementCommand = new CreateMeasurementCommand(
             measurementParameterId: $measurement->getMeasurementParameterId(),
+            deviceId: $measurement->getDeviceId(),
             value: $measurement->getValue(),
             recordedAt: $measurement->getRecordedAt()
         );
-        $this->commandBus->dispatch($craeteMeasurementCommand);
+        $this->commandBus->dispatch($createMeasurementCommand);
         $this->asyncTransport->process(1)->reset();
         $this->asyncTransport->reset();
     }

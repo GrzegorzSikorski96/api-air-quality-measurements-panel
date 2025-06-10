@@ -8,6 +8,8 @@ use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use App\Tests\Fixtures\Entity\MeasurementBuilder;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
+use DateTime;
+use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
@@ -24,13 +26,13 @@ final class MeasurementControllerTest extends UnitTestCase
         $givenMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->measurementParameterRepository->save($givenMeasurementParameter);
 
-        $givenStartDateTime = new \DateTimeImmutable('2024-02-01');
+        $givenStartDateTime = new DateTimeImmutable('2024-02-01');
 
         $givenMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDevice->getId())
         ->withMeasurementParameterId($givenMeasurementParameter->getId())
         ->withValue(13.24)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-01 13:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-01 13:00:00'))
         ->build();
         $this->measurementRepository->save($givenMeasurement);
 
@@ -61,7 +63,7 @@ final class MeasurementControllerTest extends UnitTestCase
         $givenMeasurementParameter = MeasurementParameterBuilder::any()->build();
         $this->measurementParameterRepository->save($givenMeasurementParameter);
 
-        $givenStartDateTime = new \DateTime('2024-02-01');
+        $givenStartDateTime = new DateTime('2024-02-01');
 
         // when
         $response = $this->selfRequest('GET', sprintf(
@@ -83,7 +85,7 @@ final class MeasurementControllerTest extends UnitTestCase
         $this->deviceRepository->save($givenDevice);
 
         $givenNotExistingMeasurementParameterId = Uuid::v4();
-        $givenStartDateTime = new \DateTime('2024-02-01');
+        $givenStartDateTime = new DateTime('2024-02-01');
 
         // when
         $response = $this->selfRequest('GET', sprintf(

@@ -11,7 +11,7 @@ use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Infrastructure\Messenger\Query\QueryFinderInterface;
 
-final class DeviceWithMeasurementParametersFinder implements QueryFinderInterface
+final readonly class DeviceWithMeasurementParametersFinder implements QueryFinderInterface
 {
     public function __construct(
         private DeviceRepositoryInterface $deviceRepository,

@@ -6,7 +6,6 @@ namespace App\UI\Command;
 
 use App\Domain\Downloader\DownloaderFactory;
 use App\Domain\Repository\DeviceRepositoryInterface;
-use App\Infrastructure\Messenger\Command\CommandBus;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +21,6 @@ final class DownloadMeasurementsCommand extends Command
     public function __construct(
         private readonly DeviceRepositoryInterface $deviceRepository,
         private readonly DownloaderFactory $downloaderFactory,
-        private readonly CommandBus $commandBus,
     ) {
         parent::__construct();
     }

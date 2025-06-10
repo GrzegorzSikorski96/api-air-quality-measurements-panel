@@ -23,20 +23,20 @@ final class DeviceDoctrineRepository extends ServiceEntityRepository implements 
         $this->getEntityManager()->persist($device);
     }
 
-    public function get(Uuid $id): Device
+    public function get(Uuid $deviceId): Device
     {
-        $device = $this->findOne($id);
+        $device = $this->findOne($deviceId);
 
         if (!$device) {
-            throw new NonExistentEntityException(Device::class, $id->toRfc4122());
+            throw new NonExistentEntityException(Device::class, $deviceId->toRfc4122());
         }
 
         return $device;
     }
 
-    public function findOne(Uuid $id): ?Device
+    public function findOne(Uuid $deviceId): ?Device
     {
-        return $this->find($id);
+        return $this->find($deviceId);
     }
 
     public function findOneByName(string $name): ?Device

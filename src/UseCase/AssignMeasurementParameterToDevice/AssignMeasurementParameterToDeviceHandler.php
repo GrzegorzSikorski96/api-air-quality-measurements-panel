@@ -14,7 +14,7 @@ final readonly class AssignMeasurementParameterToDeviceHandler implements Comman
 {
     public function __construct(
         private DeviceMeasurementParameterRepositoryInterface $deviceMeasurementParameterRepository,
-        private EventBus $eventBus
+        private EventBus $eventBus,
     ) {
     }
 

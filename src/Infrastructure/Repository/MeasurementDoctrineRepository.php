@@ -7,6 +7,7 @@ namespace App\Infrastructure\Repository;
 use App\Domain\Entity\Measurement;
 use App\Domain\Repository\MeasurementRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
@@ -23,20 +24,20 @@ final class MeasurementDoctrineRepository extends ServiceEntityRepository implem
         $this->getEntityManager()->persist($measurement);
     }
 
-    public function get(Uuid $id): Measurement
+    public function get(Uuid $measurementId): Measurement
     {
-        $measurement = $this->findOne($id);
+        $measurement = $this->findOne($measurementId);
 
         if (!$measurement) {
-            throw new NonExistentEntityException(Measurement::class, $id->toRfc4122());
+            throw new NonExistentEntityException(Measurement::class, $measurementId->toRfc4122());
         }
 
         return $measurement;
     }
 
-    public function findOne(Uuid $id): ?Measurement
+    public function findOne(Uuid $measurementId): ?Measurement
     {
-        return $this->find($id);
+        return $this->find($measurementId);
     }
 
     public function findAll(): array
@@ -44,7 +45,7 @@ final class MeasurementDoctrineRepository extends ServiceEntityRepository implem
         return $this->findBy([]);
     }
 
-    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, \DateTime $startDateTime, \DateTime $endDateTime = null): array
+    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, DateTime $startDateTime, ?DateTime $endDateTime = null): array
     {
         $queryBuilder = $this->createQueryBuilder('m')
         ->select('m')

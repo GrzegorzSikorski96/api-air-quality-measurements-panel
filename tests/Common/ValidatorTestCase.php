@@ -20,7 +20,7 @@ abstract class ValidatorTestCase extends ConstraintValidatorTestCase
 
     protected function setUp(): void
     {
-        $kernelTestCase = new class() extends KernelTestCase {
+        $kernelTestCase = new class extends KernelTestCase {
             public static function getContainer(): Container
             {
                 return parent::getContainer();

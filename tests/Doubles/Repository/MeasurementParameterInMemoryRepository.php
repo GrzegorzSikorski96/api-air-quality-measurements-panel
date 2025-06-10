@@ -7,6 +7,7 @@ namespace App\Tests\Doubles\Repository;
 use App\Domain\Entity\MeasurementParameter;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
+use Exception;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementParameterInMemoryRepository implements MeasurementParameterRepositoryInterface
@@ -20,20 +21,20 @@ final class MeasurementParameterInMemoryRepository implements MeasurementParamet
         $this->entities[$measurementParameter->getId()->toRfc4122()] = $measurementParameter;
     }
 
-    public function get(Uuid $id): MeasurementParameter
+    public function get(Uuid $measurementParameterId): MeasurementParameter
     {
-        $measurementParameter = $this->findOne($id);
+        $measurementParameter = $this->findOne($measurementParameterId);
 
         if (!$measurementParameter) {
-            throw new NonExistentEntityException(MeasurementParameter::class, $id->toRfc4122());
+            throw new NonExistentEntityException(MeasurementParameter::class, $measurementParameterId->toRfc4122());
         }
 
         return $measurementParameter;
     }
 
-    public function findOne(Uuid $id): ?MeasurementParameter
+    public function findOne(Uuid $measurementParameterId): ?MeasurementParameter
     {
-        return $this->entities[$id->toRfc4122()] ?? null;
+        return $this->entities[$measurementParameterId->toRfc4122()] ?? null;
     }
 
     public function findOneByName(string $name): ?MeasurementParameter
@@ -86,7 +87,7 @@ final class MeasurementParameterInMemoryRepository implements MeasurementParamet
                 foreach ($this->uniqueFields as $field) {
                     $fieldAccessor = sprintf('get%s', ucfirst($field));
                     if ($entity->$fieldAccessor() === $measurementParameter->$fieldAccessor()) {
-                        throw new \Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $measurementParameter->$fieldAccessor()));
+                        throw new Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $measurementParameter->$fieldAccessor()));
                     }
                 }
             }

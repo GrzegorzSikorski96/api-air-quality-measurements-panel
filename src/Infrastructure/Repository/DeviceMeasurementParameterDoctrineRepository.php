@@ -23,20 +23,20 @@ final class DeviceMeasurementParameterDoctrineRepository extends ServiceEntityRe
         $this->getEntityManager()->persist($deviceMeasurementParameter);
     }
 
-    public function get(Uuid $id): DeviceMeasurementParameter
+    public function get(Uuid $deviceMeasurementParameterId): DeviceMeasurementParameter
     {
-        $deviceMeasurementParameter = $this->findOne($id);
+        $deviceMeasurementParameter = $this->findOne($deviceMeasurementParameterId);
 
         if (!$deviceMeasurementParameter) {
-            throw new NonExistentEntityException(DeviceMeasurementParameter::class, $id->toRfc4122());
+            throw new NonExistentEntityException(DeviceMeasurementParameter::class, $deviceMeasurementParameterId->toRfc4122());
         }
 
         return $deviceMeasurementParameter;
     }
 
-    public function findOne(Uuid $id): ?DeviceMeasurementParameter
+    public function findOne(Uuid $deviceMeasurementParameterId): ?DeviceMeasurementParameter
     {
-        return $this->find($id);
+        return $this->find($deviceMeasurementParameterId);
     }
 
     public function findByDeviceId(Uuid $deviceId): array

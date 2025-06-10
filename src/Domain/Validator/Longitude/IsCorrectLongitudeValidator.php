@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class IsCorrectLongitudeValidator extends ConstraintValidator
+final class IsCorrectLongitudeValidator extends ConstraintValidator
 {
     public function validate(mixed $value, Constraint $constraint): void
     {

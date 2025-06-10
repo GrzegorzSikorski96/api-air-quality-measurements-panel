@@ -10,10 +10,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class IsDeviceIdExistsValidator extends ConstraintValidator
+final class IsDeviceIdExistsValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly DeviceRepositoryInterface $deviceRepository
+        private readonly DeviceRepositoryInterface $deviceRepository,
     ) {
     }
 

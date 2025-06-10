@@ -17,7 +17,7 @@ use Symfony\Component\Uid\Uuid;
 class DeviceController extends AbstractController
 {
     public function __construct(
-        private readonly QueryBus $queryBus
+        private readonly QueryBus $queryBus,
     ) {
     }
 
@@ -30,7 +30,7 @@ class DeviceController extends AbstractController
         return new JsonResponse($allDevices->devices);
     }
 
-    #[Route(path: '/device/{id}', name: 'device')]
+    #[Route(path: '/devices/{id}', name: 'device')]
     public function device(string $id): JsonResponse
     {
         $deviceQuery = new DeviceQuery(Uuid::fromString($id));
@@ -43,7 +43,7 @@ class DeviceController extends AbstractController
         return new JsonResponse($device);
     }
 
-    #[Route(path: '/device/{id}/details', name: 'device_details')]
+    #[Route(path: '/devices/{id}/details', name: 'device_details')]
     public function deviceDetails(string $id): JsonResponse
     {
         $deviceWithMeasurementParametersQuery = new DeviceWithMeasurementParametersQuery(Uuid::fromString($id));

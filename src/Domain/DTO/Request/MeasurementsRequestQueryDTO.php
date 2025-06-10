@@ -6,6 +6,7 @@ namespace App\Domain\DTO\Request;
 
 use App\Domain\Validator\DeviceId\IsDeviceIdExists;
 use App\Domain\Validator\MeasurementParameterId\IsMeasurementParameterIdExists;
+use DateTime;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementsRequestQueryDTO
@@ -14,21 +15,21 @@ final class MeasurementsRequestQueryDTO
     public Uuid $deviceId;
     #[IsMeasurementParameterIdExists(404)]
     public Uuid $measurementParameterId;
-    public \DateTime $startDateTime;
-    public ?\DateTime $endDateTime = null;
+    public DateTime $startDateTime;
+    public ?DateTime $endDateTime = null;
 
     public function __construct(
         string $deviceId,
         string $measurementParameterId,
         string $startDateTime,
-        string $endDateTime = null
+        ?string $endDateTime = null,
     ) {
         $this->deviceId = Uuid::fromString($deviceId);
         $this->measurementParameterId = Uuid::fromString($measurementParameterId);
-        $this->startDateTime = new \DateTime($startDateTime);
+        $this->startDateTime = new DateTime($startDateTime);
 
         if (!is_null($endDateTime)) {
-            $this->endDateTime = new \DateTime($endDateTime);
+            $this->endDateTime = new DateTime($endDateTime);
         }
     }
 }

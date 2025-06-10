@@ -9,6 +9,8 @@ use App\Domain\Repository\MeasurementRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\MeasurementBuilder;
+use DateTime;
+use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Uid\Uuid;
 
@@ -23,7 +25,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
     {
         // given
         $givenMeasurementId = Uuid::v4();
-        $givenRecordedAt = new \DateTimeImmutable('2024-01-01 13:00:00');
+        $givenRecordedAt = new DateTimeImmutable('2024-01-01 13:00:00');
         $givenMeasurement = MeasurementBuilder::any()
             ->withId($givenMeasurementId)
             ->withRecordedAt($givenRecordedAt)
@@ -43,7 +45,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
     {
         // given
         $givenId = Uuid::fromString('f675e192-dad9-4ae8-af69-ecd80e870fa7');
-        $givenRecordedAt = new \DateTimeImmutable('2024-01-01 13:00:00');
+        $givenRecordedAt = new DateTimeImmutable('2024-01-01 13:00:00');
         $givenMeasurement = MeasurementBuilder::any()
             ->withId($givenId)
             ->withRecordedAt($givenRecordedAt)
@@ -85,37 +87,37 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         // given
         $givenDeviceId = Uuid::v4();
         $givenMeasurementParameterId = Uuid::v4();
-        $givenStartDateTime = new \DateTime('2024-02-17 12:30:00');
+        $givenStartDateTime = new DateTime('2024-02-17 12:30:00');
 
         $givenFirstMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withMeasurementParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 12:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-17 12:00:00'))
         ->build();
         $this->save($givenFirstMeasurement);
 
         $givenSecondMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withMeasurementParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 13:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-17 13:00:00'))
         ->build();
         $this->save($givenSecondMeasurement);
 
         $givenThirdMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withMeasurementParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 14:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-17 14:00:00'))
         ->build();
         $this->save($givenThirdMeasurement);
 
         // when
-        $filtredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange($givenDeviceId, $givenMeasurementParameterId, $givenStartDateTime);
+        $filteredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange($givenDeviceId, $givenMeasurementParameterId, $givenStartDateTime);
 
         // then
-        Assert::assertCount(2, $filtredMeasurements);
-        Assert::assertContainsOnlyInstancesOf(Measurement::class, $filtredMeasurements);
-        Assert::assertEquals($filtredMeasurements[0], $givenSecondMeasurement);
-        Assert::assertEquals($filtredMeasurements[1], $givenThirdMeasurement);
+        Assert::assertCount(2, $filteredMeasurements);
+        Assert::assertContainsOnlyInstancesOf(Measurement::class, $filteredMeasurements);
+        Assert::assertEquals($filteredMeasurements[0], $givenSecondMeasurement);
+        Assert::assertEquals($filteredMeasurements[1], $givenThirdMeasurement);
     }
 
     /** @test */
@@ -124,37 +126,37 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         // given
         $givenDeviceId = Uuid::v4();
         $givenMeasurementParameterId = Uuid::v4();
-        $givenStartDateTime = new \DateTime('2024-02-17 12:30:00');
-        $givenEndDateTime = new \DateTime('2024-02-17 13:30:00');
+        $givenStartDateTime = new DateTime('2024-02-17 12:30:00');
+        $givenEndDateTime = new DateTime('2024-02-17 13:30:00');
 
         $givenFirstMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withMeasurementParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 12:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-17 12:00:00'))
         ->build();
         $this->save($givenFirstMeasurement);
 
         $givenSecondMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withMeasurementParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 13:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-17 13:00:00'))
         ->build();
         $this->save($givenSecondMeasurement);
 
         $givenThirdMeasurement = MeasurementBuilder::any()
         ->withDeviceId($givenDeviceId)
         ->withMeasurementParameterId($givenMeasurementParameterId)
-        ->withRecordedAt(new \DateTimeImmutable('2024-02-17 14:00:00'))
+        ->withRecordedAt(new DateTimeImmutable('2024-02-17 14:00:00'))
         ->build();
         $this->save($givenThirdMeasurement);
 
         // when
-        $filtredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange($givenDeviceId, $givenMeasurementParameterId, $givenStartDateTime, $givenEndDateTime);
+        $filteredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange($givenDeviceId, $givenMeasurementParameterId, $givenStartDateTime, $givenEndDateTime);
 
         // then
-        Assert::assertCount(1, $filtredMeasurements);
-        Assert::assertContainsOnlyInstancesOf(Measurement::class, $filtredMeasurements);
-        Assert::assertEquals($filtredMeasurements[0], $givenSecondMeasurement);
+        Assert::assertCount(1, $filteredMeasurements);
+        Assert::assertContainsOnlyInstancesOf(Measurement::class, $filteredMeasurements);
+        Assert::assertEquals($filteredMeasurements[0], $givenSecondMeasurement);
     }
 
     /** @test */

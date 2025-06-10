@@ -11,6 +11,7 @@ use App\Domain\Repository\DeviceRepositoryInterface;
 use App\Domain\Repository\MeasurementParameterRepositoryInterface;
 use App\Infrastructure\Messenger\Command\CommandBus;
 use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
+use DateTimeImmutable;
 use Symfony\Component\Uid\Uuid;
 
 final readonly class Looko2Downloader implements DownloaderInterface
@@ -20,14 +21,14 @@ final readonly class Looko2Downloader implements DownloaderInterface
         private Looko2ApiClientInterface $apiClient,
         private DeviceRepositoryInterface $deviceRepository,
         private MeasurementParameterRepositoryInterface $measurementParameterRepository,
-        private Looko2DownloaderConfig $config
+        private Looko2DownloaderConfig $config,
     ) {
     }
 
     public function download(Uuid $deviceId): void
     {
         $device = $this->deviceRepository->findOne($deviceId);
-        $reportedAt = new \DateTimeImmutable('now');
+        $reportedAt = new DateTimeImmutable('now');
 
         $response = $this->apiClient->getLastDeviceMeasurement($device->getExternalId(), $device->getToken());
 
