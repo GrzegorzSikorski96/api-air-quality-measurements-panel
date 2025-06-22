@@ -15,6 +15,7 @@ use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
 use App\UseCase\CreateMeasurement\CreateMeasurementHandler;
 use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 final class CreateMeasurementHandlerTest extends AcceptanceTestCase
@@ -30,7 +31,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
         $this->handler = $handler;
     }
 
-    /** @test */
+    #[Test]
     public function createMeasurementHandlerTest(): void
     {
         // given
@@ -61,7 +62,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
         $this->asyncTransport->dispatched()->assertContains(MeasurementCreatedEvent::class, 1);
     }
 
-    /** @test */
+    #[Test]
     public function createMeasurementAndDispatchAssignMeasurementParameterToDeviceTest(): void
     {
         // given
@@ -93,7 +94,7 @@ final class CreateMeasurementHandlerTest extends AcceptanceTestCase
         $this->asyncTransport->dispatched()->assertContains(AssignMeasurementParameterToDeviceCommand::class, 1);
     }
 
-    /** @test */
+    #[Test]
     public function createMeasurementAndDontDispatchAssignMeasurementParameterToDeviceTest(): void
     {
         // given

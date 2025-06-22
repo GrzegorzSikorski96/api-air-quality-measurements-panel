@@ -18,7 +18,7 @@ final class IsMeasurementParameterNameNotExistsValidator extends ConstraintValid
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsMeasurementParameterNameNotExists) {
+        if (! $constraint instanceof IsMeasurementParameterNameNotExists) {
             throw new UnexpectedTypeException($constraint, IsMeasurementParameterNameNotExists::class);
         }
 
@@ -27,7 +27,7 @@ final class IsMeasurementParameterNameNotExistsValidator extends ConstraintValid
         }
 
         /** @var string $value */
-        if (!is_null($this->measurementParameterRepository->findOneByName($value))) {
+        if (! is_null($this->measurementParameterRepository->findOneByName($value))) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)
                 ->setCode($constraint->violationCode)

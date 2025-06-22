@@ -39,8 +39,15 @@ class Device
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $createdAt;
 
-    public function __construct(string $name, float $latitude, float $longitude, ApiProviderEnum $provider, ?string $externalId = null, ?string $token = null, ?Uuid $id = null)
-    {
+    public function __construct(
+        string $name,
+        float $latitude,
+        float $longitude,
+        ApiProviderEnum $provider,
+        ?string $externalId = null,
+        ?string $token = null,
+        ?Uuid $id = null
+    ) {
         $this->id = $id ?? Uuid::v4();
         $this->name = $name;
         $this->latitude = $latitude;

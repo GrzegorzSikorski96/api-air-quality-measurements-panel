@@ -19,7 +19,7 @@ final class IsMeasurementParameterIdExistsValidator extends ConstraintValidator
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsMeasurementParameterIdExists) {
+        if (! $constraint instanceof IsMeasurementParameterIdExists) {
             throw new UnexpectedTypeException($constraint, IsMeasurementParameterIdExists::class);
         }
 

@@ -19,7 +19,7 @@ final class IsDeviceIdNotExistsValidator extends ConstraintValidator
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsDeviceIdNotExists) {
+        if (! $constraint instanceof IsDeviceIdNotExists) {
             throw new UnexpectedTypeException($constraint, IsDeviceIdNotExists::class);
         }
 
@@ -28,7 +28,7 @@ final class IsDeviceIdNotExistsValidator extends ConstraintValidator
         }
 
         /** @var Uuid $value */
-        if (!is_null($this->deviceRepository->findOne($value))) {
+        if (! is_null($this->deviceRepository->findOne($value))) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value->toRfc4122())
                 ->setCode($constraint->violationCode)

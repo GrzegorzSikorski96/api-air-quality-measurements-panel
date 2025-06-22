@@ -10,6 +10,7 @@ use App\UseCase\CreateMeasurement\CreateMeasurementCommand;
 use App\UseCase\CreateMeasurement\CreateMeasurementHandler;
 use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 final class CreateMeasurementHandlerTest extends UnitTestCase
@@ -25,7 +26,7 @@ final class CreateMeasurementHandlerTest extends UnitTestCase
         $this->handler = $handler;
     }
 
-    /** @test */
+    #[Test]
     public function createMeasurementParameter()
     {
         // given

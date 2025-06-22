@@ -10,6 +10,7 @@ use App\Domain\Validator\DeviceName\IsDeviceNameNotExistsValidator;
 use App\Tests\Common\ValidatorTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 
 final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
 {
@@ -33,7 +34,7 @@ final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
         return $this->container->get(IsDeviceNameNotExistsValidator::class);
     }
 
-    /** @test */
+    #[Test]
     public function deviceNameExistsInDatabase()
     {
         // given
@@ -53,7 +54,7 @@ final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function deviceNameNotExistsInDatabase()
     {
         // given
@@ -69,7 +70,7 @@ final class IsDeviceNameNotExistsValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function validatorSetsGivenValidationCode()
     {
         // given

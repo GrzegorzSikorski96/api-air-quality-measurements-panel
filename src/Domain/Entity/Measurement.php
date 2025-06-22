@@ -29,8 +29,13 @@ class Measurement
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $recordedAt;
 
-    public function __construct(Uuid $measurementParameterId, Uuid $deviceId, float $value, DateTimeImmutable $recordedAt, ?Uuid $id = null)
-    {
+    public function __construct(
+        Uuid $measurementParameterId,
+        Uuid $deviceId,
+        float $value,
+        DateTimeImmutable $recordedAt,
+        ?Uuid $id = null
+    ) {
         $this->id = $id ?? Uuid::v4();
         $this->measurementParameterId = $measurementParameterId;
         $this->deviceId = $deviceId;

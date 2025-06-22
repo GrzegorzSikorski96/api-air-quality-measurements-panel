@@ -11,6 +11,7 @@ use App\Tests\Asserts\DeviceAssert;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 abstract class DeviceRepositoryTestTemplate extends UnitTestCase
@@ -19,7 +20,7 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
 
     abstract protected function save(Device $device): void;
 
-    /** @test */
+    #[Test]
     public function saveAndGetDevice(): void
     {
         // given
@@ -36,7 +37,7 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
         DeviceAssert::assertDevicesEquals($givenDevice, $device);
     }
 
-    /** @test */
+    #[Test]
     public function throwExceptionWhenDeviceWithNameAlreadyExists(): void
     {
         // given
@@ -53,13 +54,18 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
             ->build();
 
         // except
-        $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(name\)=\(%s\) already exists\./i", $firstDeviceName));
+        $this->expectExceptionMessageMatches(
+            sprintf(
+                "/DETAIL:  Key \(name\)=\(%s\) already exists\./i",
+                $firstDeviceName
+            )
+        );
 
         // when
         $this->save($givenSecondDevice);
     }
 
-    /** @test */
+    #[Test]
     public function findOne(): void
     {
         // given
@@ -77,7 +83,7 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
         DeviceAssert::assertDevicesEquals($givenDevice, $device);
     }
 
-    /** @test */
+    #[Test]
     public function findAll()
     {
         // given
@@ -98,7 +104,7 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
         Assert::assertContainsOnlyInstancesOf(Device::class, $allDevices);
     }
 
-    /** @test */
+    #[Test]
     public function dontFind()
     {
         // given
@@ -110,7 +116,7 @@ abstract class DeviceRepositoryTestTemplate extends UnitTestCase
         Assert::assertNull($device);
     }
 
-    /** @test */
+    #[Test]
     public function dontGet()
     {
         // expect

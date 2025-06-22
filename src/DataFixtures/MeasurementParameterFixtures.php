@@ -31,7 +31,7 @@ final class MeasurementParameterFixtures extends Fixture
 
     private function provideValues(): array
     {
-        $valuesFile = file_get_contents(__DIR__.'/../../fixtures/measurement_parameters.json');
+        $valuesFile = file_get_contents(__DIR__ . '/../../fixtures/measurement_parameters.json');
 
         return json_decode($valuesFile, true);
     }

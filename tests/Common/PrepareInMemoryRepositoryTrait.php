@@ -17,9 +17,21 @@ trait PrepareInMemoryRepositoryTrait
 {
     private function substituteRepositoryInMemoryImplementation(): void
     {
-        $this->container->set(MeasurementParameterRepositoryInterface::class, new MeasurementParameterInMemoryRepository());
-        $this->container->set(MeasurementRepositoryInterface::class, new MeasurementInMemoryRepository());
-        $this->container->set(DeviceRepositoryInterface::class, new DeviceInMemoryRepository());
-        $this->container->set(DeviceMeasurementParameterRepositoryInterface::class, new DeviceMeasurementParameterInMemoryRepository());
+        $this->container->set(
+            MeasurementParameterRepositoryInterface::class,
+            new MeasurementParameterInMemoryRepository()
+        );
+        $this->container->set(
+            MeasurementRepositoryInterface::class,
+            new MeasurementInMemoryRepository()
+        );
+        $this->container->set(
+            DeviceRepositoryInterface::class,
+            new DeviceInMemoryRepository()
+        );
+        $this->container->set(
+            DeviceMeasurementParameterRepositoryInterface::class,
+            new DeviceMeasurementParameterInMemoryRepository()
+        );
     }
 }

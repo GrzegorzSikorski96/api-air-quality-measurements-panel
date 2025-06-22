@@ -29,7 +29,12 @@ final class DownloaderFactory
 
             return $downloader;
         } else {
-            throw new InvalidArgumentException(sprintf('Downloader not found for provider: %s', $device->getProvider()->value));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Downloader not found for provider: %s',
+                    $device->getProvider()->value
+                )
+            );
         }
     }
 }

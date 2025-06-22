@@ -25,8 +25,11 @@ final class MeasurementParameterInMemoryRepository implements MeasurementParamet
     {
         $measurementParameter = $this->findOne($measurementParameterId);
 
-        if (!$measurementParameter) {
-            throw new NonExistentEntityException(MeasurementParameter::class, $measurementParameterId->toRfc4122());
+        if (! $measurementParameter) {
+            throw new NonExistentEntityException(
+                MeasurementParameter::class,
+                $measurementParameterId->toRfc4122()
+            );
         }
 
         return $measurementParameter;
@@ -87,7 +90,13 @@ final class MeasurementParameterInMemoryRepository implements MeasurementParamet
                 foreach ($this->uniqueFields as $field) {
                     $fieldAccessor = sprintf('get%s', ucfirst($field));
                     if ($entity->$fieldAccessor() === $measurementParameter->$fieldAccessor()) {
-                        throw new Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $measurementParameter->$fieldAccessor()));
+                        throw new Exception(
+                            sprintf(
+                                'DETAIL:  Key (%s)=(%s) already exists.',
+                                $field,
+                                $measurementParameter->$fieldAccessor()
+                            )
+                        );
                     }
                 }
             }

@@ -7,12 +7,13 @@ namespace App\Tests\Unit\UI\Controller\Api\V1;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementParameterControllerTest extends UnitTestCase
 {
-    /** @test */
+    #[Test]
     public function allMeasurementParameters()
     {
         // given
@@ -44,7 +45,7 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function existingMeasurementParameter()
     {
         // given
@@ -72,7 +73,7 @@ final class MeasurementParameterControllerTest extends UnitTestCase
         Assert::assertEquals($givenFirstMeasurementParameter->getFormula(), $measurementParameter->formula);
     }
 
-    /** @test */
+    #[Test]
     public function notExistingMeasurementParameter()
     {
         // given

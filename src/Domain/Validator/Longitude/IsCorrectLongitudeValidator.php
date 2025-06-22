@@ -12,7 +12,7 @@ final class IsCorrectLongitudeValidator extends ConstraintValidator
 {
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsCorrectLongitude) {
+        if (! $constraint instanceof IsCorrectLongitude) {
             throw new UnexpectedTypeException($constraint, IsCorrectLongitude::class);
         }
 
@@ -21,7 +21,7 @@ final class IsCorrectLongitudeValidator extends ConstraintValidator
         }
 
         /** @var float $value */
-        if (!($value >= -180 && $value <= 180)) {
+        if (! ($value >= -180 && $value <= 180)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', strval($value))
                 ->setCode($constraint->violationCode)

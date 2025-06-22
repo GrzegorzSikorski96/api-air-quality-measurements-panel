@@ -7,6 +7,7 @@ namespace App\Tests\Unit\Domain\Validator\Latitude;
 use App\Domain\Validator\Latitude\IsCorrectLatitude;
 use App\Domain\Validator\Latitude\IsCorrectLatitudeValidator;
 use App\Tests\Common\ValidatorTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
 {
@@ -21,11 +22,10 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
 
     protected function createValidator(): IsCorrectLatitudeValidator
     {
-        /* @var IsCorrectLatitudeValidator */
-        return $this->container->get(IsCorrectLatitudeValidator::class);
+        return new IsCorrectLatitudeValidator();
     }
 
-    /** @test */
+    #[Test]
     public function latitudeValueIsLowerThanCorrect()
     {
         // given
@@ -41,7 +41,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function latitudeValueIsHigherThanCorrect()
     {
         // given
@@ -57,7 +57,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function latitudeValueIsOnTopEdge()
     {
         // given
@@ -70,7 +70,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function latitudeValueIsZero()
     {
         // given
@@ -83,7 +83,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function latitudeValueIsOnBottomEdge()
     {
         // given
@@ -96,7 +96,7 @@ final class IsCorrectLatitudeValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function validatorSetsGivenValidationCode()
     {
         // given

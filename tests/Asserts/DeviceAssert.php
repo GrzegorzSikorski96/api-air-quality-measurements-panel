@@ -18,6 +18,9 @@ final class DeviceAssert
         Assert::assertEquals($expected->getProvider(), $actual->getProvider());
         Assert::assertEquals($expected->getExternalId(), $actual->getExternalId());
         Assert::assertEquals($expected->getToken(), $actual->getToken());
-        Assert::assertEquals($expected->getCreatedAt()->format('YYYY-mm-dd HH:i:s'), $actual->getCreatedAt()->format('YYYY-mm-dd HH:i:s'));
+        Assert::assertEquals(
+            $expected->getCreatedAt()->format('YYYY-mm-dd HH:i:s'),
+            $actual->getCreatedAt()->format('YYYY-mm-dd HH:i:s')
+        );
     }
 }

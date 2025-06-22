@@ -11,6 +11,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
 
+// phpcs:ignore Generic.Files.LineLength.TooLong
 final class MeasurementParameterDoctrineRepository extends ServiceEntityRepository implements MeasurementParameterRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
@@ -27,8 +28,11 @@ final class MeasurementParameterDoctrineRepository extends ServiceEntityReposito
     {
         $measurementParameter = $this->findOne($measurementParameterId);
 
-        if (!$measurementParameter) {
-            throw new NonExistentEntityException(MeasurementParameter::class, $measurementParameterId->toRfc4122());
+        if (! $measurementParameter) {
+            throw new NonExistentEntityException(
+                MeasurementParameter::class,
+                $measurementParameterId->toRfc4122()
+            );
         }
 
         return $measurementParameter;

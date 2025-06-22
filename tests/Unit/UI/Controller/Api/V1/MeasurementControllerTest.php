@@ -11,12 +11,13 @@ use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use DateTime;
 use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementControllerTest extends UnitTestCase
 {
-    /** @test */
+    #[Test]
     public function measurements()
     {
         // given
@@ -54,7 +55,7 @@ final class MeasurementControllerTest extends UnitTestCase
         Assert::assertEquals('2024-02-01 13:00:00', $measurements[0]->recordedAt);
     }
 
-    /** @test */
+    #[Test]
     public function notExistingDevice()
     {
         // given
@@ -77,7 +78,7 @@ final class MeasurementControllerTest extends UnitTestCase
         Assert::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 
-    /** @test */
+    #[Test]
     public function notExistingMeasurementParameter()
     {
         // given

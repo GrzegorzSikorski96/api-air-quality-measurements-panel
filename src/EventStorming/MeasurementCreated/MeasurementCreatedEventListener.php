@@ -19,13 +19,20 @@ final readonly class MeasurementCreatedEventListener implements EventListenerInt
 
     public function __invoke(MeasurementCreatedEvent $event): void
     {
-        $deviceMeasurementParameter = $this->deviceMeasurementParameterRepository->findOneByDeviceIdAndMeasurementParameterId($event->deviceId, $event->measurementParameterId);
+        $deviceMeasurementParameter = $this->deviceMeasurementParameterRepository
+            ->findOneByDeviceIdAndMeasurementParameterId(
+                $event->deviceId,
+                $event->measurementParameterId
+            );
 
-        if (!is_null($deviceMeasurementParameter)) {
+        if (! is_null($deviceMeasurementParameter)) {
             return;
         }
 
-        $assignMeasurementParameterToDeviceCommand = new AssignMeasurementParameterToDeviceCommand($event->measurementParameterId, $event->deviceId);
+        $assignMeasurementParameterToDeviceCommand = new AssignMeasurementParameterToDeviceCommand(
+            $event->measurementParameterId,
+            $event->deviceId
+        );
         $this->commandBus->dispatch($assignMeasurementParameterToDeviceCommand);
     }
 }

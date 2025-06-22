@@ -12,6 +12,7 @@ use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceHandler;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 final class AssignMeasurementParameterToDeviceHandlerTest extends AcceptanceTestCase
@@ -27,7 +28,7 @@ final class AssignMeasurementParameterToDeviceHandlerTest extends AcceptanceTest
         $this->handler = $handler;
     }
 
-    /** @test */
+    #[Test]
     public function assignMeasurementParameterToDeviceHandlerTest(): void
     {
         // given
@@ -52,7 +53,13 @@ final class AssignMeasurementParameterToDeviceHandlerTest extends AcceptanceTest
 
         // then
         $this->asyncTransport->dispatched()->assertCount(2);
-        $this->asyncTransport->dispatched()->assertContains(AssignMeasurementParameterToDeviceCommand::class, 1);
-        $this->asyncTransport->dispatched()->assertContains(MeasurementParameterAssignedToDeviceEvent::class, 1);
+        $this->asyncTransport->dispatched()->assertContains(
+            AssignMeasurementParameterToDeviceCommand::class,
+            1
+        );
+        $this->asyncTransport->dispatched()->assertContains(
+            MeasurementParameterAssignedToDeviceEvent::class,
+            1
+        );
     }
 }

@@ -10,6 +10,7 @@ use App\Domain\Validator\DeviceId\IsDeviceIdNotExistsValidator;
 use App\Tests\Common\ValidatorTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 final class IsDeviceIdNotExistsValidatorTest extends ValidatorTestCase
@@ -34,7 +35,7 @@ final class IsDeviceIdNotExistsValidatorTest extends ValidatorTestCase
         return $this->container->get(IsDeviceIdNotExistsValidator::class);
     }
 
-    /** @test */
+    #[Test]
     public function deviceIdExistsInDatabase()
     {
         // given
@@ -54,7 +55,7 @@ final class IsDeviceIdNotExistsValidatorTest extends ValidatorTestCase
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function deviceIdNotExistsInDatabase()
     {
         // given
@@ -67,7 +68,7 @@ final class IsDeviceIdNotExistsValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function validatorSetsGivenValidationCode()
     {
         // given

@@ -25,7 +25,7 @@ final class DeviceInMemoryRepository implements DeviceRepositoryInterface
     {
         $device = $this->findOne($deviceId);
 
-        if (!$device) {
+        if (! $device) {
             throw new NonExistentEntityException(Device::class, $deviceId->toRfc4122());
         }
 
@@ -63,7 +63,13 @@ final class DeviceInMemoryRepository implements DeviceRepositoryInterface
                 foreach ($this->uniqueFields as $field) {
                     $fieldAccessor = sprintf('get%s', ucfirst($field));
                     if ($entity->$fieldAccessor() === $device->$fieldAccessor()) {
-                        throw new Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $device->$fieldAccessor()));
+                        throw new Exception(
+                            sprintf(
+                                'DETAIL:  Key (%s)=(%s) already exists.',
+                                $field,
+                                $device->$fieldAccessor()
+                            )
+                        );
                     }
                 }
             }

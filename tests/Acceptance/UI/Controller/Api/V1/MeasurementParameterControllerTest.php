@@ -8,11 +8,12 @@ use App\Tests\Asserts\UuidAssert;
 use App\Tests\Common\AcceptanceTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 final class MeasurementParameterControllerTest extends AcceptanceTestCase
 {
-    /** @test */
+    #[Test]
     public function allMeasurementParameters()
     {
         // given
@@ -42,7 +43,7 @@ final class MeasurementParameterControllerTest extends AcceptanceTestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function measurementParameter()
     {
         // given
@@ -57,7 +58,10 @@ final class MeasurementParameterControllerTest extends AcceptanceTestCase
         $this->handleCreateMeasurementParameter($givenSecondMeasurementParameter);
 
         // when
-        $content = $this->selfRequest('GET', '/api/v1/measurementParameters/43192d2a-724e-4e43-b5bd-ec0588b38c53')->getContent();
+        $content = $this->selfRequest(
+            'GET',
+            '/api/v1/measurementParameters/43192d2a-724e-4e43-b5bd-ec0588b38c53'
+        )->getContent();
 
         // then
         Assert::isJson($content);

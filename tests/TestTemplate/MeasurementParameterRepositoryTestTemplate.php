@@ -10,6 +10,7 @@ use App\Domain\Repository\NonExistentEntityException;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
@@ -18,7 +19,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
 
     abstract protected function save(MeasurementParameter $measurementParameter): void;
 
-    /** @test */
+    #[Test]
     public function saveAndGetMeasurementParameter(): void
     {
         // given
@@ -36,7 +37,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function throwExceptionIfDuplicatedName(): void
     {
         // given
@@ -53,13 +54,19 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
             ->build();
 
         // expect
-        $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(%s\)=\(%s\) already exists\./i", $givenDuplicatedField, $givenDuplicatedValue));
+        $this->expectExceptionMessageMatches(
+            sprintf(
+                "/DETAIL:  Key \(%s\)=\(%s\) already exists\./i",
+                $givenDuplicatedField,
+                $givenDuplicatedValue
+            )
+        );
 
         // when
         $this->save($givenSecondMeasurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function throwExceptionIfDuplicatedCode(): void
     {
         // given
@@ -76,13 +83,19 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
             ->build();
 
         // expect
-        $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(%s\)=\(%s\) already exists\./i", $givenDuplicatedField, $givenDuplicatedValue));
+        $this->expectExceptionMessageMatches(
+            sprintf(
+                "/DETAIL:  Key \(%s\)=\(%s\) already exists\./i",
+                $givenDuplicatedField,
+                $givenDuplicatedValue
+            )
+        );
 
         // when
         $this->save($givenSecondMeasurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function throwExceptionIfDuplicatedFormula(): void
     {
         // given
@@ -99,13 +112,19 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
             ->build();
 
         // expect
-        $this->expectExceptionMessageMatches(sprintf("/DETAIL:  Key \(%s\)=\(%s\) already exists\./i", $givenDuplicatedField, $givenDuplicatedValue));
+        $this->expectExceptionMessageMatches(
+            sprintf(
+                "/DETAIL:  Key \(%s\)=\(%s\) already exists\./i",
+                $givenDuplicatedField,
+                $givenDuplicatedValue
+            )
+        );
 
         // when
         $this->save($givenSecondMeasurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function findOne(): void
     {
         // given
@@ -123,19 +142,21 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function dontFindOne()
     {
         // given
 
         // when
-        $measurementParameter = $this->repository()->findOne(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
+        $measurementParameter = $this->repository()->findOne(
+            Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc')
+        );
 
         // then
         Assert::assertNull($measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function findOneByName(): void
     {
         // given
@@ -153,7 +174,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function dontFindOneByName(): void
     {
         // given
@@ -166,7 +187,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertNull($measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function findOneByCode(): void
     {
         // given
@@ -184,7 +205,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function dontFindOneByCode(): void
     {
         // given
@@ -197,7 +218,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertNull($measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function findOneByFormula(): void
     {
         // given
@@ -215,7 +236,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function dontFindOneByFormula(): void
     {
         // given
@@ -228,7 +249,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertNull($measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function findAll()
     {
         // given
@@ -249,7 +270,7 @@ abstract class MeasurementParameterRepositoryTestTemplate extends UnitTestCase
         Assert::assertContainsOnlyInstancesOf(MeasurementParameter::class, $allMeasurementParameters);
     }
 
-    /** @test */
+    #[Test]
     public function dontGet()
     {
         // expect

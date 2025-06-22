@@ -7,10 +7,11 @@ namespace App\Tests\Unit\Domain\Enum;
 use App\Domain\Entity\Enum\ApiProviderEnum;
 use App\Tests\Common\UnitTestCase;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ApiProviderEnumTest extends UnitTestCase
 {
-    /** @test */
+    #[Test]
     public function getAllApiProviders()
     {
         // given

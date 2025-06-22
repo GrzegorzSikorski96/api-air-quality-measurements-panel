@@ -27,7 +27,10 @@ final readonly class AssignMeasurementParameterToDeviceHandler implements Comman
 
         $this->deviceMeasurementParameterRepository->save($deviceMeasurementParameter);
 
-        $measurementParameterAssignedToDeviceEvent = new MeasurementParameterAssignedToDeviceEvent($command->measurementParameterId, $command->deviceId);
+        $measurementParameterAssignedToDeviceEvent = new MeasurementParameterAssignedToDeviceEvent(
+            $command->measurementParameterId,
+            $command->deviceId
+        );
         $this->eventBus->dispatch($measurementParameterAssignedToDeviceEvent);
     }
 }

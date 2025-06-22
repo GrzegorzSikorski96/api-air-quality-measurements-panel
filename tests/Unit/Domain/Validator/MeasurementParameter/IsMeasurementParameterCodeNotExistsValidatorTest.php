@@ -10,6 +10,7 @@ use App\Domain\Validator\MeasurementParameterCode\IsMeasurementParameterCodeNotE
 use App\Tests\Common\ValidatorTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 
 final class IsMeasurementParameterCodeNotExistsValidatorTest extends ValidatorTestCase
 {
@@ -33,7 +34,7 @@ final class IsMeasurementParameterCodeNotExistsValidatorTest extends ValidatorTe
         return $this->container->get(IsMeasurementParameterCodeNotExistsValidator::class);
     }
 
-    /** @test */
+    #[Test]
     public function measurementParameterCodeDoesNotExistsInDatabase()
     {
         // given
@@ -46,7 +47,7 @@ final class IsMeasurementParameterCodeNotExistsValidatorTest extends ValidatorTe
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function measurementParameterCodeAlreadyExistsInDatabase()
     {
         // given
@@ -67,7 +68,7 @@ final class IsMeasurementParameterCodeNotExistsValidatorTest extends ValidatorTe
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function validatorSetsGivenValidationCode()
     {
         // given

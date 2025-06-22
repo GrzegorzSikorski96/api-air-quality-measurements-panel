@@ -10,6 +10,7 @@ use App\Domain\Validator\MeasurementParameterFormula\IsMeasurementParameterFormu
 use App\Tests\Common\ValidatorTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 
 final class IsMeasurementParameterFormulaNotExistsValidatorTest extends ValidatorTestCase
 {
@@ -33,7 +34,7 @@ final class IsMeasurementParameterFormulaNotExistsValidatorTest extends Validato
         return $this->container->get(IsMeasurementParameterFormulaNotExistsValidator::class);
     }
 
-    /** @test */
+    #[Test]
     public function measurementParameterFormulaDoesNotExistsInDatabase()
     {
         // given
@@ -46,7 +47,7 @@ final class IsMeasurementParameterFormulaNotExistsValidatorTest extends Validato
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function measurementParameterFormulaAlreadyExistsInDatabase()
     {
         // given
@@ -67,7 +68,7 @@ final class IsMeasurementParameterFormulaNotExistsValidatorTest extends Validato
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function validatorSetsGivenValidationCode()
     {
         // given

@@ -11,6 +11,7 @@ use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceCommand;
 use App\UseCase\AssignMeasurementParameterToDevice\AssignMeasurementParameterToDeviceHandler;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 final class AssignMeasurementParameterToDeviceHandlerTest extends UnitTestCase
@@ -26,17 +27,18 @@ final class AssignMeasurementParameterToDeviceHandlerTest extends UnitTestCase
         $this->handler = $handler;
     }
 
-    /**
-     * @group failing
-     *
-     * @test */
+    #[Test]
     public function assignMeasurementParameterToDevice()
     {
         // given
-        $givenDevice = DeviceBuilder::any()->withId(Uuid::fromString('1ba2e0ec-805c-4d13-a6f3-53f9f560bcd7'))->build();
+        $givenDevice = DeviceBuilder::any()->withId(
+            Uuid::fromString('1ba2e0ec-805c-4d13-a6f3-53f9f560bcd7')
+        )->build();
         $this->deviceRepository->save($givenDevice);
 
-        $givenMeasurementParameter = MeasurementParameterBuilder::any()->withId(Uuid::fromString('43b3df57-bb72-4499-94fd-5f52253d736d'))->build();
+        $givenMeasurementParameter = MeasurementParameterBuilder::any()->withId(
+            Uuid::fromString('43b3df57-bb72-4499-94fd-5f52253d736d')
+        )->build();
         $this->measurementParameterRepository->save($givenMeasurementParameter);
 
         $givenAssignMeasurementParameterToDeviceCommand = new AssignMeasurementParameterToDeviceCommand(
@@ -44,14 +46,22 @@ final class AssignMeasurementParameterToDeviceHandlerTest extends UnitTestCase
             deviceId: $givenDevice->getId()
         );
 
-        $assignedMeasurementParameter = $this->deviceMeasurementParameterRepository->findOneByDeviceIdAndMeasurementParameterId($givenDevice->getId(), $givenMeasurementParameter->getId());
+        $assignedMeasurementParameter = $this->deviceMeasurementParameterRepository
+            ->findOneByDeviceIdAndMeasurementParameterId(
+                $givenDevice->getId(),
+                $givenMeasurementParameter->getId()
+            );
         Assert::assertNull($assignedMeasurementParameter);
 
         // when
         $this->handler->__invoke($givenAssignMeasurementParameterToDeviceCommand);
 
         // then
-        $assignedMeasurementParameter = $this->deviceMeasurementParameterRepository->findOneByDeviceIdAndMeasurementParameterId($givenDevice->getId(), $givenMeasurementParameter->getId());
+        $assignedMeasurementParameter = $this->deviceMeasurementParameterRepository
+            ->findOneByDeviceIdAndMeasurementParameterId(
+                $givenDevice->getId(),
+                $givenMeasurementParameter->getId()
+            );
         Assert::assertNotNull($assignedMeasurementParameter);
     }
 }

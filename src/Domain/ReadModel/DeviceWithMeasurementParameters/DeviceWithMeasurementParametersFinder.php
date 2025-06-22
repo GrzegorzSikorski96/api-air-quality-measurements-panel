@@ -24,7 +24,7 @@ final readonly class DeviceWithMeasurementParametersFinder implements QueryFinde
     {
         $device = $this->deviceRepository->findOne($query->id);
 
-        if (!$device) {
+        if (! $device) {
             return null;
         }
 
@@ -33,7 +33,9 @@ final readonly class DeviceWithMeasurementParametersFinder implements QueryFinde
         $measurementParameters = [];
         /** @var DeviceMeasurementParameter $deviceMeasurementParameter */
         foreach ($deviceMeasurementParameters as $deviceMeasurementParameter) {
-            $measurementParameter = $this->measurementParameterRepository->get($deviceMeasurementParameter->getMeasurementParameterId());
+            $measurementParameter = $this->measurementParameterRepository->get(
+                $deviceMeasurementParameter->getMeasurementParameterId()
+            );
             $measurementParameters[] = new MeasurementParameterPresenter($measurementParameter);
         }
 

@@ -8,6 +8,6 @@ final class Looko2ApiResponseMother
 {
     public static function getExampleResponse(): string
     {
-        return file_get_contents(__DIR__.'/../resources/looko2_response.json');
+        return file_get_contents(__DIR__ . '/../resources/looko2_response.json');
     }
 }
