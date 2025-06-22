@@ -19,5 +19,4 @@ supervisord.log*
 supervisord.pid*
 ###> squizlabs/php_codesniffer ###
 /.phpcs-cache
-/phpcs.xml
 ###< squizlabs/php_codesniffer ###
