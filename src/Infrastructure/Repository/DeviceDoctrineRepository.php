@@ -27,7 +27,7 @@ final class DeviceDoctrineRepository extends ServiceEntityRepository implements 
     {
         $device = $this->findOne($deviceId);
 
-        if (!$device) {
+        if (! $device) {
             throw new NonExistentEntityException(Device::class, $deviceId->toRfc4122());
         }
 

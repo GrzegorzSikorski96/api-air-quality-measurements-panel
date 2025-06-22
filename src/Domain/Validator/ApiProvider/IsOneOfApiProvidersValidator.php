@@ -13,7 +13,7 @@ final class IsOneOfApiProvidersValidator extends ConstraintValidator
 {
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsOneOfApiProviders) {
+        if (! $constraint instanceof IsOneOfApiProviders) {
             throw new UnexpectedTypeException($constraint, IsOneOfApiProviders::class);
         }
 
@@ -22,7 +22,7 @@ final class IsOneOfApiProvidersValidator extends ConstraintValidator
         }
 
         /** @var string $value */
-        if (!in_array($value, ApiProviderEnum::getAllApiProviders())) {
+        if (! in_array($value, ApiProviderEnum::getAllApiProviders())) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)
                 ->setCode($constraint->violationCode)

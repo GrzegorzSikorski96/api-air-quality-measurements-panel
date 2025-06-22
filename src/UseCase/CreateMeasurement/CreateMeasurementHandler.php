@@ -30,7 +30,11 @@ final readonly class CreateMeasurementHandler implements CommandHandlerInterface
 
         $this->measurementRepository->save($measurement);
 
-        $measurementCreatedEvent = new MeasurementCreatedEvent($measurement->getId(), $measurement->getDeviceId(), $measurement->getMeasurementParameterId());
+        $measurementCreatedEvent = new MeasurementCreatedEvent(
+            $measurement->getId(),
+            $measurement->getDeviceId(),
+            $measurement->getMeasurementParameterId()
+        );
         $this->eventBus->dispatch($measurementCreatedEvent);
     }
 }

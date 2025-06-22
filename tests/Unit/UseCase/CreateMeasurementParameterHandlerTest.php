@@ -9,6 +9,7 @@ use App\Tests\Common\UnitTestCase;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterCommand;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterHandler;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 
 final class CreateMeasurementParameterHandlerTest extends UnitTestCase
 {
@@ -23,7 +24,7 @@ final class CreateMeasurementParameterHandlerTest extends UnitTestCase
         $this->handler = $handler;
     }
 
-    /** @test */
+    #[Test]
     public function createMeasurementParameter()
     {
         // given

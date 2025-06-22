@@ -11,6 +11,7 @@ use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 final class Looko2ApiDownloaderTest extends UnitTestCase
@@ -26,7 +27,7 @@ final class Looko2ApiDownloaderTest extends UnitTestCase
         $this->downloader = $downloader;
     }
 
-    /** @test */
+    #[Test]
     public function downloadLooko2ApiMeasurements()
     {
         // given

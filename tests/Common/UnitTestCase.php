@@ -51,7 +51,10 @@ abstract class UnitTestCase extends KernelTestCase
         $this->em = $em;
 
         $measurementParameterRepository = $this->container->get(MeasurementParameterRepositoryInterface::class);
-        Assert::assertInstanceOf(MeasurementParameterRepositoryInterface::class, $measurementParameterRepository);
+        Assert::assertInstanceOf(
+            MeasurementParameterRepositoryInterface::class,
+            $measurementParameterRepository
+        );
         $this->measurementParameterRepository = $measurementParameterRepository;
 
         $measurementRepository = $this->container->get(MeasurementRepositoryInterface::class);
@@ -62,8 +65,13 @@ abstract class UnitTestCase extends KernelTestCase
         Assert::assertInstanceOf(DeviceRepositoryInterface::class, $deviceRepository);
         $this->deviceRepository = $deviceRepository;
 
-        $deviceMeasurementParameterRepository = $this->container->get(DeviceMeasurementParameterRepositoryInterface::class);
-        Assert::assertInstanceOf(DeviceMeasurementParameterRepositoryInterface::class, $deviceMeasurementParameterRepository);
+        $deviceMeasurementParameterRepository = $this->container->get(
+            DeviceMeasurementParameterRepositoryInterface::class
+        );
+        Assert::assertInstanceOf(
+            DeviceMeasurementParameterRepositoryInterface::class,
+            $deviceMeasurementParameterRepository
+        );
         $this->deviceMeasurementParameterRepository = $deviceMeasurementParameterRepository;
 
         $commandBus = $this->container->get(MessageBusInterface::class);
@@ -77,8 +85,12 @@ abstract class UnitTestCase extends KernelTestCase
         $this->faker = Factory::create();
     }
 
-    public function selfRequest(string $method, string $endpoint, array $queryParameters = [], array $body = []): Response
-    {
+    public function selfRequest(
+        string $method,
+        string $endpoint,
+        array $queryParameters = [],
+        array $body = []
+    ): Response {
         /** @var KernelBrowser $client */
         $client = $this->container->get('test.client');
         $client->request($method, $endpoint, $queryParameters, [], [], json_encode($body));

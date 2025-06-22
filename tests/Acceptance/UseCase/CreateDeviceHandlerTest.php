@@ -11,6 +11,7 @@ use App\Tests\Common\AcceptanceTestCase;
 use App\UseCase\CreateDevice\CreateDeviceCommand;
 use App\UseCase\CreateDevice\CreateDeviceHandler;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 
 final class CreateDeviceHandlerTest extends AcceptanceTestCase
 {
@@ -25,7 +26,7 @@ final class CreateDeviceHandlerTest extends AcceptanceTestCase
         $this->handler = $handler;
     }
 
-    /** @test */
+    #[Test]
     public function createDeviceHandlerTest(): void
     {
         // given

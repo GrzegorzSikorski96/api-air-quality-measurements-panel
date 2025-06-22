@@ -48,13 +48,17 @@ integration-tests:
 acceptance-tests:
 	docker compose exec api-air-quality-measurements-panel-app ./bin/phpunit -c phpunit.xml --testdox --testsuite acceptance
 
-csfixer-dry:
-	docker compose exec api-air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix src --dry-run -v --allow-risky=yes
-	docker compose exec api-air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix tests --dry-run -v --allow-risky=yes
+phpcs:
+	docker compose exec api-air-quality-measurements-panel-app ./vendor/bin/phpcs --standard=phpcs.xml
 
-csfixer-fix:
-	docker compose exec api-air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix src src -vv --allow-risky=yes --config=.php-cs-fixer.php
-	docker compose exec api-air-quality-measurements-panel-app ./vendor/bin/php-cs-fixer fix src tests -vv --allow-risky=yes --config=.php-cs-fixer.php
+phpcs-app:
+	docker compose exec api-air-quality-measurements-panel-app ./vendor/bin/phpcs --standard=phpcs.xml src
+
+phpcs-tests:
+	docker compose exec api-air-quality-measurements-panel-app ./vendor/bin/phpcs --standard=phpcs.xml tests
+
+phpcbf:
+	docker compose exec api-air-quality-measurements-panel-app ./vendor/bin/phpcbf --standard=phpcs.xml
 
 lint:
 	docker compose exec api-air-quality-measurements-panel-app php bin/console lint:yaml config --parse-tags
@@ -65,4 +69,4 @@ supervisord-restart:
 supervisord-stop:
 	docker compose exec api-air-quality-measurements-panel-app supervisorctl stop messenger-consumer-async
 
-make tests: create-test-database migrate-test-database lint unit-tests integration-tests acceptance-tests csfixer-dry
+make tests: create-test-database migrate-test-database unit-tests integration-tests acceptance-tests phpcs lint

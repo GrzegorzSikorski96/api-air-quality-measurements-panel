@@ -6,11 +6,12 @@ namespace App\Tests\Unit\UI\Controller\Api\V1;
 
 use App\Tests\Common\UnitTestCase;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 
 final class HealthCheckControllerTest extends UnitTestCase
 {
-    /** @test */
+    #[Test]
     public function health()
     {
         // given

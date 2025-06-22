@@ -12,6 +12,7 @@ use App\Tests\Fixtures\Entity\MeasurementBuilder;
 use DateTime;
 use DateTimeImmutable;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
@@ -20,7 +21,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
 
     abstract protected function save(Measurement $measurement): void;
 
-    /** @test */
+    #[Test]
     public function saveAndGetMeasurement(): void
     {
         // given
@@ -40,7 +41,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($givenMeasurement, $measurement);
     }
 
-    /** @test */
+    #[Test]
     public function findOne(): void
     {
         // given
@@ -60,7 +61,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($givenMeasurement, $measurement);
     }
 
-    /** @test */
+    #[Test]
     public function findAll()
     {
         // given
@@ -81,7 +82,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         Assert::assertContainsOnlyInstancesOf(Measurement::class, $allMeasurements);
     }
 
-    /** @test */
+    #[Test]
     public function findByDeviceAndStartDateTime()
     {
         // given
@@ -111,7 +112,11 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         $this->save($givenThirdMeasurement);
 
         // when
-        $filteredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange($givenDeviceId, $givenMeasurementParameterId, $givenStartDateTime);
+        $filteredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange(
+            $givenDeviceId,
+            $givenMeasurementParameterId,
+            $givenStartDateTime
+        );
 
         // then
         Assert::assertCount(2, $filteredMeasurements);
@@ -120,7 +125,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($filteredMeasurements[1], $givenThirdMeasurement);
     }
 
-    /** @test */
+    #[Test]
     public function findByDeviceAndTimeRange()
     {
         // given
@@ -151,7 +156,12 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         $this->save($givenThirdMeasurement);
 
         // when
-        $filteredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange($givenDeviceId, $givenMeasurementParameterId, $givenStartDateTime, $givenEndDateTime);
+        $filteredMeasurements = $this->repository()->findByDeviceAndParameterInTimeRange(
+            $givenDeviceId,
+            $givenMeasurementParameterId,
+            $givenStartDateTime,
+            $givenEndDateTime
+        );
 
         // then
         Assert::assertCount(1, $filteredMeasurements);
@@ -159,7 +169,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         Assert::assertEquals($filteredMeasurements[0], $givenSecondMeasurement);
     }
 
-    /** @test */
+    #[Test]
     public function dontFind()
     {
         // given
@@ -171,7 +181,7 @@ abstract class MeasurementRepositoryTestTemplate extends UnitTestCase
         Assert::assertNull($measurement);
     }
 
-    /** @test */
+    #[Test]
     public function dontGet()
     {
         // expect

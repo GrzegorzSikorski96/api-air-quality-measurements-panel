@@ -26,7 +26,7 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
     {
         $measurement = $this->findOne($measurementId);
 
-        if (!$measurement) {
+        if (! $measurement) {
             throw new NonExistentEntityException(Measurement::class, $measurementId->toRfc4122());
         }
 
@@ -44,8 +44,12 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
         return $this->entities;
     }
 
-    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, DateTime $startDateTime, ?DateTime $endDateTime = null): array
-    {
+    public function findByDeviceAndParameterInTimeRange(
+        Uuid $deviceId,
+        Uuid $measurementParameterId,
+        DateTime $startDateTime,
+        ?DateTime $endDateTime = null
+    ): array {
         $measurements = [];
 
         /** @var Measurement $measurement */
@@ -61,7 +65,11 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
             }
         }
 
-        usort($measurements, fn ($firstMeasurement, $secondMeasurement) => $firstMeasurement->getRecordedAt() <=> $secondMeasurement->getRecordedAt());
+        usort(
+            $measurements,
+            fn ($firstMeasurement, $secondMeasurement) =>
+                $firstMeasurement->getRecordedAt() <=> $secondMeasurement->getRecordedAt()
+        );
 
         return $measurements;
     }
@@ -74,7 +82,13 @@ final class MeasurementInMemoryRepository implements MeasurementRepositoryInterf
                 foreach ($this->uniqueFields as $field) {
                     $fieldAccessor = sprintf('get%s', ucfirst($field));
                     if ($entity->$fieldAccessor() === $measurement->$fieldAccessor()) {
-                        throw new Exception(sprintf('DETAIL:  Key (%s)=(%s) already exists.', $field, $measurement->$fieldAccessor()));
+                        throw new Exception(
+                            sprintf(
+                                'DETAIL:  Key (%s)=(%s) already exists.',
+                                $field,
+                                $measurement->$fieldAccessor()
+                            )
+                        );
                     }
                 }
             }

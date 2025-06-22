@@ -26,7 +26,12 @@ final readonly class Looko2ApiClient implements Looko2ApiClientInterface
         $decodedResponse = json_decode($response->getContent(), true);
 
         if (is_null($decodedResponse)) {
-            throw new RuntimeException(sprintf('There is problem with downloading data form Looko2. Device externalId: "%s". ', $externalDeviceId));
+            throw new RuntimeException(
+                sprintf(
+                    'There is problem with downloading data form Looko2. Device externalId: "%s". ',
+                    $externalDeviceId
+                )
+            );
         }
 
         return $decodedResponse;

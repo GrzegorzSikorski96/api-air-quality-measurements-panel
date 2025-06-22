@@ -10,6 +10,7 @@ use App\Domain\Repository\NonExistentEntityException;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\DeviceMeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTestCase
@@ -18,7 +19,7 @@ abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTest
 
     abstract protected function save(DeviceMeasurementParameter $deviceMeasurementParameter): void;
 
-    /** @test */
+    #[Test]
     public function saveAndGetDeviceMeasurementParameter(): void
     {
         // given
@@ -35,7 +36,7 @@ abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTest
         Assert::assertEquals($givenDeviceMeasurementParameter, $deviceMeasurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function throwExceptionWhenDeviceMeasurementParameterExists(): void
     {
         // given
@@ -54,13 +55,19 @@ abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTest
             ->build();
 
         // except
-        $this->expectExceptionMessage(sprintf('DETAIL:  Key (device_id, measurement_parameter_id)=(%s, %s) already exists.', $givenDeviceId->toRfc4122(), $givenMeasurementParameterId->toRfc4122()));
+        $this->expectExceptionMessage(
+            sprintf(
+                'DETAIL:  Key (device_id, measurement_parameter_id)=(%s, %s) already exists.',
+                $givenDeviceId->toRfc4122(),
+                $givenMeasurementParameterId->toRfc4122()
+            )
+        );
 
         // when
         $this->save($givenSecondDeviceMeasurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function findOne(): void
     {
         // given
@@ -78,19 +85,21 @@ abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTest
         Assert::assertEquals($givenMeasurementParameter, $measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function dontFind()
     {
         // given
 
         // when
-        $measurementParameter = $this->repository()->findOne(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
+        $measurementParameter = $this->repository()->findOne(
+            Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc')
+        );
 
         // then
         Assert::assertNull($measurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function dontGet()
     {
         // expect
@@ -100,7 +109,7 @@ abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTest
         $this->repository()->get(Uuid::fromString('f8666816-444b-4f28-8658-53f7929524bc'));
     }
 
-    /** @test */
+    #[Test]
     public function findOneByDeviceIdAndMeasurementParameterId()
     {
         // given
@@ -108,19 +117,27 @@ abstract class DeviceMeasurementParameterRepositoryTestTemplate extends UnitTest
         $this->save($givenDeviceMeasurementParameter);
 
         // when
-        $deviceMeasurementParameter = $this->deviceMeasurementParameterRepository->findOneByDeviceIdAndMeasurementParameterId($givenDeviceMeasurementParameter->getDeviceId(), $givenDeviceMeasurementParameter->getMeasurementParameterId());
+        $deviceMeasurementParameter = $this->deviceMeasurementParameterRepository
+            ->findOneByDeviceIdAndMeasurementParameterId(
+                $givenDeviceMeasurementParameter->getDeviceId(),
+                $givenDeviceMeasurementParameter->getMeasurementParameterId()
+            );
 
         // then
         Assert::assertNotNull($deviceMeasurementParameter);
     }
 
-    /** @test */
+    #[Test]
     public function dontFindOneByDeviceIdAndMeasurementParameterId()
     {
         // given
 
         // when
-        $deviceMeasurementParameter = $this->deviceMeasurementParameterRepository->findOneByDeviceIdAndMeasurementParameterId(Uuid::v4(), Uuid::v4());
+        $deviceMeasurementParameter = $this->deviceMeasurementParameterRepository
+            ->findOneByDeviceIdAndMeasurementParameterId(
+                Uuid::v4(),
+                Uuid::v4()
+            );
 
         // then
         Assert::assertNull($deviceMeasurementParameter);

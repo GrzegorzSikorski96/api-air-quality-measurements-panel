@@ -18,7 +18,7 @@ final readonly class DeviceFinder implements QueryFinderInterface
     {
         $device = $this->deviceRepository->findOne($query->id);
 
-        if (!$device) {
+        if (! $device) {
             return null;
         }
 

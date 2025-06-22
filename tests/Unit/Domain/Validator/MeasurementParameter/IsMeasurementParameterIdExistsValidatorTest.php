@@ -10,6 +10,7 @@ use App\Domain\Validator\MeasurementParameterId\IsMeasurementParameterIdExistsVa
 use App\Tests\Common\ValidatorTestCase;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Uid\Uuid;
 
 final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCase
@@ -34,7 +35,7 @@ final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCas
         return $this->container->get(IsMeasurementParameterIdExistsValidator::class);
     }
 
-    /** @test */
+    #[Test]
     public function measurementParameterIdDoesNotExistsInDatabase()
     {
         // given
@@ -50,7 +51,7 @@ final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCas
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function measurementParameterIdAlreadyExistsInDatabase()
     {
         // given
@@ -68,7 +69,7 @@ final class IsMeasurementParameterIdExistsValidatorTest extends ValidatorTestCas
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function validatorSetsGivenValidationCode()
     {
         // given

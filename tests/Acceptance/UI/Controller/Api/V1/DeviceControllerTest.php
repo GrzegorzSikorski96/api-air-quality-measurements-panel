@@ -8,12 +8,13 @@ use App\Tests\Asserts\UuidAssert;
 use App\Tests\Common\AcceptanceTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
 
 final class DeviceControllerTest extends AcceptanceTestCase
 {
-    /** @test */
+    #[Test]
     public function allDevices()
     {
         // given
@@ -42,7 +43,7 @@ final class DeviceControllerTest extends AcceptanceTestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function device()
     {
         // given
@@ -73,7 +74,7 @@ final class DeviceControllerTest extends AcceptanceTestCase
         Assert::assertObjectHasProperty('provider', $device);
     }
 
-    /** @test */
+    #[Test]
     public function notExistingDevice()
     {
         // given

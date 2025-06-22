@@ -27,7 +27,10 @@ final class DeviceMeasurementParameterDoctrineRepositoryTest extends DeviceMeasu
         $this->em = $em;
 
         $deviceMeasurementParameterRepository = $container->get(DeviceMeasurementParameterDoctrineRepository::class);
-        Assert::assertInstanceOf(DeviceMeasurementParameterRepositoryInterface::class, $deviceMeasurementParameterRepository);
+        Assert::assertInstanceOf(
+            DeviceMeasurementParameterRepositoryInterface::class,
+            $deviceMeasurementParameterRepository
+        );
         $this->deviceMeasurementParameterRepository = $deviceMeasurementParameterRepository;
     }
 

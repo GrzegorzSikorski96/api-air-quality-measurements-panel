@@ -7,6 +7,7 @@ namespace App\Tests\Unit\Domain\Validator\Longitude;
 use App\Domain\Validator\Longitude\IsCorrectLongitude;
 use App\Domain\Validator\Longitude\IsCorrectLongitudeValidator;
 use App\Tests\Common\ValidatorTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
 {
@@ -21,11 +22,10 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
 
     protected function createValidator(): IsCorrectLongitudeValidator
     {
-        /* @var IsCorrectLongitudeValidator */
-        return $this->container->get(IsCorrectLongitudeValidator::class);
+        return new IsCorrectLongitudeValidator();
     }
 
-    /** @test */
+    #[Test]
     public function longitudeValueIsLowerThanCorrect()
     {
         // given
@@ -41,7 +41,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function longitudeValueIsHigherThanCorrect()
     {
         // given
@@ -57,7 +57,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function longitudeValueIsOnTopEdge()
     {
         // given
@@ -70,7 +70,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function longitudeValueIsZero()
     {
         // given
@@ -83,7 +83,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function longitudeValueIsOnBottomEdge()
     {
         // given
@@ -96,7 +96,7 @@ final class IsCorrectLongitudeValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function validatorSetsGivenValidationCode()
     {
         // given

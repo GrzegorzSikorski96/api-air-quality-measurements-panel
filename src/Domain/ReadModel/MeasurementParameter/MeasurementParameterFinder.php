@@ -18,7 +18,7 @@ final readonly class MeasurementParameterFinder implements QueryFinderInterface
     {
         $measurementParameter = $this->measurementParameterRepository->findOne($query->id);
 
-        if (!$measurementParameter) {
+        if (! $measurementParameter) {
             return null;
         }
 

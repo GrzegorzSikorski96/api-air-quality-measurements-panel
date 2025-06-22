@@ -28,7 +28,7 @@ final class MeasurementsRequestQueryDTO
         $this->measurementParameterId = Uuid::fromString($measurementParameterId);
         $this->startDateTime = new DateTime($startDateTime);
 
-        if (!is_null($endDateTime)) {
+        if (! is_null($endDateTime)) {
             $this->endDateTime = new DateTime($endDateTime);
         }
     }

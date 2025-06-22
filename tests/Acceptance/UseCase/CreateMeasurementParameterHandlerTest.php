@@ -10,6 +10,7 @@ use App\Tests\Common\AcceptanceTestCase;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterCommand;
 use App\UseCase\CreateMeasurementParameter\CreateMeasurementParameterHandler;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 
 final class CreateMeasurementParameterHandlerTest extends AcceptanceTestCase
 {
@@ -24,7 +25,7 @@ final class CreateMeasurementParameterHandlerTest extends AcceptanceTestCase
         $this->handler = $handler;
     }
 
-    /** @test */
+    #[Test]
     public function createMeasurementParameterHandlerTest(): void
     {
         // given

@@ -17,5 +17,8 @@ interface DeviceMeasurementParameterRepositoryInterface
 
     public function findOne(Uuid $deviceMeasurementParameterId): ?DeviceMeasurementParameter;
 
-    public function findOneByDeviceIdAndMeasurementParameterId(Uuid $deviceId, Uuid $measurementParameterId): ?DeviceMeasurementParameter;
+    public function findOneByDeviceIdAndMeasurementParameterId(
+        Uuid $deviceId,
+        Uuid $measurementParameterId
+    ): ?DeviceMeasurementParameter;
 }

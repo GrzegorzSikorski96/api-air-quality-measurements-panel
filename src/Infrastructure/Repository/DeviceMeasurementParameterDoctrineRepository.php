@@ -11,6 +11,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
 
+// phpcs:ignore Generic.Files.LineLength.TooLong
 final class DeviceMeasurementParameterDoctrineRepository extends ServiceEntityRepository implements DeviceMeasurementParameterRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
@@ -27,8 +28,11 @@ final class DeviceMeasurementParameterDoctrineRepository extends ServiceEntityRe
     {
         $deviceMeasurementParameter = $this->findOne($deviceMeasurementParameterId);
 
-        if (!$deviceMeasurementParameter) {
-            throw new NonExistentEntityException(DeviceMeasurementParameter::class, $deviceMeasurementParameterId->toRfc4122());
+        if (! $deviceMeasurementParameter) {
+            throw new NonExistentEntityException(
+                DeviceMeasurementParameter::class,
+                $deviceMeasurementParameterId->toRfc4122()
+            );
         }
 
         return $deviceMeasurementParameter;
@@ -44,8 +48,15 @@ final class DeviceMeasurementParameterDoctrineRepository extends ServiceEntityRe
         return $this->findBy(['deviceId' => $deviceId->toRfc4122()]);
     }
 
-    public function findOneByDeviceIdAndMeasurementParameterId(Uuid $deviceId, Uuid $measurementParameterId): ?DeviceMeasurementParameter
-    {
-        return $this->findOneBy(['deviceId' => $deviceId->toRfc4122(), 'measurementParameterId' => $measurementParameterId->toRfc4122()]);
+    public function findOneByDeviceIdAndMeasurementParameterId(
+        Uuid $deviceId,
+        Uuid $measurementParameterId
+    ): ?DeviceMeasurementParameter {
+        return $this->findOneBy(
+            [
+                'deviceId' => $deviceId->toRfc4122(),
+                'measurementParameterId' => $measurementParameterId->toRfc4122()
+            ]
+        );
     }
 }

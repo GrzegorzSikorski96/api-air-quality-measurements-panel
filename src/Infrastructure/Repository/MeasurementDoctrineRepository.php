@@ -9,6 +9,8 @@ use App\Domain\Repository\MeasurementRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
 
@@ -28,7 +30,7 @@ final class MeasurementDoctrineRepository extends ServiceEntityRepository implem
     {
         $measurement = $this->findOne($measurementId);
 
-        if (!$measurement) {
+        if (! $measurement) {
             throw new NonExistentEntityException(Measurement::class, $measurementId->toRfc4122());
         }
 
@@ -45,20 +47,26 @@ final class MeasurementDoctrineRepository extends ServiceEntityRepository implem
         return $this->findBy([]);
     }
 
-    public function findByDeviceAndParameterInTimeRange(Uuid $deviceId, Uuid $measurementParameterId, DateTime $startDateTime, ?DateTime $endDateTime = null): array
-    {
+    public function findByDeviceAndParameterInTimeRange(
+        Uuid $deviceId,
+        Uuid $measurementParameterId,
+        DateTime $startDateTime,
+        ?DateTime $endDateTime = null
+    ): array {
         $queryBuilder = $this->createQueryBuilder('m')
         ->select('m')
         ->andWhere('m.recordedAt >= :start_date_time')
         ->andWhere('m.deviceId = :device_id')
         ->andWhere('m.measurementParameterId = :measurement_parameter_id')
-        ->setParameters([
-            'device_id' => $deviceId,
-            'measurement_parameter_id' => $measurementParameterId,
-            'start_date_time' => $startDateTime,
-        ]);
+        ->setParameters(
+            new ArrayCollection([
+                new Parameter('device_id', $deviceId),
+                new Parameter('measurement_parameter_id', $measurementParameterId),
+                new Parameter('start_date_time', $startDateTime),
+            ])
+        );
 
-        if (!is_null($endDateTime)) {
+        if (! is_null($endDateTime)) {
             $queryBuilder->andWhere('m.recordedAt <= :end_date_time')
             ->setParameter('end_date_time', $endDateTime);
         }

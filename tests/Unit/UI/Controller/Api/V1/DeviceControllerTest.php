@@ -9,12 +9,13 @@ use App\Tests\Fixtures\Entity\DeviceBuilder;
 use App\Tests\Fixtures\Entity\DeviceMeasurementParameterBuilder;
 use App\Tests\Fixtures\Entity\MeasurementParameterBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
 
 final class DeviceControllerTest extends UnitTestCase
 {
-    /** @test */
+    #[Test]
     public function allDevices()
     {
         // given
@@ -47,7 +48,7 @@ final class DeviceControllerTest extends UnitTestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function existingDevice()
     {
         // given
@@ -76,7 +77,7 @@ final class DeviceControllerTest extends UnitTestCase
         Assert::assertEquals($givenFirstDevice->getProvider()->value, $device->provider);
     }
 
-    /** @test */
+    #[Test]
     public function deviceDetails()
     {
         // given
@@ -97,7 +98,10 @@ final class DeviceControllerTest extends UnitTestCase
         $this->deviceMeasurementParameterRepository->save($givenDeviceMeasurementParameter);
 
         // when
-        $response = $this->selfRequest('GET', '/api/v1/devices/43192d2a-724e-4e43-b5bd-ec0588b38c53/details');
+        $response = $this->selfRequest(
+            'GET',
+            '/api/v1/devices/43192d2a-724e-4e43-b5bd-ec0588b38c53/details'
+        );
 
         // then
         Assert::assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -115,10 +119,13 @@ final class DeviceControllerTest extends UnitTestCase
         Assert::assertEquals($givenMeasurementParameter->getId(), $deviceDetails->measurementParameters[0]->id);
         Assert::assertEquals($givenMeasurementParameter->getName(), $deviceDetails->measurementParameters[0]->name);
         Assert::assertEquals($givenMeasurementParameter->getCode(), $deviceDetails->measurementParameters[0]->code);
-        Assert::assertEquals($givenMeasurementParameter->getFormula(), $deviceDetails->measurementParameters[0]->formula);
+        Assert::assertEquals(
+            $givenMeasurementParameter->getFormula(),
+            $deviceDetails->measurementParameters[0]->formula
+        );
     }
 
-    /** @test */
+    #[Test]
     public function notExistingDevice()
     {
         // given

@@ -18,7 +18,7 @@ final class IsDeviceNameNotExistsValidator extends ConstraintValidator
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsDeviceNameNotExists) {
+        if (! $constraint instanceof IsDeviceNameNotExists) {
             throw new UnexpectedTypeException($constraint, IsDeviceNameNotExists::class);
         }
 
@@ -27,7 +27,7 @@ final class IsDeviceNameNotExistsValidator extends ConstraintValidator
         }
 
         /** @var string $value */
-        if (!is_null($this->deviceRepository->findOneByName($value))) {
+        if (! is_null($this->deviceRepository->findOneByName($value))) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)
                 ->setCode($constraint->violationCode)

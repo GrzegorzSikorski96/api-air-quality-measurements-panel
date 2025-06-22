@@ -8,6 +8,7 @@ use App\Domain\Entity\Enum\ApiProviderEnum;
 use App\Domain\Validator\ApiProvider\IsOneOfApiProviders;
 use App\Domain\Validator\ApiProvider\IsOneOfApiProvidersValidator;
 use App\Tests\Common\ValidatorTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 final class IsOneOfApiProvidersValidatorTest extends ValidatorTestCase
 {
@@ -22,11 +23,10 @@ final class IsOneOfApiProvidersValidatorTest extends ValidatorTestCase
 
     protected function createValidator(): IsOneOfApiProvidersValidator
     {
-        /* @var IsOneOfApiProvidersValidator */
-        return $this->container->get(IsOneOfApiProvidersValidator::class);
+        return new IsOneOfApiProvidersValidator();
     }
 
-    /** @test */
+    #[Test]
     public function apiProviderDoesNotExistsInEnum()
     {
         // given
@@ -42,7 +42,7 @@ final class IsOneOfApiProvidersValidatorTest extends ValidatorTestCase
             ->assertRaised();
     }
 
-    /** @test */
+    #[Test]
     public function apiProviderAlreadyExistsInEnum()
     {
         // given
@@ -55,7 +55,7 @@ final class IsOneOfApiProvidersValidatorTest extends ValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @test */
+    #[Test]
     public function validatorSetsGivenValidationCode()
     {
         // given

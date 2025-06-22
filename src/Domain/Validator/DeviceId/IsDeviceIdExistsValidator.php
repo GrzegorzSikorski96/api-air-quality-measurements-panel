@@ -19,7 +19,7 @@ final class IsDeviceIdExistsValidator extends ConstraintValidator
 
     public function validate(mixed $value, Constraint $constraint): void
     {
-        if (!$constraint instanceof IsDeviceIdExists) {
+        if (! $constraint instanceof IsDeviceIdExists) {
             throw new UnexpectedTypeException($constraint, IsDeviceIdExists::class);
         }
 

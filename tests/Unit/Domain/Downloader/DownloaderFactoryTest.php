@@ -10,6 +10,8 @@ use App\Infrastructure\Downloader\Looko2Downloader;
 use App\Tests\Common\UnitTestCase;
 use App\Tests\Fixtures\Entity\DeviceBuilder;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 final class DownloaderFactoryTest extends UnitTestCase
 {
@@ -24,11 +26,8 @@ final class DownloaderFactoryTest extends UnitTestCase
         $this->downloaderFactory = $downloaderFactory;
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider apiProvidersProvider
-     */
+    #[Test]
+    #[DataProvider('apiProvidersProvider')]
     public function returnCorrectDownloader(string $givenApiProvider, string $expectedClass)
     {
         // given
@@ -43,7 +42,7 @@ final class DownloaderFactoryTest extends UnitTestCase
         Assert::assertInstanceOf($expectedClass, $downloader);
     }
 
-    private function apiProvidersProvider(): array
+    public static function apiProvidersProvider(): array
     {
         return [
             [ApiProviderEnum::LOOKO2->value, Looko2Downloader::class],
